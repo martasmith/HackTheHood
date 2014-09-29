@@ -24,7 +24,7 @@ Problems the charity faces are:
 * attract screen, including:
  * what the charity does;
  * student testimonials;
- * nearby businesses that have signed up.
+ * nearby businesses that have signed up;
 * students can add to list of required assets;
 * text assets can be input using voice recognition;
-* businesses can see work-in-progress version of their web sites, can annotate to provide feedback;
+* businesses can see work-in-progress version of their web sites, can annotate to provide feedback.
