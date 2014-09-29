@@ -7,10 +7,12 @@ The problems the charity face are:
 
 # User Stories
 * business can sign up for consideration;
-* signed-up business can apply to programme, specifying:
+* signed-up business can apply to program, specifying:
  * business name;
- * business address; and
- * very short description of business.
+ * business address; 
+ * select type of business from dropdown(other text box if option is not listed);
+ * photo upload (snap a photo, or select a photo options);
+ * and checkboxes to choose the desired features;
 * business can see current status: waiting to be considered, accepted, rejected or website finished, with feedback for rejected;
 * business can see list of required assets, each of which may be:
  * a short amount of text; or
