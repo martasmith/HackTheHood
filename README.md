@@ -2,6 +2,7 @@
 Hack the Hood is a non-profit organization that helps economically disadvantaged youths to learn web development by connecting them with local small businesses that need web sites.
 
 Problems the charity faces are:
+
 1. signing up businesses; and
 2. ensuring necessary assets are made available to the student by the businesses.
 
