@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class PitchDeckActivity extends Activity {
@@ -32,5 +33,13 @@ public class PitchDeckActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void getStartedClicked(View view) {
+        // Open Login/Signup activity
+    }
+
+    public void businessFormBtnClicked(View view) {
+        // Open BusinessForm activity
     }
 }
