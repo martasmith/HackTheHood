@@ -1,0 +1,102 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.codepath.hackthehood.fragments.BusinessFormFragment">
+
+
+
+    <EditText
+        android:id="@+id/etBusinessName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:hint="Business Name" />
+
+    <EditText
+        android:id="@+id/etBusinessStreet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:textSize="15sp"
+        android:layout_below="@+id/etBusinessName"
+        android:inputType="textPostalAddress"
+        android:hint="Street Address" />
+
+    <EditText
+        android:id="@+id/etBusinessCity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_below="@+id/etBusinessStreet"
+        android:inputType="textPostalAddress"
+        android:hint="City" />
+
+    <EditText
+        android:id="@+id/etBusinessZip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="Zip Code"
+        android:ems="10"
+        android:layout_below="@+id/etBusinessCity"/>
+
+    <EditText
+        android:id="@+id/etBusinessPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:hint="Business Phone"
+        android:ems="10"
+        android:layout_below="@+id/etBusinessZip"/>
+
+    <Spinner
+        android:id="@+id/sprOnlinePresence"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etBusinessPhone"
+        android:paddingRight="2dp"
+        android:spinnerMode="dialog"
+        android:entries="@array/onlinePresence" />
+
+
+    <EditText
+        android:id="@+id/etContactName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="Contact Name"
+        android:ems="10"
+        android:layout_below="@+id/sprOnlinePresence"/>
+
+    <EditText
+        android:id="@+id/etContactPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:hint="Contact Phone"
+        android:ems="10"
+        android:layout_below="@+id/etContactName"/>
+
+    <EditText
+        android:id="@+id/etContactEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:hint="Contact Email"
+        android:ems="10"
+        android:layout_below="@+id/etContactPhone"/>
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+
+</RelativeLayout>
