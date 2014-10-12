@@ -1,0 +1,141 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.codepath.hackthehood.fragments.AssetCollectionFragment">
+
+
+    <Spinner
+        android:id="@+id/sprBusinessType"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingRight="2dp"
+        android:spinnerMode="dialog"
+        android:layout_marginTop="15dp"
+        android:entries="@array/businessType" />
+
+    <EditText
+        android:id="@+id/etFacebookLink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:textSize="15sp"
+        android:layout_below="@+id/sprBusinessType"
+        android:inputType="textPostalAddress"
+        android:hint="Business Facebook Link" />
+
+    <EditText
+        android:id="@+id/etYelpLink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:textSize="15sp"
+        android:layout_below="@+id/etFacebookLink"
+        android:inputType="textPostalAddress"
+        android:hint="Yelp Link" />
+
+    <EditText
+        android:id="@+id/etTwitterLink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:textSize="15sp"
+        android:layout_below="@+id/etYelpLink"
+        android:inputType="textPostalAddress"
+        android:hint="Twitter Link" />
+
+    <EditText
+        android:id="@+id/etInstagramLink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:textSize="15sp"
+        android:layout_below="@+id/etTwitterLink"
+        android:inputType="textPostalAddress"
+        android:hint="Instagram Link" />
+
+    <ImageView
+        android:id="@+id/imgLogo"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/etInstagramLink"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/upload_logo" />
+
+    <ImageView
+        android:id="@+id/imgHeader"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignBottom="@+id/imgLogo"
+        android:layout_toRightOf="@+id/imgLogo"
+        android:src="@drawable/upload_header" />
+
+    <ImageView
+        android:id="@+id/imgMore"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignBottom="@+id/imgLogo"
+        android:layout_toRightOf="@+id/imgHeader"
+        android:src="@drawable/upload_more" />
+
+    <Button
+        android:id="@+id/btnPage1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btnPage1"
+        android:layout_below="@+id/imgLogo"
+        android:layout_toEndOf="@+id/imgLogo"
+        android:layout_toRightOf="@+id/imgLogo"
+        android:textSize="15sp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <Button
+        android:id="@+id/btnPage2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btnPage2"
+        android:layout_below="@+id/btnPage1"
+        android:layout_toEndOf="@+id/imgLogo"
+        android:layout_toRightOf="@+id/imgLogo"
+        android:textSize="15sp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <Button
+        android:id="@+id/btnPage3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:text="@string/btnPage3"
+        android:layout_below="@+id/btnPage2"
+        android:layout_toEndOf="@+id/imgLogo"
+        android:layout_toRightOf="@+id/imgLogo"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btnSubmit"
+        android:textSize="15sp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/btnNextStep2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next Step..."
+        android:layout_toEndOf="@+id/btnSubmit"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:textSize="15sp"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@+id/btnSubmit" />
+
+
+</RelativeLayout>
