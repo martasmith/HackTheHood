@@ -15,6 +15,8 @@ public class PageResource extends Model {
     private StringResource text;
     @Column(name = "image")
     private ImageResource image;
+    @Column(name = "website_page")
+    private WebsitePage websitePage;
 
     /**
      * @category setters
@@ -31,6 +33,10 @@ public class PageResource extends Model {
         this.image = image;
     }
 
+    public void setWebsitePage(WebsitePage websitePage) {
+        this.websitePage = websitePage;
+    }
+
     /**
      * @category getters
      */
@@ -44,5 +50,9 @@ public class PageResource extends Model {
 
     public ImageResource getImage() {
         return image;
+    }
+
+    public WebsitePage getWebsitePage() {
+        return websitePage;
     }
 }

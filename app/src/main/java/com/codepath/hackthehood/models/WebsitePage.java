@@ -5,6 +5,7 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by thomasharte on 12/10/2014.
@@ -20,8 +21,8 @@ public class WebsitePage extends Model {
     private String text;
     @Column(name = "notes")
     private String notes;
-    @Column(name = "resources")
-    private ArrayList<PageResource> resources;
+    @Column(name = "website")
+    private Website website;
 
     /**
      * @category setters
@@ -42,8 +43,8 @@ public class WebsitePage extends Model {
         this.notes = notes;
     }
 
-    public void setResources(ArrayList<PageResource> resources) {
-        this.resources = resources;
+    public void setWebsite(Website website) {
+        this.website = website;
     }
 
     /**
@@ -65,7 +66,11 @@ public class WebsitePage extends Model {
         return notes;
     }
 
-    public ArrayList<PageResource> getResources() {
-        return resources;
+    public Website getWebsite() {
+        return website;
+    }
+
+    public List<PageResource> getResources() {
+        return getMany(PageResource.class, "website_page");
     }
 }

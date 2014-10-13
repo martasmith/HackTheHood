@@ -6,6 +6,7 @@ import com.activeandroid.annotation.Table;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by thomasharte on 12/10/2014.
@@ -37,23 +38,17 @@ public class Website extends Model {
     private ImageResource logo;
     @Column(name = "header")
     private ImageResource header;
-    @Column(name = "pages")
-    private ArrayList<WebsitePage> pages;
 
     /**
      * @category helpers
      */
     public void addStandardPages () {
-        ArrayList<WebsitePage> pages = new ArrayList<WebsitePage>();
-
         for(int pageNumber = 1; pageNumber <= 3; pageNumber++) {
             WebsitePage newPage = new WebsitePage();
             newPage.setPageNumber(pageNumber);
+            newPage.setWebsite(this);
             newPage.save();
-            pages.add(newPage);
         }
-
-        this.setPages(pages);
     }
 
     /**
@@ -107,10 +102,6 @@ public class Website extends Model {
         this.header = header;
     }
 
-    public void setPages(ArrayList<WebsitePage> pages) {
-        this.pages = pages;
-    }
-
     /**
      * @category getters
      */
@@ -162,7 +153,7 @@ public class Website extends Model {
         return header;
     }
 
-    public ArrayList<WebsitePage> getPages() {
-        return pages;
+    public List<WebsitePage> getPages() {
+        return getMany(WebsitePage.class, "website");
     }
 }

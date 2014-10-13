@@ -42,8 +42,6 @@ public class User extends Model {
 
         Website testWebsite = new Website();
         testWebsite.addStandardPages();
-        testWebsite.save();
-
         testUser.setWebsite(testWebsite);
         testUser.save();
 
