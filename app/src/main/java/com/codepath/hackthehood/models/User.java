@@ -5,13 +5,14 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by thomasharte on 12/10/2014.
  */
 @Table(name="Users")
-public class User extends Model {
+public class User extends Model implements Serializable {
 
     @Column(name = "first_name")
     private String firstName;
@@ -27,25 +28,32 @@ public class User extends Model {
     /**
      * @category factory methods
      */
+    static public User findUserByName(String name) {
+        return new Select().from(User.class).where("first_name = '" + name + "'").executeSingle();
+    }
+
     static public User getTestUser() {
         final String testUserName = "__TEST__";
 
         // attempt to pull the existing test-user record;
         // if that succeeds then return it
-        User testUser = new Select().from(User.class).where("first_name = '" + testUserName + "'").executeSingle();
+        User testUser = findUserByName(testUserName);
         if(testUser != null)
             return testUser;
 
         // otherwise let's flesh out a new test user
         testUser = new User();
         testUser.setFirstName(testUserName);
-
-        Website testWebsite = new Website();
-        testWebsite.addStandardPages();
-        testUser.setWebsite(testWebsite);
         testUser.save();
 
         return testUser;
+    }
+
+    public User () {
+        super();
+        Website testWebsite = new Website();
+        testWebsite.addStandardPages();
+        this.setWebsite(testWebsite);
     }
 
     /**

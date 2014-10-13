@@ -20,11 +20,9 @@ public class LoginSignupPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         Fragment fragment;
         switch(position) {
-            default:    fragment = new LoginFragment();     break;
-            case 1:     fragment = new SignupFragment();    break;
+            default:    return new LoginFragment();
+            case 1:     return new SignupFragment();
         }
-
-        return fragment;
     }
 
     @Override

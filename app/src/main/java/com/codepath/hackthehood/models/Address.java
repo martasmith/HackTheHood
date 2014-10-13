@@ -4,12 +4,14 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
+import java.io.Serializable;
+
 /**
  * Created by thomasharte on 12/10/2014.
  */
 
 @Table(name="Addresses")
-public class Address extends Model {
+public class Address extends Model implements Serializable {
     @Column(name = "full_address")
     private String fullAddress;
     @Column(name = "latitude")

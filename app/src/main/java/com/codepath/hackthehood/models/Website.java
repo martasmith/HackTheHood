@@ -4,6 +4,7 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
  * Created by thomasharte on 12/10/2014.
  */
 @Table(name="Website")
-public class Website extends Model {
+public class Website extends Model implements Serializable {
 
     @Column(name = "business_name")
     private String businessName;
