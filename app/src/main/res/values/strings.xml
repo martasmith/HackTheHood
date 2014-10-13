@@ -24,7 +24,6 @@
         <item>Yelp</item>
         <item>Other</item>
     </string-array>
-
     <string-array name="businessType">
         <item>Select your business type</item>
         <item>Retail</item>
@@ -46,5 +45,6 @@
     <string name="getting_started_btn_text">Get Started</string>
     <string name="business_form_btn_text">Business Form</string>
     <string name="website_template_title_default_text">Website Template Title</string>
+    <string name="title_activity_login_signup">LoginSignupActivity</string>
 
 </resources>

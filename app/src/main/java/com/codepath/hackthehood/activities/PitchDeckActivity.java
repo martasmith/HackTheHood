@@ -62,7 +62,8 @@ public class PitchDeckActivity extends FragmentActivity {
 
     public void getStartedClicked(View view) {
         // Open Login/Signup activity
-        Toast.makeText(getBaseContext(), "You have clicked on Get Started", Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(PitchDeckActivity.this, LoginSignupActivity.class);
+        startActivity(i);
     }
 
     public void businessFormBtnClicked(View view) {
