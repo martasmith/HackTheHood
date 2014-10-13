@@ -40,6 +40,7 @@
             android:id="@+id/btnLogin"
             android:layout_below="@+id/etPassword"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:background="#ff33b5e5"/>
 
         <TextView
