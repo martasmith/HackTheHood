@@ -12,8 +12,12 @@ import java.io.Serializable;
 
 @Table(name="Addresses")
 public class Address extends Model implements Serializable {
-    @Column(name = "full_address")
-    private String fullAddress;
+    @Column(name = "street_address")
+    private String streetAddress;
+    @Column(name = "city")
+    private String city;
+    @Column(name = "postal_code")
+    private String postalCode;
     @Column(name = "latitude")
     private Double latitude;
     @Column(name = "longitude")
@@ -22,8 +26,17 @@ public class Address extends Model implements Serializable {
     /**
      * @category setters
      */
-    public void setFullAddress(String fullAddress) {
-        this.fullAddress = fullAddress;
+
+    public void setStreetAddress(String streetAddress) {
+        this.streetAddress = streetAddress;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
     }
 
     public void setLatitude(Double latitude) {
@@ -34,13 +47,21 @@ public class Address extends Model implements Serializable {
         this.longitude = longitude;
     }
 
+    public String getStreetAddress() {
+        return streetAddress;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
     /**
      * @category getters
      */
-    public String getFullAddress() {
-        return fullAddress;
-    }
-
     public Double getLatitude() {
         return latitude;
     }
