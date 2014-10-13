@@ -5,13 +5,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.codepath.hackthehood.fragments.ImageSlideFragment;
+import com.codepath.hackthehood.fragments.WebsiteTemplatesSlideFragment;
 
 /**
  * Created by ravi on 10/12/14.
  */
 public class SlidePagerAdapter extends FragmentPagerAdapter {
 
-    private static int NUM_PAGES = 2;
+    private static int NUM_PAGES = 3;
 
     public SlidePagerAdapter(FragmentManager fm) {
         super(fm);
@@ -32,6 +33,10 @@ public class SlidePagerAdapter extends FragmentPagerAdapter {
             case 1:
                 ImageSlideFragment secondSlide = ImageSlideFragment.newInstance("", "Support local youth development");
                 return secondSlide;
+
+            case 2:
+                WebsiteTemplatesSlideFragment thirdSlide = WebsiteTemplatesSlideFragment.newInstance();
+                return thirdSlide;
 
             default:
                 return null;

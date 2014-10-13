@@ -14,7 +14,9 @@ import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.adapters.SlidePagerAdapter;
 import com.codepath.hackthehood.util.SlidePageTransformer;
 
-
+/**
+ * Created by ravi on 10/06/14.
+ */
 public class PitchDeckActivity extends FragmentActivity {
 
     private ViewPager vpSlidePager;
@@ -60,7 +62,7 @@ public class PitchDeckActivity extends FragmentActivity {
 
     public void getStartedClicked(View view) {
         // Open Login/Signup activity
-        Toast.makeText(getBaseContext(),"You have clicked on Get Started", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseContext(), "You have clicked on Get Started", Toast.LENGTH_SHORT).show();
     }
 
     public void businessFormBtnClicked(View view) {

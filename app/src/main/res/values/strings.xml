@@ -44,5 +44,6 @@
     <string name="pitch_deck_title">HackTheHood</string>
     <string name="getting_started_btn_text">Get Started</string>
     <string name="business_form_btn_text">Business Form</string>
+    <string name="website_template_title_default_text">Website Template Title</string>
 
 </resources>

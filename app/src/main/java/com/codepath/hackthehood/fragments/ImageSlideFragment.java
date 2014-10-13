@@ -15,6 +15,8 @@ import com.codepath.hackthehood.R;
  * for the pitch deck activity
  * Use the {@link ImageSlideFragment#newInstance} factory method to
  * create an instance of this fragment.
+ *
+ * Created by ravi on 10/12/14.
  */
 public class ImageSlideFragment extends Fragment {
     private static final String IMG_SRC = "imageSrc";
