@@ -1,16 +1,28 @@
 package com.codepath.hackthehood.models;
 
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by thomasharte on 12/10/2014.
  */
-public class WebsitePage {
+@Table(name="WebsitePages")
+public class WebsitePage extends Model {
+
+    @Column(name = "page_number")
     private Integer pageNumber;
+    @Column(name = "title")
     private String title;
+    @Column(name = "text")
     private String text;
+    @Column(name = "notes")
     private String notes;
-    private ArrayList<PageResource> resources;
+    @Column(name = "website")
+    private Website website;
 
     /**
      * @category setters
@@ -31,8 +43,8 @@ public class WebsitePage {
         this.notes = notes;
     }
 
-    public void setResources(ArrayList<PageResource> resources) {
-        this.resources = resources;
+    public void setWebsite(Website website) {
+        this.website = website;
     }
 
     /**
@@ -54,7 +66,11 @@ public class WebsitePage {
         return notes;
     }
 
-    public ArrayList<PageResource> getResources() {
-        return resources;
+    public Website getWebsite() {
+        return website;
+    }
+
+    public List<PageResource> getResources() {
+        return getMany(PageResource.class, "website_page");
     }
 }
