@@ -3,6 +3,7 @@ package com.codepath.hackthehood.models;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Select;
 
 import java.util.ArrayList;
 
@@ -26,8 +27,27 @@ public class User extends Model {
     /**
      * @category factory methods
      */
-    static public User testUser() {
-        return new User();
+    static public User getTestUser() {
+        final String testUserName = "__TEST__";
+
+        // attempt to pull the existing test-user record;
+        // if that succeeds then return it
+        User testUser = new Select().from(User.class).where("first_name = '" + testUserName + "'").executeSingle();
+        if(testUser != null)
+            return testUser;
+
+        // otherwise let's flesh out a new test user
+        testUser = new User();
+        testUser.setFirstName(testUserName);
+
+        Website testWebsite = new Website();
+        testWebsite.addStandardPages();
+        testWebsite.save();
+
+        testUser.setWebsite(testWebsite);
+        testUser.save();
+
+        return testUser;
     }
 
     /**

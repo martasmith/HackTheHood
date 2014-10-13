@@ -41,6 +41,22 @@ public class Website extends Model {
     private ArrayList<WebsitePage> pages;
 
     /**
+     * @category helpers
+     */
+    public void addStandardPages () {
+        ArrayList<WebsitePage> pages = new ArrayList<WebsitePage>();
+
+        for(int pageNumber = 1; pageNumber <= 3; pageNumber++) {
+            WebsitePage newPage = new WebsitePage();
+            newPage.setPageNumber(pageNumber);
+            newPage.save();
+            pages.add(newPage);
+        }
+
+        this.setPages(pages);
+    }
+
+    /**
      * @category setters
      */
     public void setBusinessName(String businessName) {
