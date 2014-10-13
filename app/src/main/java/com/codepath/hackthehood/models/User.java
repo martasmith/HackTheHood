@@ -1,17 +1,27 @@
 package com.codepath.hackthehood.models;
 
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+
 import java.util.ArrayList;
 
 /**
  * Created by thomasharte on 12/10/2014.
  */
-public class User {
+@Table(name="Users")
+public class User extends Model {
 
+    @Column(name = "first_name")
     private String firstName;
+    @Column(name = "last_name")
     private String lastName;
+    @Column(name = "email_address")
     private String emailAddress;
+    @Column(name = "phone_number")
     private String phoneNumber;
-    private ArrayList<Website> websites;
+    @Column(name = "website")
+    private Website website;
 
     /**
      * @category factory methods
@@ -39,8 +49,8 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public void setWebsites(ArrayList<Website> websites) {
-        this.websites = websites;
+    public void setWebsite(Website website) {
+        this.website = website;
     }
 
     /**
@@ -62,7 +72,7 @@ public class User {
         return phoneNumber;
     }
 
-    public ArrayList<Website> getWebsites() {
-        return websites;
+    public Website getWebsite() {
+        return website;
     }
 }

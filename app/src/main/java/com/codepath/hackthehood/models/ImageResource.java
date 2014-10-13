@@ -1,11 +1,17 @@
 package com.codepath.hackthehood.models;
 
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+
 import java.net.URL;
 
 /**
  * Created by thomasharte on 12/10/2014.
  */
-public class ImageResource {
+@Table(name="ImageResources")
+public class ImageResource extends Model {
+    @Column(name = "url")
     private URL url;
 
     /**

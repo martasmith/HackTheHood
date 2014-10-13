@@ -1,11 +1,20 @@
 package com.codepath.hackthehood.models;
 
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+
 /**
  * Created by thomasharte on 12/10/2014.
  */
-public class Address {
+
+@Table(name="Addresses")
+public class Address extends Model {
+    @Column(name = "full_address")
     private String fullAddress;
+    @Column(name = "latitude")
     private Double latitude;
+    @Column(name = "longitude")
     private Double longitude;
 
     /**
