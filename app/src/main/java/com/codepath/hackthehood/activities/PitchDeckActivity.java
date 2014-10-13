@@ -1,8 +1,9 @@
 package com.codepath.hackthehood.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,40 +11,32 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.codepath.hackthehood.R;
-import com.codepath.hackthehood.models.User;
+import com.codepath.hackthehood.adapters.SlidePagerAdapter;
+import com.codepath.hackthehood.util.SlidePageTransformer;
 
 
-public class PitchDeckActivity extends Activity {
+public class PitchDeckActivity extends FragmentActivity {
 
-    private Button btnGetStarted,btnBusinessForm;
+    private ViewPager vpSlidePager;
+    private SlidePagerAdapter aSlideAdapter;
+
+    private Button btnGetStarted;
+    private Button btnBusinessForm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pitch_deck);
+
+        // Setup view pager, its adapter, and page transformer
+        vpSlidePager = (ViewPager) findViewById(R.id.vpSlidePager);
+        aSlideAdapter = new SlidePagerAdapter(getSupportFragmentManager());
+        vpSlidePager.setAdapter(aSlideAdapter);
+        vpSlidePager.setPageTransformer(true, new SlidePageTransformer());
+
+        // Setup CTAs
         btnGetStarted = (Button) findViewById(R.id.btnGetStarted);
         btnBusinessForm = (Button) findViewById(R.id.btnBusinessForm);
-        setUpGetStartedListener();
-        setUpBusinessFormListener();
-    }
-
-    private void setUpGetStartedListener() {
-        btnGetStarted.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getBaseContext(),"You have clicked on Get Started", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void setUpBusinessFormListener() {
-        btnBusinessForm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(PitchDeckActivity.this, BusinessFormActivity.class);
-                startActivity(i);
-            }
-        });
     }
 
     @Override
@@ -67,9 +60,12 @@ public class PitchDeckActivity extends Activity {
 
     public void getStartedClicked(View view) {
         // Open Login/Signup activity
+        Toast.makeText(getBaseContext(),"You have clicked on Get Started", Toast.LENGTH_SHORT).show();
     }
 
     public void businessFormBtnClicked(View view) {
         // Open BusinessForm activity
+        Intent i = new Intent(PitchDeckActivity.this, BusinessFormActivity.class);
+        startActivity(i);
     }
 }

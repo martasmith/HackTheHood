@@ -41,5 +41,8 @@
     <string name="btnPage2">Page 2: Enter  Content Page Information</string>
     <string name="btnPage3">Page 3: Enter Additional Page Information</string>
     <string name="btnSubmit">Submit</string>
+    <string name="pitch_deck_title">HackTheHood</string>
+    <string name="getting_started_btn_text">Get Started</string>
+    <string name="business_form_btn_text">Business Form</string>
 
 </resources>
