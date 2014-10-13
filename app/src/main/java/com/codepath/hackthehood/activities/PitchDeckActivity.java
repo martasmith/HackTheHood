@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.adapters.SlidePagerAdapter;
+import com.codepath.hackthehood.models.User;
 import com.codepath.hackthehood.util.SlidePageTransformer;
 
 /**
@@ -69,6 +70,7 @@ public class PitchDeckActivity extends FragmentActivity {
     public void businessFormBtnClicked(View view) {
         // Open BusinessForm activity
         Intent i = new Intent(PitchDeckActivity.this, BusinessFormActivity.class);
+        i.putExtra(BusinessFormActivity.USER, User.getTestUser());
         startActivity(i);
     }
 }
