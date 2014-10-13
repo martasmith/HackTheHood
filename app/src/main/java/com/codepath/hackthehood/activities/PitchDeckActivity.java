@@ -19,8 +19,6 @@ public class PitchDeckActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        User.getTestUser();
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pitch_deck);
         btnGetStarted = (Button) findViewById(R.id.btnGetStarted);
