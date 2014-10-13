@@ -15,6 +15,8 @@ public class BusinessFormActivity extends FragmentActivity {
 
     private BusinessFormFragment businessFormFragment;
 
+    final static public String USER = "USER";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

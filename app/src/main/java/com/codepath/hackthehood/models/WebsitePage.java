@@ -4,6 +4,7 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
  * Created by thomasharte on 12/10/2014.
  */
 @Table(name="WebsitePages")
-public class WebsitePage extends Model {
+public class WebsitePage extends Model implements Serializable {
 
     @Column(name = "page_number")
     private Integer pageNumber;
@@ -23,6 +24,8 @@ public class WebsitePage extends Model {
     private String notes;
     @Column(name = "website")
     private Website website;
+
+    // see also: getResources()
 
     /**
      * @category setters

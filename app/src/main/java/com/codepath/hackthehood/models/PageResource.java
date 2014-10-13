@@ -4,11 +4,13 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
+import java.io.Serializable;
+
 /**
  * Created by thomasharte on 12/10/2014.
  */
 @Table(name="PageResources")
-public class PageResource extends Model {
+public class PageResource extends Model implements Serializable {
     @Column(name = "name")
     private String name;
     @Column(name = "text")
