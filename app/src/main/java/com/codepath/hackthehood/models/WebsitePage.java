@@ -25,6 +25,8 @@ public class WebsitePage extends Model implements Serializable {
     @Column(name = "website")
     private Website website;
 
+    // see also: getResources()
+
     /**
      * @category setters
      */

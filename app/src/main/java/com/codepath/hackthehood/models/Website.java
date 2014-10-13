@@ -40,6 +40,8 @@ public class Website extends Model implements Serializable {
     @Column(name = "header")
     private ImageResource header;
 
+    // see also: getPages()
+
     /**
      * @category helpers
      */
