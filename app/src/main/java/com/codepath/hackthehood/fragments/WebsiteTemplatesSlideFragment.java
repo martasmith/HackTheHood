@@ -12,7 +12,6 @@ import com.codepath.hackthehood.adapters.WebsiteTemplatesListAdapter;
 import com.codepath.hackthehood.models.WebsiteTemplate;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.

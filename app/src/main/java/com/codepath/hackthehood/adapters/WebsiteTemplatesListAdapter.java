@@ -2,11 +2,7 @@ package com.codepath.hackthehood.adapters;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,33 +50,20 @@ public class WebsiteTemplatesListAdapter extends ArrayAdapter<WebsiteTemplate> {
         // Title
         viewHolder.tvTemplateTitle.setText(websiteTemplate.getTitle());
 
-        // Image source without the extension
-//        String[] imageSrc = websiteTemplate.getImageSrc().split("\\.");
-//        Log.i("INFO", imageSrc[0]);
-//        int resID = getContext().getResources().getIdentifier(imageSrc[0], "drawable",  getContext().getPackageName());
-//        viewHolder.ivTemplateImage.setImageResource(resID);
-
         // Template Image
-//        Bitmap bmImg = BitmapFactory.decodeFile("/images/" + websiteTemplate.getImageSrc());
-//        viewHolder.ivTemplateImage.setImageBitmap(bmImg);
+        DisplayMetrics dm = new DisplayMetrics();
+        ((Activity)getContext()).getWindowManager().getDefaultDisplay().getMetrics(dm);
 
-//        // Code when we will have the URLs working
-//        // Load template image
-//        DisplayMetrics dm = new DisplayMetrics();
-//        ((Activity)getContext()).getWindowManager().getDefaultDisplay().getMetrics(dm);
-//
-//        // Calculate new width and height while keeping the same aspect ratio
-//        int width = dm.widthPixels;
-//        // Hard coding these based on what I saw..ideally we would have to set these per image in the
-//        // data set
-//        int height = width * 538 / 1100;
-//
-//
-//        // Reset height and image source
-//        viewHolder.ivTemplateImage.getLayoutParams().height = height;
-//        viewHolder.ivTemplateImage.setImageResource(0);
-//        Picasso.with(getContext()).load(websiteTemplate.getImageURL()).resize(width, height).into(viewHolder.ivTemplateImage);
+        // Calculate new width and height while keeping the same aspect ratio
+        int width = dm.widthPixels;
+        // Hard coding these based on what I saw..ideally we would have to set these per image in the
+        // data set
+        int height = width * 538 / 1100;
 
+        // Reset height and image source
+        viewHolder.ivTemplateImage.getLayoutParams().height = height;
+        viewHolder.ivTemplateImage.setImageResource(0);
+        Picasso.with(getContext()).load(websiteTemplate.getImageURL()).resize(width, height).into(viewHolder.ivTemplateImage);
         return convertView;
     }
 }

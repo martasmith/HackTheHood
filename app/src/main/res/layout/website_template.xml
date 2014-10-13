@@ -8,9 +8,8 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_6121099_orig"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_launcher"
         android:id="@+id/ivTemplateImage" />
 
     <TextView
@@ -18,7 +17,7 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:layout_alignBottom="@+id/ivTemplateImage"
-        android:background="#88000000"
+        android:background="#AA000000"
         android:textColor="@android:color/white"
         android:fontFamily="san-serif-light"
         android:textSize="14sp"

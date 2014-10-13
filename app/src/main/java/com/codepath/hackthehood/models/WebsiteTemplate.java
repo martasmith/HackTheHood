@@ -18,20 +18,10 @@ public class WebsiteTemplate {
 
     private String imageURL;
     private String title;
-    private String imageSrc;
 
-    public WebsiteTemplate(String title, String imageURL, String imageSrc) {
+    public WebsiteTemplate(String title, String imageURL) {
         this.imageURL = imageURL;
         this.title = title;
-        this.imageSrc = imageSrc;
-    }
-
-    public String getImageSrc() {
-        return imageSrc;
-    }
-
-    public void setImageSrc(String imageSrc) {
-        this.imageSrc = imageSrc;
     }
 
     public String getImageURL() {
@@ -60,8 +50,8 @@ public class WebsiteTemplate {
         try {
             while ((readLine = br.readLine()) != null) {
                 String[] websiteTemplateLine = readLine.split(",");
-                if (websiteTemplateLine.length == 3) {
-                    WebsiteTemplate websiteTemplate = new WebsiteTemplate(websiteTemplateLine[0], "http://www.hackthehood.org" + websiteTemplateLine[1], websiteTemplateLine[2]);
+                if (websiteTemplateLine.length == 2) {
+                    WebsiteTemplate websiteTemplate = new WebsiteTemplate(websiteTemplateLine[0], "http://www.hackthehood.org" + websiteTemplateLine[1]);
                     websiteTemplates.add(websiteTemplate);
                 }
             }
