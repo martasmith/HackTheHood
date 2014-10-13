@@ -36,6 +36,10 @@
             android:name=".activities.AssetCollectionActivity"
             android:label="@string/title_activity_asset_collection" >
         </activity>
+        <activity
+            android:name=".activities.WebpageCollectionActivity"
+            android:label="@string/title_activity_webpage_collection" >
+        </activity>
     </application>
 
 </manifest>

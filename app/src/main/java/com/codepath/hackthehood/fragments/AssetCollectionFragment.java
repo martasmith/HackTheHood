@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.activities.AssetCollectionActivity;
+import com.codepath.hackthehood.activities.WebpageCollectionActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,14 +33,16 @@ public class AssetCollectionFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private final int REQUEST_CODE = 20;
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private String title, tickImgName;
     private EditText etFacebookLink, etYelpLink, etTwitterLink, etInstagramLink;
     private Spinner sprBusinessType;
-    private ImageView ivHeader, ivLogo, ivMore;
+    private ImageView ivHeader, ivLogo, ivMore, checkPage1,checkPage2,checkPage3;
     private Button btnPage1,btnPage2,btnPage3, btnSubmit, btnNextStep2;
+
 
     //private OnFragmentInteractionListener mListener;
 
@@ -90,10 +93,31 @@ public class AssetCollectionFragment extends Fragment {
         btnPage1 = (Button) v.findViewById(R.id.btnPage1);
         btnPage2 = (Button) v.findViewById(R.id.btnPage2);
         btnPage3 = (Button) v.findViewById(R.id.btnPage3);
+        checkPage1 = (ImageView) v.findViewById(R.id.checkPage1);
+        checkPage2 = (ImageView) v.findViewById(R.id.checkPage2);
+        checkPage3 = (ImageView) v.findViewById(R.id.checkPage3);
         btnSubmit = (Button) v.findViewById(R.id.btnSubmit);
         btnNextStep2 = (Button) v.findViewById(R.id.btnNextStep2);
         setUpNextStepListener();
+        setupPageCreationListener(btnPage1,"checkPage1");
+        setupPageCreationListener(btnPage2,"checkPage2");
+        setupPageCreationListener(btnPage3,"checkPage3");
         return v;
+    }
+
+    private void setupPageCreationListener(final Button btn, final String checkPage) {
+        btn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), WebpageCollectionActivity.class);
+                title = btn.getText().toString();
+                i.putExtra("title",title);
+                i.putExtra("tickImgName",checkPage);
+                startActivityForResult(i, REQUEST_CODE);
+
+            }
+        });
     }
 
     private void setUpNextStepListener() {
@@ -103,6 +127,24 @@ public class AssetCollectionFragment extends Fragment {
                 Toast.makeText(getActivity(), "You have clicked on Next Step...", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE && resultCode == getActivity().RESULT_OK) {
+            tickImgName = data.getExtras().getString("tickImgName");
+            //Toast.makeText(getActivity(), "tickImgName= " + tickImgName, Toast.LENGTH_LONG).show();
+            if (tickImgName.equals("checkPage1")) {
+                  checkPage1.setVisibility(View.VISIBLE);
+            } else if (tickImgName.equals("checkPage2")) {
+                checkPage2.setVisibility(View.VISIBLE);
+            } else if (tickImgName.equals("checkPage3")) {
+                checkPage3.setVisibility(View.VISIBLE);
+            }
+
+        }
     }
 
 
@@ -150,5 +192,4 @@ public class AssetCollectionFragment extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
     */
-
 }

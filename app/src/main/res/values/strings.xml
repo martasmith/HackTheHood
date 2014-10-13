@@ -37,10 +37,11 @@
     </string-array>
 
     <string name="title_activity_asset_collection">Send Us Website Content</string>
-    <string name="btnPage1">Page 1: Enter Homepage Information</string>
-    <string name="btnPage2">Page 2: Enter  Content Page Information</string>
-    <string name="btnPage3">Page 3: Enter Additional Page Information</string>
+    <string name="btnPage1">Page 1: Enter Homepage Info</string>
+    <string name="btnPage2">Page 2: Enter  Content Page Info</string>
+    <string name="btnPage3">Page 3: Enter Additional Page Info</string>
     <string name="btnSubmit">Submit</string>
+    <string name="title_activity_webpage_collection">WebpageCollectionActivity</string>
     <string name="pitch_deck_title">HackTheHood</string>
     <string name="getting_started_btn_text">Get Started</string>
     <string name="business_form_btn_text">Business Form</string>

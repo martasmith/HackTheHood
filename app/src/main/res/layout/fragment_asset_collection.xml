@@ -82,39 +82,94 @@
         android:layout_toRightOf="@+id/imgHeader"
         android:src="@drawable/upload_more" />
 
-    <Button
-        android:id="@+id/btnPage1"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/llPage1Btn"
         android:layout_height="wrap_content"
-        android:text="@string/btnPage1"
-        android:layout_below="@+id/imgLogo"
-        android:layout_toEndOf="@+id/imgLogo"
-        android:layout_toRightOf="@+id/imgLogo"
-        android:textSize="15sp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-    <Button
-        android:id="@+id/btnPage2"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
+        android:gravity = "center_horizontal"
+        android:orientation="horizontal"
+        android:layout_below="@id/imgMore"
+        android:weightSum="1.0">
+
+        <Button
+            android:id="@+id/btnPage1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/btnPage1"
+            android:textSize="15sp"
+            android:layout_weight=".90"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <ImageView
+            android:id="@+id/checkPage1"
+            android:layout_width="0dp"
+            android:layout_weight=".10"
+            android:visibility="invisible"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_green_tick"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llPage2Btn"
         android:layout_height="wrap_content"
-        android:text="@string/btnPage2"
-        android:layout_below="@+id/btnPage1"
-        android:layout_toEndOf="@+id/imgLogo"
-        android:layout_toRightOf="@+id/imgLogo"
-        android:textSize="15sp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-    <Button
-        android:id="@+id/btnPage3"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
+        android:gravity = "center_horizontal"
+        android:orientation="horizontal"
+        android:layout_below="@id/llPage1Btn"
+        android:weightSum="1.0">
+
+        <Button
+            android:id="@+id/btnPage2"
+            android:layout_width="0dp"
+            android:layout_weight=".90"
+            android:layout_height="wrap_content"
+            android:text="@string/btnPage2"
+            android:layout_below="@+id/btnPage1"
+            android:textSize="15sp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <ImageView
+            android:id="@+id/checkPage2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:visibility="invisible"
+            android:src="@drawable/ic_green_tick"
+            android:layout_weight=".10" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llPage3Btn"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:text="@string/btnPage3"
-        android:layout_below="@+id/btnPage2"
-        android:layout_toEndOf="@+id/imgLogo"
-        android:layout_toRightOf="@+id/imgLogo"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_width="fill_parent"
+        android:gravity = "center_horizontal"
+        android:orientation="horizontal"
+        android:layout_below="@id/llPage2Btn"
+        android:weightSum="1.0">
+
+        <Button
+            android:id="@+id/btnPage3"
+            android:layout_width="0dp"
+            android:layout_weight=".90"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="@string/btnPage3"
+            android:layout_below="@+id/btnPage2"
+            android:layout_toEndOf="@+id/imgLogo"
+            android:layout_toRightOf="@+id/imgLogo"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <ImageView
+            android:id="@+id/checkPage3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:visibility="invisible"
+            android:src="@drawable/ic_green_tick"
+            android:layout_weight=".10" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/btnSubmit"

@@ -1,0 +1,76 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.codepath.hackthehood.fragments.WebpageCollectionFragment">
+
+    <EditText
+        android:id="@+id/etPageText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lines="5"
+        android:textSize="15sp"
+        android:hint="Enter web page text here.."
+        android:gravity="top|left"
+        android:inputType="textMultiLine">
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/etDesignerNotes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:lines="5"
+        android:hint="Notes to designer about this page.."
+        android:layout_below="@+id/etPageText"
+        android:gravity="top|left"
+        android:inputType="textMultiLine">
+    </EditText>
+
+    <TextView
+        android:id="@+id/tvAssetCollection"
+        android:layout_marginTop="15dp"
+        android:layout_width="fill_parent"
+        android:textSize="15sp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etDesignerNotes"
+        android:text="Take photos and upload files:"/>
+
+    <ImageView
+        android:id="@+id/imgFile1"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/tvAssetCollection"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/upload_more" />
+
+    <ImageView
+        android:id="@+id/imgFile2"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_toRightOf="@+id/imgFile1"
+        android:layout_below="@+id/tvAssetCollection"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/upload_more" />
+
+    <ImageView
+        android:id="@+id/imgFile3"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_toRightOf="@+id/imgFile2"
+        android:layout_below="@+id/tvAssetCollection"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/upload_more" />
+
+    <Button
+        android:id="@+id/btnAddSite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Site Content"
+        android:textSize="15sp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+
+</RelativeLayout>
