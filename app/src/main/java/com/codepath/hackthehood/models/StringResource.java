@@ -5,4 +5,18 @@ package com.codepath.hackthehood.models;
  */
 public class StringResource {
     private String text;
+
+    /**
+     * @category setters
+     */
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    /**
+     * @category getters
+     */
+    public String getText() {
+        return text;
+    }
 }

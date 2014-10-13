@@ -7,4 +7,18 @@ import java.net.URL;
  */
 public class ImageResource {
     private URL url;
+
+    /**
+     * @category setters
+     */
+    public void setUrl(URL url) {
+        this.url = url;
+    }
+
+    /**
+     * @category getters
+     */
+    public URL getUrl() {
+        return url;
+    }
 }
