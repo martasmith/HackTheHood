@@ -40,10 +40,11 @@ public class LoginFragment extends android.support.v4.app.Fragment {
             public void onClick(View view) {
 
                 // find or create user; we're still waiting on backend decisions
-                String username = etEmail.getText().toString();
-                User user = User.findUserByName(username);
+                String emailAddress = etEmail.getText().toString();
+                User user = User.findUserByEmailAddress(emailAddress);
                 if(user == null) {
                     user = new User();
+                    user.setEmailAddress(emailAddress);
                     user.save();
                 }
 

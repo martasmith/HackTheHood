@@ -32,6 +32,10 @@ public class User extends Model implements Serializable {
         return new Select().from(User.class).where("first_name = '" + name + "'").executeSingle();
     }
 
+    static public User findUserByEmailAddress(String emailAddress) {
+        return new Select().from(User.class).where("email_address = '" + emailAddress + "'").executeSingle();
+    }
+
     static public User getTestUser() {
         final String testUserName = "__TEST__";
 
