@@ -2,10 +2,8 @@
 <resources>
 
     <string name="app_name">HackTheHood</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_business_form">Apply for a Free Website</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tvBusinessLabel">Business Information</string>
     <string name="tvAssetCollection">Add your Business Assets</string>
     <string name="tvContactLabel">Contact Information</string>

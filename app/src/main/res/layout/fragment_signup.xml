@@ -23,6 +23,7 @@
             android:id="@+id/etEmail"
             android:layout_alignParentTop="true"
             android:hint="@string/emailHint"
+            android:inputType="textEmailAddress"
             />
 
         <EditText
@@ -31,6 +32,7 @@
             android:id="@+id/etEmailConfirmation"
             android:layout_below="@+id/etEmail"
             android:hint="@string/confirmEmailHint"
+            android:inputType="textEmailAddress"
             />
 
         <EditText
@@ -40,6 +42,7 @@
             android:id="@+id/etPassword"
             android:layout_below="@+id/etEmailConfirmation"
             android:hint="@string/passwordHint"
+            android:inputType="textPassword"
             />
 
         <Button
