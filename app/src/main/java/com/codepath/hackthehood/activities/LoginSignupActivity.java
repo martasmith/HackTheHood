@@ -1,20 +1,14 @@
 package com.codepath.hackthehood.activities;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.view.Menu;
-import android.view.MenuItem;
 import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.adapters.LoginSignupPagerAdapter;
 
 public class LoginSignupActivity extends FragmentActivity {
-
-    private LoginSignupPagerAdapter pagerAdapter;
-    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,14 +16,15 @@ public class LoginSignupActivity extends FragmentActivity {
         setContentView(R.layout.activity_login_signup);
 
         // establish the login and signup pages within the view pager, via an adaptor, naturally
-        viewPager = (ViewPager)findViewById(R.id.pager);
-        pagerAdapter = new LoginSignupPagerAdapter(getSupportFragmentManager());
+        final ViewPager viewPager = (ViewPager)findViewById(R.id.pager);
+        LoginSignupPagerAdapter pagerAdapter = new LoginSignupPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(pagerAdapter);
 
         // establish tabs; I don't think this is 2.x compatible; will need to discuss —
         // this pulls the tab count and titles from the pager adaptor and establishes push
         // from the tab bar to the view paging
         final ActionBar actionBar = getActionBar();
+        if(actionBar == null) return;
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayShowHomeEnabled(false);

@@ -6,7 +6,6 @@ import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  * Created by thomasharte on 12/10/2014.

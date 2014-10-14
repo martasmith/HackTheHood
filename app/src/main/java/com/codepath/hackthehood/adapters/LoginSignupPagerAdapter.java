@@ -1,6 +1,5 @@
 package com.codepath.hackthehood.adapters;
 
-import android.app.FragmentManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 
