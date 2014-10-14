@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/etEmail"
             android:layout_alignParentTop="true"
-            android:hint="E-mail address"
+            android:hint="@string/emailHint"
             />
 
         <EditText
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/etEmailConfirmation"
             android:layout_below="@+id/etEmail"
-            android:hint="Confirm e-mail address"
+            android:hint="@string/confirmEmailHint"
             />
 
         <EditText
@@ -39,13 +39,13 @@
             android:layout_height="wrap_content"
             android:id="@+id/etPassword"
             android:layout_below="@+id/etEmailConfirmation"
-            android:hint="Password"
+            android:hint="@string/passwordHint"
             />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sign Up"
+            android:text="@string/signUp"
             android:id="@+id/btnLogin"
             android:layout_below="@+id/etPassword"
             android:layout_alignParentEnd="true"
