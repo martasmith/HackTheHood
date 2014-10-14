@@ -11,14 +11,11 @@ import java.io.Serializable;
  */
 @Table(name="PageResources")
 public class PageResource extends Model implements Serializable {
-    @Column(name = "name")
-    private String name;
-    @Column(name = "text")
-    private StringResource text;
-    @Column(name = "image")
-    private ImageResource image;
-    @Column(name = "website_page")
-    private WebsitePage websitePage;
+
+    @Column(name = "name")          private String name;
+    @Column(name = "text")          private StringResource text;
+    @Column(name = "image")         private ImageResource image;
+    @Column(name = "website_page")  private WebsitePage websitePage;
 
     /**
      * @category setters

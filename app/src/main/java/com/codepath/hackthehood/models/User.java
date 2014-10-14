@@ -13,16 +13,16 @@ import java.io.Serializable;
 @Table(name="Users")
 public class User extends Model implements Serializable {
 
-    @Column(name = "first_name")
-    private String firstName;
-    @Column(name = "last_name")
-    private String lastName;
-    @Column(name = "email_address")
-    private String emailAddress;
-    @Column(name = "phone_number")
-    private String phoneNumber;
-    @Column(name = "website")
-    private Website website;
+    @Column(name = "first_name")            private String firstName;
+    @Column(name = "last_name")             private String lastName;
+    @Column(name = "email_address")         private String emailAddress;
+    @Column(name = "phone_number")          private String phoneNumber;
+    @Column(name = "application_status")    private ApplicationStatus applicationStatus;
+    @Column(name = "website")               private Website website;
+
+    public enum ApplicationStatus {
+        PENDING_REVIEW, ACCEPTED, DECLINED, SITE_COMPLETED
+    }
 
     /**
      * @category factory methods
@@ -82,6 +82,10 @@ public class User extends Model implements Serializable {
         this.website = website;
     }
 
+    public void setApplicationStatus(ApplicationStatus applicationStatus) {
+        this.applicationStatus = applicationStatus;
+    }
+
     /**
      * @category getters
      */
@@ -103,5 +107,9 @@ public class User extends Model implements Serializable {
 
     public Website getWebsite() {
         return website;
+    }
+
+    public ApplicationStatus getApplicationStatus() {
+        return applicationStatus;
     }
 }

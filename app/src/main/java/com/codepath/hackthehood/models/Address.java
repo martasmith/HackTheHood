@@ -12,16 +12,12 @@ import java.io.Serializable;
 
 @Table(name="Addresses")
 public class Address extends Model implements Serializable {
-    @Column(name = "street_address")
-    private String streetAddress;
-    @Column(name = "city")
-    private String city;
-    @Column(name = "postal_code")
-    private String postalCode;
-    @Column(name = "latitude")
-    private Double latitude;
-    @Column(name = "longitude")
-    private Double longitude;
+
+    @Column(name = "street_address")    private String streetAddress;
+    @Column(name = "city")              private String city;
+    @Column(name = "postal_code")       private String postalCode;
+    @Column(name = "latitude")          private Double latitude;
+    @Column(name = "longitude")         private Double longitude;
 
     /**
      * @category setters

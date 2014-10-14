@@ -11,8 +11,8 @@ import java.io.Serializable;
  */
 @Table(name="StringResources")
 public class StringResource extends Model implements Serializable {
-    @Column(name = "text")
-    private String text;
+
+    @Column(name = "text")  private String text;
 
     /**
      * @category setters

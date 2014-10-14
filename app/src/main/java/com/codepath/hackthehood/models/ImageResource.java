@@ -12,8 +12,8 @@ import java.net.URL;
  */
 @Table(name="ImageResources")
 public class ImageResource extends Model implements Serializable {
-    @Column(name = "url")
-    private URL url;
+
+    @Column(name = "url")   private URL url;
 
     /**
      * @category setters

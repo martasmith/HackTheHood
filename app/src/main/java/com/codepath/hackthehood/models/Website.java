@@ -15,30 +15,18 @@ import java.util.List;
 @Table(name="Website")
 public class Website extends Model implements Serializable {
 
-    @Column(name = "business_name")
-    private String businessName;
-    @Column(name = "type_of_business")
-    private String typeOfBusiness;
-    @Column(name = "email_address")
-    private String emailAddress;
-    @Column(name = "address")
-    private Address address;
-    @Column(name = "phone_number")
-    private String phoneNumber;
-    @Column(name = "facebook_url")
-    private URL facebookUrl;
-    @Column(name = "yelp_url")
-    private URL yelpUrl;
-    @Column(name = "twitter_url")
-    private URL twitterUrl;
-    @Column(name = "instagram_url")
-    private URL instagramUrl;
-    @Column(name = "other_urls")
-    private ArrayList<URL> otherUrls;
-    @Column(name = "logo")
-    private ImageResource logo;
-    @Column(name = "header")
-    private ImageResource header;
+    @Column(name = "business_name")     private String businessName;
+    @Column(name = "type_of_business")  private String typeOfBusiness;
+    @Column(name = "email_address")     private String emailAddress;
+    @Column(name = "address")           private Address address;
+    @Column(name = "phone_number")      private String phoneNumber;
+    @Column(name = "facebook_url")      private URL facebookUrl;
+    @Column(name = "yelp_url")          private URL yelpUrl;
+    @Column(name = "twitter_url")       private URL twitterUrl;
+    @Column(name = "instagram_url")     private URL instagramUrl;
+    @Column(name = "other_urls")        private List<URL> otherUrls;    // TODO: does this work with ActiveAndroid? If not then factor out
+    @Column(name = "logo")              private ImageResource logo;
+    @Column(name = "header")            private ImageResource header;
 
     // see also: getPages()
 
@@ -93,7 +81,7 @@ public class Website extends Model implements Serializable {
         this.instagramUrl = instagramUrl;
     }
 
-    public void setOtherUrls(ArrayList<URL> otherUrls) {
+    public void setOtherUrls(List<URL> otherUrls) {
         this.otherUrls = otherUrls;
     }
 
@@ -144,7 +132,7 @@ public class Website extends Model implements Serializable {
         return instagramUrl;
     }
 
-    public ArrayList<URL> getOtherUrls() {
+    public List<URL> getOtherUrls() {
         return otherUrls;
     }
 

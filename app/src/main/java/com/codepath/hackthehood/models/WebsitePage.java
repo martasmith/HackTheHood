@@ -13,16 +13,11 @@ import java.util.List;
 @Table(name="WebsitePages")
 public class WebsitePage extends Model implements Serializable {
 
-    @Column(name = "page_number")
-    private Integer pageNumber;
-    @Column(name = "title")
-    private String title;
-    @Column(name = "text")
-    private String text;
-    @Column(name = "notes")
-    private String notes;
-    @Column(name = "website")
-    private Website website;
+    @Column(name = "page_number")   private Integer pageNumber;
+    @Column(name = "title")         private String title;
+    @Column(name = "text")          private String text;
+    @Column(name = "notes")         private String notes;
+    @Column(name = "website")       private Website website;
 
     // see also: getResources()
 
