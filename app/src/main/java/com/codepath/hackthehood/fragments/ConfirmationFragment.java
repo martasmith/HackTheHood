@@ -35,9 +35,10 @@ public class ConfirmationFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private String shareMsg;
     private TextView tvConfComplete, tvConfStatus;
     private ImageView ivStatus;
-    private Button btnToAssets;
+    private Button btnToAssets, btnShareConfirm;
 
     //private OnFragmentInteractionListener mListener;
 
@@ -81,11 +82,29 @@ public class ConfirmationFragment extends Fragment {
         tvConfStatus = (TextView) v.findViewById(R.id.tvConfStatus);
         ivStatus = (ImageView) v.findViewById(R.id.ivStatus);
         btnToAssets = (Button) v.findViewById(R.id.btnToAssets);
+        btnShareConfirm = (Button) v.findViewById(R.id.btnShare);
         populateCurrentStatus();
         setUpNextStepListener();
+        setUpShareListener();
         return v;
 
     }
+
+
+    private void setUpShareListener() {
+        btnShareConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shareMsg = "<p>I just signed up for a free website with Hack the Hood!</p>";
+                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                sharingIntent.setType("text/html");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "I'm getting a free website");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, Html.fromHtml(shareMsg));
+                startActivity(Intent.createChooser(sharingIntent, "Share using"));
+            }
+        });
+    }
+
 
     private void populateCurrentStatus() {
         // This method will change the status text and image based on the application status

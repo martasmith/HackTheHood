@@ -23,12 +23,21 @@
         android:layout_below="@+id/tvConfComplete"
         android:text="@string/tv_conf_status" />
 
+    <Button
+        android:id="@+id/btnShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_share_confirmation"
+        android:layout_below="@+id/tvConfStatus"
+        android:layout_alignRight="@+id/btnToAssets"
+        android:layout_alignEnd="@+id/btnToAssets" />
+
     <ImageView
         android:id="@+id/ivStatus"
         android:layout_width="300dp"
         android:layout_height="350dp"
         android:src="@drawable/ic_approved"
-        android:layout_below="@+id/tvConfStatus"
+        android:layout_below="@+id/btnShare"
         android:layout_centerHorizontal="true" />
 
     <Button
