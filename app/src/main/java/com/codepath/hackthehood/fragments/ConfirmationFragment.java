@@ -95,12 +95,13 @@ public class ConfirmationFragment extends Fragment {
         btnShareConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                shareMsg = "<p>I just signed up for a free website with Hack the Hood!</p>";
+                shareMsg = "I just signed up for a <b>free website</b> with Hack the Hood!";
                 Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-                sharingIntent.setType("text/html");
+                sharingIntent.setType("text/plain");
                 sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "I'm getting a free website");
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, Html.fromHtml(shareMsg));
                 startActivity(Intent.createChooser(sharingIntent, "Share using"));
+
             }
         });
     }
@@ -109,7 +110,7 @@ public class ConfirmationFragment extends Fragment {
     private void populateCurrentStatus() {
         // This method will change the status text and image based on the application status
         // for now, it's just a dummy
-        String approvalStat = " <font color=\"red\"><b>Approved</b></font>";
+        String approvalStat = " <font color=\"red\"><b>Approved!</b></font>";
         tvConfStatus.setText(Html.fromHtml(tvConfStatus.getText() + approvalStat));
         // add conditional statement that changes the image based on the status
     }
