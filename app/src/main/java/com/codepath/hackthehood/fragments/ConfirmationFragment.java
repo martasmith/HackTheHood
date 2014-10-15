@@ -4,31 +4,29 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.activities.AssetCollectionActivity;
-import com.codepath.hackthehood.activities.BusinessFormActivity;
-import com.codepath.hackthehood.activities.ConfirmationActivity;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link BusinessFormFragment.OnFragmentInteractionListener} interface
+ * {@link ConfirmationFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link BusinessFormFragment#newInstance} factory method to
+ * Use the {@link ConfirmationFragment#newInstance} factory method to
  * create an instance of this fragment.
  *
  */
-public class BusinessFormFragment extends Fragment {
+public class ConfirmationFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -37,11 +35,9 @@ public class BusinessFormFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private TextView tvBformTime, tvBusinessInfo, tvContactInfo;
-    private EditText etBusinessName, etBusinessStreet, etBusinessCity, etBusinessZip,
-                     etBusinessPhone,etContactName,etContactPhone,etContactEmail;
-    private Spinner sprOnlinePresence;
-    private Button btnSubmitBusinessForm;
+    private TextView tvConfComplete, tvConfStatus;
+    private ImageView ivStatus;
+    private Button btnToAssets;
 
     //private OnFragmentInteractionListener mListener;
 
@@ -51,18 +47,18 @@ public class BusinessFormFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment BusinessFormFragment.
+     * @return A new instance of fragment ConfirmationFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static BusinessFormFragment newInstance(String param1, String param2) {
-        BusinessFormFragment fragment = new BusinessFormFragment();
+    public static ConfirmationFragment newInstance(String param1, String param2) {
+        ConfirmationFragment fragment = new ConfirmationFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
-    public BusinessFormFragment() {
+    public ConfirmationFragment() {
         // Required empty public constructor
     }
 
@@ -76,36 +72,41 @@ public class BusinessFormFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_business_form, container, false);
-        View v = inflater.inflate(R.layout.fragment_business_form, container, false);
-        etBusinessName = (EditText) v.findViewById(R.id.etBusinessName);
-        etBusinessStreet = (EditText) v.findViewById(R.id.etBusinessStreet);
-        etBusinessCity = (EditText) v.findViewById(R.id.etBusinessCity);
-        etBusinessZip = (EditText) v.findViewById(R.id.etBusinessZip);
-        sprOnlinePresence = (Spinner) v.findViewById(R.id.sprOnlinePresence);
-        etContactName = (EditText) v.findViewById(R.id.etContactName);
-        etContactPhone = (EditText) v.findViewById(R.id.etContactPhone);
-        etContactEmail = (EditText) v.findViewById(R.id.etContactEmail);
-        btnSubmitBusinessForm = (Button)  v.findViewById(R.id.btnSubmit);
-        //btnNextStep = (Button)  v.findViewById(R.id.btnNextStep);
-        setUpSubmitListener();
+        //return inflater.inflate(R.layout.fragment_confirmation, container, false);
+        View v = inflater.inflate(R.layout.fragment_confirmation, container, false);
+        tvConfComplete = (TextView) v.findViewById(R.id.tvConfComplete);
+        tvConfStatus = (TextView) v.findViewById(R.id.tvConfStatus);
+        ivStatus = (ImageView) v.findViewById(R.id.ivStatus);
+        btnToAssets = (Button) v.findViewById(R.id.btnToAssets);
+        populateCurrentStatus();
+        setUpNextStepListener();
         return v;
+
     }
 
-    private void setUpSubmitListener() {
-        btnSubmitBusinessForm.setOnClickListener(new View.OnClickListener() {
+    private void populateCurrentStatus() {
+        // This method will change the status text and image based on the application status
+        // for now, it's just a dummy
+        String approvalStat = " <font color=\"red\"><b>Approved</b></font>";
+        tvConfStatus.setText(Html.fromHtml(tvConfStatus.getText() + approvalStat));
+        // add conditional statement that changes the image based on the status
+    }
+
+    private void setUpNextStepListener() {
+        btnToAssets.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getActivity(), ConfirmationActivity.class);
+                Intent i = new Intent(getActivity(), AssetCollectionActivity.class);
                 startActivity(i);
             }
         });
     }
 
-
     /*
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -132,8 +133,6 @@ public class BusinessFormFragment extends Fragment {
     }
     */
 
-
-
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -150,7 +149,5 @@ public class BusinessFormFragment extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
     */
-
-
 
 }

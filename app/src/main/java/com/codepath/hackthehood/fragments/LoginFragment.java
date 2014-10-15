@@ -10,6 +10,7 @@ import android.widget.EditText;
 
 import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.activities.BusinessFormActivity;
+import com.codepath.hackthehood.activities.ConfirmationActivity;
 import com.codepath.hackthehood.models.User;
 
 

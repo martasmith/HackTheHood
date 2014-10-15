@@ -50,5 +50,9 @@
     <string name="business_form_btn_text">Business Form</string>
     <string name="website_template_title_default_text">Website Template Title</string>
     <string name="title_activity_login_signup">LoginSignupActivity</string>
+    <string name="title_activity_confirmation">Confirmation Activity</string>
+    <string name="tv_conf_complete">Your initial submission is complete!</string>
+    <string name="tv_conf_status">Your approval status is:</string>
+    <string name="btn_to_assets">Start Entering Website Information</string>
 
 </resources>

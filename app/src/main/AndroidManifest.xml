@@ -54,6 +54,10 @@
             android:name=".activities.LoginSignupActivity"
             android:label="@string/title_activity_login_signup">
         </activity>
+        <activity
+            android:name=".activities.ConfirmationActivity"
+            android:label="@string/title_activity_confirmation">
+        </activity>
         <service android:name="com.parse.PushService" />
         <receiver android:name="com.parse.ParseBroadcastReceiver">
             <intent-filter>

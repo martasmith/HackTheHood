@@ -41,7 +41,7 @@ public class AssetCollectionFragment extends Fragment {
     private EditText etFacebookLink, etYelpLink, etTwitterLink, etInstagramLink;
     private Spinner sprBusinessType;
     private ImageView ivHeader, ivLogo, ivMore, checkPage1,checkPage2,checkPage3;
-    private Button btnPage1,btnPage2,btnPage3, btnSubmit, btnNextStep2;
+    private Button btnPage1,btnPage2,btnPage3, btnSubmit;
 
 
     //private OnFragmentInteractionListener mListener;
@@ -97,8 +97,7 @@ public class AssetCollectionFragment extends Fragment {
         checkPage2 = (ImageView) v.findViewById(R.id.checkPage2);
         checkPage3 = (ImageView) v.findViewById(R.id.checkPage3);
         btnSubmit = (Button) v.findViewById(R.id.btnSubmit);
-        btnNextStep2 = (Button) v.findViewById(R.id.btnNextStep2);
-        setUpNextStepListener();
+        setUpSubmitAssetsListener();
         setupPageCreationListener(btnPage1,"checkPage1");
         setupPageCreationListener(btnPage2,"checkPage2");
         setupPageCreationListener(btnPage3,"checkPage3");
@@ -120,11 +119,11 @@ public class AssetCollectionFragment extends Fragment {
         });
     }
 
-    private void setUpNextStepListener() {
-        btnNextStep2.setOnClickListener(new View.OnClickListener() {
+    private void setUpSubmitAssetsListener() {
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "You have clicked on Next Step...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "You have clicked on Submit", Toast.LENGTH_SHORT).show();
             }
         });
     }

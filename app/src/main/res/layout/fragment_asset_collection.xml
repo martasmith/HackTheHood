@@ -180,17 +180,4 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
-    <Button
-        android:id="@+id/btnNextStep2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Next Step..."
-        android:layout_toEndOf="@+id/btnSubmit"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:textSize="15sp"
-        android:layout_marginLeft="20dp"
-        android:layout_toRightOf="@+id/btnSubmit" />
-
-
 </RelativeLayout>
