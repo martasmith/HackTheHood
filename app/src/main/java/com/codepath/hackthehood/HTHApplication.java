@@ -1,5 +1,6 @@
 package com.codepath.hackthehood;
 
+import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
@@ -19,7 +20,7 @@ import com.parse.SaveCallback;
 /**
  * Created by ravi on 10/13/14.
  */
-public class HTHApplication extends com.activeandroid.app.Application {
+public class HTHApplication extends Application {
     private static Context context;
 
     @Override

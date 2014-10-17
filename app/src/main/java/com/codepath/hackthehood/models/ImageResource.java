@@ -1,12 +1,8 @@
 package com.codepath.hackthehood.models;
 
-import com.activeandroid.Model;
-import com.activeandroid.annotation.Column;
-import com.activeandroid.annotation.Table;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 
-import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
 
