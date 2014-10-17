@@ -285,6 +285,7 @@ public class AssetCollectionFragment extends Fragment {
         // Return the file target for the photo based on filename
         return Uri.fromFile(new File(mediaStorageDir.getPath() + File.separator + fileName));
     }
+
     /*
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
