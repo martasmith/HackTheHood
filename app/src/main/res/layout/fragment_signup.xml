@@ -49,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/signUp"
-            android:id="@+id/btnLogin"
+            android:id="@+id/btnSignUp"
             android:layout_below="@+id/etPassword"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
