@@ -15,6 +15,7 @@ import com.codepath.hackthehood.activities.ConfirmationActivity;
 import com.codepath.hackthehood.models.User;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 
@@ -45,13 +46,12 @@ public class LoginFragment extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View view) {
 
-                ParseUser user = new ParseUser();
+                User user = new User();
                 user.logInInBackground(etEmail.getText().toString(), etPassword.getText().toString(), new LogInCallback() {
                     @Override
                     public void done(ParseUser parseUser, ParseException e) {
                         if(e == null) {
-                            Intent intent = new Intent(getActivity(), BusinessFormActivity.class);
-                            startActivity(intent);
+                            startActivity(new Intent(getActivity(), BusinessFormActivity.class));
                         } else {
                             Toast.makeText(getActivity(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                         }

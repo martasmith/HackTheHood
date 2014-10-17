@@ -11,8 +11,8 @@ import android.widget.Toast;
 
 import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.activities.BusinessFormActivity;
+import com.codepath.hackthehood.models.User;
 import com.parse.ParseException;
-import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
 public class SignupFragment extends android.support.v4.app.Fragment {
@@ -59,10 +59,11 @@ public class SignupFragment extends android.support.v4.app.Fragment {
             return;
         }
 
-        ParseUser user = new ParseUser();
+        User user = new User();
         user.setUsername(emailAddress);
         user.setEmail(emailAddress);
         user.setPassword(etPassword.getText().toString());
+        user.addDefaultWebsite();
         user.signUpInBackground(new SignUpCallback() {
             @Override
             public void done(ParseException e) {
