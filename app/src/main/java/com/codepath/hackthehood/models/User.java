@@ -26,31 +26,31 @@ public class User extends ParseUser {
 
     private final String firstNameKey = "firstName";
     public void setFirstName(String firstName) {
-        this.put(firstNameKey, firstName);
+        put(firstNameKey, firstName);
     }
     public String getFirstName() {
-        return (String)this.get(firstNameKey);
+        return getString(firstNameKey);
     }
 
     private final String lastNameKey = "lastName";
     public void setLastName(String lastName) {
-        this.put(lastNameKey, lastName);
+        put(lastNameKey, lastName);
     }
     public String getLastName() {
-        return (String)this.get(lastNameKey);
+        return getString(lastNameKey);
     }
 
     private final String phoneNumberKey = "phoneNumber";
     public void setPhoneNumber(String phoneNumber) {
-        this.put(phoneNumberKey, phoneNumber);
+        put(phoneNumberKey, phoneNumber);
     }
     public String getPhoneNumber() {
-        return (String)this.get(phoneNumberKey);
+        return getString(phoneNumberKey);
     }
 
     private final String websiteKey = "webSite";
     public void setWebsite(Website website) {
-        this.put(websiteKey, website);
+        put(websiteKey, website);
     }
     public Website getWebsite() {
         return (Website)this.get(websiteKey);
@@ -58,9 +58,9 @@ public class User extends ParseUser {
 
     private final String applicationStatusKey = "applicationStatus";
     public void setApplicationStatus(ApplicationStatus applicationStatus) {
-        this.put(applicationStatusKey, applicationStatus);
+        put(applicationStatusKey, applicationStatus);
     }
     public ApplicationStatus getApplicationStatus() {
-        return (ApplicationStatus)this.get(applicationStatusKey);
+        return (ApplicationStatus)get(applicationStatusKey);
     }
 }

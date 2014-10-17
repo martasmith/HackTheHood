@@ -3,55 +3,40 @@ package com.codepath.hackthehood.models;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.parse.ParseClassName;
+import com.parse.ParseObject;
 
 import java.io.Serializable;
 
 /**
  * Created by thomasharte on 12/10/2014.
  */
-@Table(name="PageResources")
-public class PageResource extends Model implements Serializable {
+@ParseClassName("PageResource")
+public class PageResource extends ParseObject {
 
-    @Column(name = "name")          private String name;
-    @Column(name = "text")          private StringResource text;
-    @Column(name = "image")         private ImageResource image;
-    @Column(name = "website_page")  private WebsitePage websitePage;
+    public PageResource() {}
 
-    /**
-     * @category setters
-     */
+    private final String nameKey = "name";
     public void setName(String name) {
-        this.name = name;
+        put(nameKey, name);
     }
-
-    public void setText(StringResource text) {
-        this.text = text;
-    }
-
-    public void setImage(ImageResource image) {
-        this.image = image;
-    }
-
-    public void setWebsitePage(WebsitePage websitePage) {
-        this.websitePage = websitePage;
-    }
-
-    /**
-     * @category getters
-     */
     public String getName() {
-        return name;
+        return getString(nameKey);
     }
 
+    private final String textKey = "text";
+    public void setText(StringResource text) {
+        put(textKey, text);
+    }
     public StringResource getText() {
-        return text;
+        return (StringResource)get(textKey);
     }
 
+    private final String imageKey = "image";
+    public void setImage(ImageResource image) {
+        put(imageKey, image);
+    }
     public ImageResource getImage() {
-        return image;
-    }
-
-    public WebsitePage getWebsitePage() {
-        return websitePage;
+        return (ImageResource)get(imageKey);
     }
 }

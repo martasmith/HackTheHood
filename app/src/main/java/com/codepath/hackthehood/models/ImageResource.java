@@ -3,29 +3,30 @@ package com.codepath.hackthehood.models;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.parse.ParseClassName;
+import com.parse.ParseObject;
 
 import java.io.Serializable;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
  * Created by thomasharte on 12/10/2014.
  */
-@Table(name="ImageResources")
-public class ImageResource extends Model implements Serializable {
+@ParseClassName("ImageResource")
+public class ImageResource extends ParseObject {
 
-    @Column(name = "url")   private URL url;
+    public ImageResource() {}
 
-    /**
-     * @category setters
-     */
+    private final String urlKey = "Url";
     public void setUrl(URL url) {
-        this.url = url;
+        put(urlKey, url.toString());
     }
-
-    /**
-     * @category getters
-     */
     public URL getUrl() {
-        return url;
+        try {
+            return new URL(getString(urlKey));
+        } catch (MalformedURLException e) {
+            return null;
+        }
     }
 }

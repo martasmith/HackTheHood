@@ -1,73 +1,55 @@
 package com.codepath.hackthehood.models;
 
-import com.activeandroid.Model;
-import com.activeandroid.annotation.Column;
-import com.activeandroid.annotation.Table;
+import com.parse.ParseClassName;
+import com.parse.ParseObject;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by thomasharte on 12/10/2014.
  */
-@Table(name="WebsitePages")
-public class WebsitePage extends Model implements Serializable {
+@ParseClassName("Website")
+public class WebsitePage extends ParseObject {
 
-    @Column(name = "page_number")   private Integer pageNumber;
-    @Column(name = "title")         private String title;
-    @Column(name = "text")          private String text;
-    @Column(name = "notes")         private String notes;
-    @Column(name = "website")       private Website website;
+    public WebsitePage() {}
 
-    // see also: getResources()
-
-    /**
-     * @category setters
-     */
+    private final String pageNumberKey = "pageNumber";
     public void setPageNumber(Integer pageNumber) {
-        this.pageNumber = pageNumber;
+        put(pageNumberKey, pageNumber);
     }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
-    }
-
-    public void setWebsite(Website website) {
-        this.website = website;
-    }
-
-    /**
-     * @category getters
-     */
     public Integer getPageNumber() {
-        return pageNumber;
+        return getInt(pageNumberKey);
     }
 
+    private final String titleKey = "title";
+    public void setTitle(String title) {
+        put(titleKey, title);
+    }
     public String getTitle() {
-        return title;
+        return getString(titleKey);
     }
 
+    private final String textKey = "text";
+    public void setText(String text) {
+        put(textKey, text);
+    }
     public String getText() {
-        return text;
+        return getString(textKey);
     }
 
+    private final String notesKey = "notes";
+    public void setNotes(String notes) {
+        put(notesKey, notes);
+    }
     public String getNotes() {
-        return notes;
+        return getString(notesKey);
     }
 
-    public Website getWebsite() {
-        return website;
+    private final String pageResourcesKey = "pageResources";
+    public void setPageResources(List<PageResource> resources) {
+        put(pageResourcesKey, resources);
     }
-
     public List<PageResource> getResources() {
-        return getMany(PageResource.class, "website_page");
+        return (List<PageResource>)get(pageResourcesKey);
     }
 }
