@@ -59,8 +59,8 @@
 
     <ImageView
         android:id="@+id/imgLogo"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:layout_below="@+id/etInstagramLink"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -68,16 +68,16 @@
 
     <ImageView
         android:id="@+id/imgHeader"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:layout_alignBottom="@+id/imgLogo"
         android:layout_toRightOf="@+id/imgLogo"
         android:src="@drawable/upload_header" />
 
     <ImageView
         android:id="@+id/imgMore"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         android:layout_alignBottom="@+id/imgLogo"
         android:layout_toRightOf="@+id/imgHeader"
         android:src="@drawable/upload_more" />
