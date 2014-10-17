@@ -1,10 +1,9 @@
 package com.codepath.hackthehood.models;
 
-import com.activeandroid.Model;
-import com.activeandroid.annotation.Column;
-import com.activeandroid.annotation.Table;
+import com.parse.ParseClassName;
+import com.parse.ParseObject;
 
-import java.io.Serializable;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,139 +11,150 @@ import java.util.List;
 /**
  * Created by thomasharte on 12/10/2014.
  */
-@Table(name="Website")
-public class Website extends Model implements Serializable {
+@ParseClassName("Website")
+public class Website extends ParseObject {
 
-    @Column(name = "business_name")     private String businessName;
-    @Column(name = "type_of_business")  private String typeOfBusiness;
-    @Column(name = "email_address")     private String emailAddress;
-    @Column(name = "address")           private Address address;
-    @Column(name = "phone_number")      private String phoneNumber;
-    @Column(name = "facebook_url")      private URL facebookUrl;
-    @Column(name = "yelp_url")          private URL yelpUrl;
-    @Column(name = "twitter_url")       private URL twitterUrl;
-    @Column(name = "instagram_url")     private URL instagramUrl;
-    @Column(name = "other_urls")        private List<URL> otherUrls;    // TODO: does this work with ActiveAndroid? If not then factor out
-    @Column(name = "logo")              private ImageResource logo;
-    @Column(name = "header")            private ImageResource header;
-
-    // see also: getPages()
+    public Website() {}
 
     /**
      * @category helpers
      */
     public void addStandardPages () {
+        ArrayList<WebsitePage> websites = new ArrayList<WebsitePage>();
         for(int pageNumber = 1; pageNumber <= 3; pageNumber++) {
             WebsitePage newPage = new WebsitePage();
             newPage.setPageNumber(pageNumber);
-            newPage.setWebsite(this);
-            newPage.save();
+            websites.add(newPage);
         }
+        setWebsitePages(websites);
+    }
+
+    private final String websitePagesKey = "websitePages";
+    public void setWebsitePages(List<WebsitePage> pages) {
+        put(websitePagesKey, pages);
+    }
+    public List<WebsitePage> getWebsitePages() {
+        return getList(websitePagesKey);
     }
 
     /**
      * @category setters
      */
+    private final String businessNameKey = "businessName";
     public void setBusinessName(String businessName) {
-        this.businessName = businessName;
+        put(businessNameKey, businessName);
     }
-
-    public void setTypeOfBusiness(String typeOfBusiness) {
-        this.typeOfBusiness = typeOfBusiness;
-    }
-
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public void setFacebookUrl(URL facebookUrl) {
-        this.facebookUrl = facebookUrl;
-    }
-
-    public void setYelpUrl(URL yelpUrl) {
-        this.yelpUrl = yelpUrl;
-    }
-
-    public void setTwitterUrl(URL twitterUrl) {
-        this.twitterUrl = twitterUrl;
-    }
-
-    public void setInstagramUrl(URL instagramUrl) {
-        this.instagramUrl = instagramUrl;
-    }
-
-    public void setOtherUrls(List<URL> otherUrls) {
-        this.otherUrls = otherUrls;
-    }
-
-    public void setLogo(ImageResource logo) {
-        this.logo = logo;
-    }
-
-    public void setHeader(ImageResource header) {
-        this.header = header;
-    }
-
-    /**
-     * @category getters
-     */
     public String getBusinessName() {
-        return businessName;
+        return getString(businessNameKey);
     }
 
+    private final String typeOfBusinessKey = "typeOfBusiness";
+    public void setTypeOfBusiness(String typeOfBusiness) {
+        put(typeOfBusinessKey, typeOfBusiness);
+    }
     public String getTypeOfBusiness() {
-        return typeOfBusiness;
+        return getString(typeOfBusinessKey);
     }
 
+    private final String emailAddressKey = "emailAddress";
+    public void setEmailAddress(String emailAddress) {
+        put(emailAddressKey, emailAddress);
+    }
     public String getEmailAddress() {
-        return emailAddress;
+        return getString(emailAddressKey);
     }
 
+    private final String addressKey = "address";
+    public void setAddress(Address address) {
+        put(addressKey, address);
+    }
     public Address getAddress() {
-        return address;
+        return (Address)get(addressKey);
     }
 
+    private final String phoneNumberKey = "phoneNumber";
+    public void setPhoneNumber(String phoneNumber) {
+        put(phoneNumberKey, phoneNumber);
+    }
     public String getPhoneNumber() {
-        return phoneNumber;
+        return getString(phoneNumberKey);
     }
 
+    private final String facebookUrlKey = "facebookUrl";
+    public void setFacebookUrl(URL facebookUrl) {
+        put(facebookUrlKey, facebookUrl.toString());
+    }
     public URL getFacebookUrl() {
-        return facebookUrl;
+        return getURL(facebookUrlKey);
     }
 
+    private final String yelpUrlKey = "yelpUrl";
+    public void setYelpUrl(URL yelpUrl) {
+        put(yelpUrlKey, yelpUrl.toString());
+    }
     public URL getYelpUrl() {
-        return yelpUrl;
+        return getURL(yelpUrlKey);
     }
 
+    private final String twitterUrlKey = "twitterUrl";
+    public void setTwitterUrl(URL twitterUrl) {
+        put(twitterUrlKey, twitterUrl.toString());
+    }
     public URL getTwitterUrl() {
-        return twitterUrl;
+        return getURL(twitterUrlKey);
     }
 
+    private final String instagramUrlKey = "instagramUrl";
+    public void setInstagramUrl(URL instagramUrl) {
+        put(instagramUrlKey, instagramUrl.toString());
+    }
     public URL getInstagramUrl() {
-        return instagramUrl;
+        return getURL(instagramUrlKey);
     }
 
+    private final String otherUrlsKey = "otherUrls";
+    public void setOtherUrls(List<URL> otherUrls) {
+        ArrayList<String> stringUrls = new ArrayList<String>();
+        for(URL url : otherUrls) {
+            stringUrls.add(otherUrls.toString());
+        }
+        put(otherUrlsKey, stringUrls);
+    }
     public List<URL> getOtherUrls() {
+        List<String> stringUrls = (List<String>)get(otherUrlsKey);
+        ArrayList<URL> otherUrls = new ArrayList<URL>();
+        for(String stringUrl : stringUrls) {
+            try {
+                URL url = new URL(stringUrl);
+                otherUrls.add(url);
+            } catch (MalformedURLException e) {
+
+            }
+        }
         return otherUrls;
     }
 
+    private final String logoKey = "logo";
+    public void setLogo(ImageResource logo) {
+        put(logoKey, logo);
+    }
     public ImageResource getLogo() {
-        return logo;
+        return (ImageResource)get(logoKey);
     }
 
+    private final String headerKey = "header";
+    public void setHeader(ImageResource header) {
+        put(headerKey, header);
+    }
     public ImageResource getHeader() {
-        return header;
+        return (ImageResource)get(headerKey);
     }
 
-    public List<WebsitePage> getPages() {
-        return getMany(WebsitePage.class, "website");
+    private URL getURL(String key) {
+        try {
+            return new URL(getString(key));
+        } catch (MalformedURLException e) {
+            return null;
+        }
     }
 }

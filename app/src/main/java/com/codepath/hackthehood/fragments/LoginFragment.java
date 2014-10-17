@@ -7,11 +7,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.activities.BusinessFormActivity;
 import com.codepath.hackthehood.activities.ConfirmationActivity;
 import com.codepath.hackthehood.models.User;
+import com.parse.LogInCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 
 public class LoginFragment extends android.support.v4.app.Fragment {
@@ -33,6 +38,7 @@ public class LoginFragment extends android.support.v4.app.Fragment {
 
         final Button btnLogin = (Button)view.findViewById(R.id.btnLogin);
         final EditText etEmail = (EditText)view.findViewById(R.id.etEmail);
+        final EditText etPassword = (EditText)view.findViewById(R.id.etPassword);
 
         // XML onClicks go to the activity, not the fragment. Setting things up programmatically
         // seems to be the recommended way to capture "clicks" here (no, really)
@@ -40,18 +46,18 @@ public class LoginFragment extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View view) {
 
-                // find or create user; we're still waiting on backend decisions
-                String emailAddress = etEmail.getText().toString();
-                User user = User.findUserByEmailAddress(emailAddress);
-                if(user == null) {
-                    user = new User();
-                    user.setEmailAddress(emailAddress);
-                    user.save();
-                }
+                User user = new User();
+                user.logInInBackground(etEmail.getText().toString(), etPassword.getText().toString(), new LogInCallback() {
+                    @Override
+                    public void done(ParseUser parseUser, ParseException e) {
+                        if(e == null) {
+                            startActivity(new Intent(getActivity(), BusinessFormActivity.class));
+                        } else {
+                            Toast.makeText(getActivity(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
 
-                Intent intent = new Intent(getActivity(), BusinessFormActivity.class);
-                intent.putExtra(BusinessFormActivity.USER, user);
-                startActivity(intent);
             }
         });
 

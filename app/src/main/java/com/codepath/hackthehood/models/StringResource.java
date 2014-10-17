@@ -1,30 +1,21 @@
 package com.codepath.hackthehood.models;
 
-import com.activeandroid.Model;
-import com.activeandroid.annotation.Column;
-import com.activeandroid.annotation.Table;
-
-import java.io.Serializable;
+import com.parse.ParseClassName;
+import com.parse.ParseObject;
 
 /**
  * Created by thomasharte on 12/10/2014.
  */
-@Table(name="StringResources")
-public class StringResource extends Model implements Serializable {
+@ParseClassName("StringResource")
+public class StringResource extends ParseObject {
 
-    @Column(name = "text")  private String text;
+    public StringResource() {}
 
-    /**
-     * @category setters
-     */
+    private final String textKey = "text";
     public void setText(String text) {
-        this.text = text;
+        put(textKey, text);
     }
-
-    /**
-     * @category getters
-     */
     public String getText() {
-        return text;
+        return getString(textKey);
     }
 }

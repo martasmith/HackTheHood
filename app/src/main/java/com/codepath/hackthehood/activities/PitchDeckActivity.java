@@ -70,7 +70,6 @@ public class PitchDeckActivity extends FragmentActivity {
     public void businessFormBtnClicked(View view) {
         // Open BusinessForm activity
         Intent i = new Intent(PitchDeckActivity.this, BusinessFormActivity.class);
-        i.putExtra(BusinessFormActivity.USER, User.getTestUser());
         startActivity(i);
     }
 }

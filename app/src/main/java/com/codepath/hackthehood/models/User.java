@@ -1,115 +1,66 @@
 package com.codepath.hackthehood.models;
 
-import com.activeandroid.Model;
-import com.activeandroid.annotation.Column;
-import com.activeandroid.annotation.Table;
-import com.activeandroid.query.Select;
+import com.parse.ParseClassName;
+import com.parse.ParseUser;
 
 import java.io.Serializable;
 
 /**
  * Created by thomasharte on 12/10/2014.
  */
-@Table(name="Users")
-public class User extends Model implements Serializable {
-
-    @Column(name = "first_name")            private String firstName;
-    @Column(name = "last_name")             private String lastName;
-    @Column(name = "email_address")         private String emailAddress;
-    @Column(name = "phone_number")          private String phoneNumber;
-    @Column(name = "application_status")    private ApplicationStatus applicationStatus;
-    @Column(name = "website")               private Website website;
+@ParseClassName("_User")
+public class User extends ParseUser {
 
     public enum ApplicationStatus {
         PENDING_REVIEW, ACCEPTED, DECLINED, SITE_COMPLETED
     }
 
-    /**
-     * @category factory methods
-     */
-    static public User findUserByName(String name) {
-        return new Select().from(User.class).where("first_name = '" + name + "'").executeSingle();
-    }
-
-    static public User findUserByEmailAddress(String emailAddress) {
-        return new Select().from(User.class).where("email_address = '" + emailAddress + "'").executeSingle();
-    }
-
-    static public User getTestUser() {
-        final String testUserName = "__TEST__";
-
-        // attempt to pull the existing test-user record;
-        // if that succeeds then return it
-        User testUser = findUserByName(testUserName);
-        if(testUser != null)
-            return testUser;
-
-        // otherwise let's flesh out a new test user
-        testUser = new User();
-        testUser.setFirstName(testUserName);
-        testUser.save();
-
-        return testUser;
-    }
-
     public User () {
-        super();
-        Website testWebsite = new Website();
-        testWebsite.addStandardPages();
-        this.setWebsite(testWebsite);
     }
 
-    /**
-     * @category setters
-     */
+    public void addDefaultWebsite() {
+        Website newWebsite = new Website();
+        newWebsite.addStandardPages();
+        this.setWebsite(newWebsite);
+    }
+
+    private final String firstNameKey = "firstName";
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        put(firstNameKey, firstName);
     }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public void setWebsite(Website website) {
-        this.website = website;
-    }
-
-    public void setApplicationStatus(ApplicationStatus applicationStatus) {
-        this.applicationStatus = applicationStatus;
-    }
-
-    /**
-     * @category getters
-     */
     public String getFirstName() {
-        return firstName;
+        return getString(firstNameKey);
     }
 
+    private final String lastNameKey = "lastName";
+    public void setLastName(String lastName) {
+        put(lastNameKey, lastName);
+    }
     public String getLastName() {
-        return lastName;
+        return getString(lastNameKey);
     }
 
-    public String getEmailAddress() {
-        return emailAddress;
+    private final String phoneNumberKey = "phoneNumber";
+    public void setPhoneNumber(String phoneNumber) {
+        put(phoneNumberKey, phoneNumber);
     }
-
     public String getPhoneNumber() {
-        return phoneNumber;
+        return getString(phoneNumberKey);
     }
 
+    private final String websiteKey = "webSite";
+    public void setWebsite(Website website) {
+        put(websiteKey, website);
+    }
     public Website getWebsite() {
-        return website;
+        return (Website)this.get(websiteKey);
     }
 
+    private final String applicationStatusKey = "applicationStatus";
+    public void setApplicationStatus(ApplicationStatus applicationStatus) {
+        put(applicationStatusKey, applicationStatus);
+    }
     public ApplicationStatus getApplicationStatus() {
-        return applicationStatus;
+        return (ApplicationStatus)get(applicationStatusKey);
     }
 }
