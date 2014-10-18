@@ -8,10 +8,20 @@ import java.util.List;
 /**
  * Created by thomasharte on 12/10/2014.
  */
-@ParseClassName("Website")
+@ParseClassName("WebsitePage")
 public class WebsitePage extends ParseObject {
 
     public WebsitePage() {}
+
+    /*
+        Exposed properties:
+
+            Integer pageNumber
+            String title
+            String text
+            String notes
+            List<PageResource> pageResources
+     */
 
     private final String pageNumberKey = "pageNumber";
     public void setPageNumber(Integer pageNumber) {

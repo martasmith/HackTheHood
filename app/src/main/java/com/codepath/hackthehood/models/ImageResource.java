@@ -14,6 +14,12 @@ public class ImageResource extends ParseObject {
 
     public ImageResource() {}
 
+    /*
+        Exposed properties:
+
+            URL url
+     */
+
     private final String urlKey = "Url";
     public void setUrl(URL url) {
         put(urlKey, url.toString());

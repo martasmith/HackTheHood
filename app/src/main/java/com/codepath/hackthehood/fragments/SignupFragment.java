@@ -13,6 +13,7 @@ import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.activities.BusinessFormActivity;
 import com.codepath.hackthehood.models.User;
 import com.parse.ParseException;
+import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
 
 public class SignupFragment extends android.support.v4.app.Fragment {
@@ -59,22 +60,36 @@ public class SignupFragment extends android.support.v4.app.Fragment {
             return;
         }
 
-        User user = new User();
+        final User user = new User();
         user.setUsername(emailAddress);
         user.setEmail(emailAddress);
         user.setPassword(etPassword.getText().toString());
-        user.addDefaultWebsite();
-        user.signUpInBackground(new SignUpCallback() {
-            @Override
-            public void done(ParseException e) {
-                if(e == null) {
-                    Intent intent = new Intent(getActivity(), BusinessFormActivity.class);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(getActivity(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        user.addDefaultWebsite(
+                new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e != null) {
+                            showException(e);
+                        } else {
+                            user.signUpInBackground(new SignUpCallback() {
+                                @Override
+                                public void done(ParseException e) {
+                                    if (e == null) {
+                                        Intent intent = new Intent(getActivity(), BusinessFormActivity.class);
+                                        startActivity(intent);
+                                    } else {
+                                        showException(e);
+                                    }
+                                }
+                            });
+
+                        }
+                    }
+                });
+    }
+
+    private void showException(Exception e) {
+        Toast.makeText(getActivity(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
     }
 
 }
