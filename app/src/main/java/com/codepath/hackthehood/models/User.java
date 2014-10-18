@@ -62,20 +62,12 @@ public class User extends ParseUser {
 
     }
 
-    private final String firstNameKey = "firstName";
-    public void setFirstName(String firstName) {
-        put(firstNameKey, firstName);
+    private final String fullNameKey = "fullName";
+    public void setFullName(String fullName) {
+        put(fullNameKey, fullName);
     }
-    public String getFirstName() {
-        return getString(firstNameKey);
-    }
-
-    private final String lastNameKey = "lastName";
-    public void setLastName(String lastName) {
-        put(lastNameKey, lastName);
-    }
-    public String getLastName() {
-        return getString(lastNameKey);
+    public String getFullName() {
+        return getString(fullNameKey);
     }
 
     private final String phoneNumberKey = "phoneNumber";

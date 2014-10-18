@@ -27,6 +27,7 @@ public class Website extends ParseObject {
             String emailAddress
             Address address
             String phoneNumber
+            String onlinePresenceType
             URL facebookUrl
             URL yelpUrl
             URL twitterUrl
@@ -114,6 +115,14 @@ public class Website extends ParseObject {
     }
     public String getPhoneNumber() {
         return getString(phoneNumberKey);
+    }
+
+    private final String onlinePresenceTypeKey = "onlinePresenceType";
+    public void setOnlinePresenceType(String type) {
+        put(onlinePresenceTypeKey, type);
+    }
+    public String getOnlinePresenceType() {
+        return getString(onlinePresenceTypeKey);
     }
 
     private final String facebookUrlKey = "facebookUrl";
