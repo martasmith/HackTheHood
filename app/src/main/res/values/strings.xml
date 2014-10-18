@@ -7,7 +7,7 @@
     <string name="tvBusinessLabel">Business Information</string>
     <string name="tvAssetCollection">Add your Business Assets</string>
     <string name="tvContactLabel">Contact Information</string>
-    <string name="tvBusinessPresence">Current Online Presence</string>
+    <string name="tvBusinessPresence">Select current online presence: </string>
     <string name="tvApplyLabel">Apply for a New Website</string>
     <string name="etBusinessName">Business Name</string>
     <string name="tv_imagetype_label">Image Type</string>
@@ -55,5 +55,6 @@
     <string name="tv_conf_status">Your approval status is:</string>
     <string name="btn_to_assets">Start Entering Website Information</string>
     <string name="btn_share_confirmation">Share the great news with others!</string>
+    <string name="tvAssetSpinnerTitle">Select your business type</string>
 
 </resources>

@@ -58,9 +58,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/tvBusinessPresence"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
+        android:textSize="16dp"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/etBusinessPhone"
-        android:textSize="15sp" />
+        android:layout_below="@+id/etBusinessPhone"/>
 
     <com.codepath.hackthehood.util.MultiSelectionSpinner
         android:id="@+id/sprOnlinePresence"

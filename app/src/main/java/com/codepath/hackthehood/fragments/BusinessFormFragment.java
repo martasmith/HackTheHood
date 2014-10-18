@@ -101,8 +101,8 @@ public class BusinessFormFragment extends Fragment {
         btnSubmitBusinessForm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String s = sprOnlinePresence.getSelectedItemsAsString();
-                Toast.makeText(getActivity(), s , Toast.LENGTH_LONG).show();
+                //String s = sprOnlinePresence.getSelectedItemsAsString();
+                //Toast.makeText(getActivity(), s , Toast.LENGTH_LONG).show();
                 Intent i = new Intent(getActivity(), ConfirmationActivity.class);
                 startActivity(i);
             }
