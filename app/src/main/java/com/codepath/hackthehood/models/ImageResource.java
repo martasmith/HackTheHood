@@ -1,34 +1,70 @@
 package com.codepath.hackthehood.models;
 
+import android.graphics.Bitmap;
+
+import android.os.AsyncTask;
+
 import com.parse.ParseClassName;
+import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
+import com.parse.SaveCallback;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.io.ByteArrayOutputStream;
 
-/**
- * Created by thomasharte on 12/10/2014.
- */
 @ParseClassName("ImageResource")
 public class ImageResource extends ParseObject {
 
     public ImageResource() {}
 
     /*
-        Exposed properties:
+        Exposed methods:
 
-            URL url
+            String getBitmapUrl
+            void setBitmap(Bitmap, SaveCallback)
      */
 
-    private final String urlKey = "Url";
-    public void setUrl(URL url) {
-        put(urlKey, url.toString());
+    private final static String bitmapKey = "bitmap";
+    private int setCount = 0;
+    public void setBitmap(final Bitmap bitmap, final SaveCallback saveCallback) {
+        final ImageResource thisResource = this;
+
+        setCount++;
+        final int setCountIdentifier = setCount;
+        AsyncTask<Void, Void, ByteArrayOutputStream> newtask = new AsyncTask<Void, Void, ByteArrayOutputStream>() {
+            @Override
+            protected ByteArrayOutputStream doInBackground(Void... voids) {
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                return stream;
+            }
+
+            @Override
+            protected void onPostExecute(ByteArrayOutputStream byteArrayOutputStream) {
+                if(setCountIdentifier != thisResource.setCount) return;
+
+                final ParseFile imageFile = new ParseFile("image.jpg", byteArrayOutputStream.toByteArray());
+                imageFile.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if(setCountIdentifier != thisResource.setCount) return;
+
+                        if(e != null) {
+                            if(saveCallback != null)
+                                saveCallback.done(e);
+                        } else {
+                            thisResource.put(bitmapKey, imageFile);
+                            if(saveCallback != null)
+                                saveCallback.done(null);
+                        }
+                    }
+                });
+            }
+        };
+        newtask.execute();
     }
-    public URL getUrl() {
-        try {
-            return new URL(getString(urlKey));
-        } catch (MalformedURLException e) {
-            return null;
-        }
+    public String getBitmapUrl() {
+        ParseFile file = (ParseFile)get(bitmapKey);
+        return file.getUrl();
     }
 }
