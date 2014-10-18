@@ -13,6 +13,7 @@ import com.codepath.hackthehood.models.Website;
 import com.codepath.hackthehood.models.WebsitePage;
 import com.parse.Parse;
 import com.parse.ParseException;
+import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParsePush;
 import com.parse.SaveCallback;
@@ -28,6 +29,7 @@ public class HTHApplication extends Application {
         super.onCreate();
         HTHApplication.context = this;
         Parse.initialize(this, "cYC431dctIjsXhzHUtXnkBciTCoywHuXFN1aOLyl", "LO7mpm3umhZbouNxl7Uz4eP0ERI3cEt70dMEzNOR");
+        ParseInstallation.getCurrentInstallation().saveInBackground();
 
         // register custom Parse subclasses
         ParseObject.registerSubclass(Address.class);
