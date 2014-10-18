@@ -12,6 +12,14 @@ public class Address extends ParseObject {
 
     public Address() {}
 
+    /*
+        Exposed properties:
+
+            String streetAddress
+            String city
+            String postalCode
+     */
+
     private final String streetAddressKey = "streetAddress";
     public void setStreetAddress(String streetAddress) {
         put(streetAddressKey, streetAddress);

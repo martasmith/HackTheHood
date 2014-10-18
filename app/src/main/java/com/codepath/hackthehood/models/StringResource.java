@@ -11,6 +11,12 @@ public class StringResource extends ParseObject {
 
     public StringResource() {}
 
+    /*
+        Exposed properties:
+
+            String text
+     */
+
     private final String textKey = "text";
     public void setText(String text) {
         put(textKey, text);

@@ -1,7 +1,9 @@
 package com.codepath.hackthehood.models;
 
 import com.parse.ParseClassName;
+import com.parse.ParseException;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.io.Serializable;
 
@@ -17,11 +19,47 @@ public class User extends ParseUser {
 
     public User () {
     }
+    /*
+        Exposed properties:
 
-    public void addDefaultWebsite() {
-        Website newWebsite = new Website();
-        newWebsite.addStandardPages();
-        this.setWebsite(newWebsite);
+            String firstName
+            String lastName
+            String phoneNumber
+            Website website
+            ApplicationStatus applicationStatus
+            String email
+     */
+
+    public void addDefaultWebsite(final SaveCallback saveCallback) {
+        final Website newWebsite = new Website();
+        final User thisUser = this;
+
+        newWebsite.addStandardPages(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+
+                if(e != null) {
+
+                    if(saveCallback != null)
+                        saveCallback.done(e);
+
+                } else {
+
+                    newWebsite.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            if (e == null)
+                                thisUser.setWebsite(newWebsite);
+
+                            if (saveCallback != null)
+                                saveCallback.done(e);
+                        }
+                    });
+
+                }
+            }
+        });
+
     }
 
     private final String firstNameKey = "firstName";
@@ -48,7 +86,7 @@ public class User extends ParseUser {
         return getString(phoneNumberKey);
     }
 
-    private final String websiteKey = "webSite";
+    private final String websiteKey = "website";
     public void setWebsite(Website website) {
         put(websiteKey, website);
     }

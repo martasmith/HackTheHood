@@ -11,6 +11,14 @@ public class PageResource extends ParseObject {
 
     public PageResource() {}
 
+    /*
+        Exposed properties:
+
+            String name
+            StringResource text
+            ImageResource image
+     */
+
     private final String nameKey = "name";
     public void setName(String name) {
         put(nameKey, name);

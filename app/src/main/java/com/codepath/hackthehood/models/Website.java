@@ -1,7 +1,9 @@
 package com.codepath.hackthehood.models;
 
 import com.parse.ParseClassName;
+import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.SaveCallback;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -16,17 +18,54 @@ public class Website extends ParseObject {
 
     public Website() {}
 
-    /**
-     * @category helpers
+    /*
+        Exposed properties:
+
+            List<WebsitePage> websitePages
+            String businessName
+            String typeOfBusiness
+            String emailAddress
+            Address address
+            String phoneNumber
+            URL facebookUrl
+            URL yelpUrl
+            URL twitterUrl
+            URL instagramUrl
+            List<URL> otherUrls
+            ImageResource logo
+            ImageResource header
      */
-    public void addStandardPages () {
-        ArrayList<WebsitePage> websites = new ArrayList<WebsitePage>();
-        for(int pageNumber = 1; pageNumber <= 3; pageNumber++) {
+
+    private void addPage(final int pageNumber, final SaveCallback finalCallback, final ArrayList<WebsitePage> websites) {
+        if(pageNumber == 4) {
+
+            setWebsitePages(websites);
+            if(finalCallback != null)
+                finalCallback.done(null);
+
+        } else {
+
             WebsitePage newPage = new WebsitePage();
             newPage.setPageNumber(pageNumber);
             websites.add(newPage);
+
+            newPage.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if (e != null) {
+                        if(finalCallback != null)
+                            finalCallback.done(e);
+                    } else {
+                        addPage(pageNumber+1, finalCallback, websites);
+                    }
+                }
+            });
+
         }
-        setWebsitePages(websites);
+    }
+
+    public void addStandardPages(SaveCallback saveCallback) {
+        addPage(1, saveCallback, new ArrayList<WebsitePage>());
     }
 
     private final String websitePagesKey = "websitePages";
@@ -37,9 +76,6 @@ public class Website extends ParseObject {
         return getList(websitePagesKey);
     }
 
-    /**
-     * @category setters
-     */
     private final String businessNameKey = "businessName";
     public void setBusinessName(String businessName) {
         put(businessNameKey, businessName);
