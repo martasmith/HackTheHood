@@ -64,17 +64,18 @@ public class SignupFragment extends android.support.v4.app.Fragment {
         user.setUsername(emailAddress);
         user.setEmail(emailAddress);
         user.setPassword(etPassword.getText().toString());
-        user.addDefaultWebsite(
-                new SaveCallback() {
+        user.signUpInBackground(
+                new SignUpCallback() {
                     @Override
                     public void done(ParseException e) {
                         if (e != null) {
                             showException(e);
                         } else {
-                            user.signUpInBackground(new SignUpCallback() {
+                            user.addDefaultWebsite(new SaveCallback() {
                                 @Override
                                 public void done(ParseException e) {
                                     if (e == null) {
+                                        user.saveEventually();
                                         Intent intent = new Intent(getActivity(), BusinessFormActivity.class);
                                         startActivity(intent);
                                     } else {
@@ -82,7 +83,6 @@ public class SignupFragment extends android.support.v4.app.Fragment {
                                     }
                                 }
                             });
-
                         }
                     }
                 });
