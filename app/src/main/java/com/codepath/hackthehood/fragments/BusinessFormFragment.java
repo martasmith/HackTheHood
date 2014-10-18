@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.codepath.hackthehood.util.MultiSelectionSpinner;
 import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.activities.AssetCollectionActivity;
 import com.codepath.hackthehood.activities.BusinessFormActivity;
@@ -40,7 +40,7 @@ public class BusinessFormFragment extends Fragment {
     private TextView tvBformTime, tvBusinessInfo, tvContactInfo;
     private EditText etBusinessName, etBusinessStreet, etBusinessCity, etBusinessZip,
                      etBusinessPhone,etContactName,etContactPhone,etContactEmail;
-    private Spinner sprOnlinePresence;
+    private MultiSelectionSpinner sprOnlinePresence;
     private Button btnSubmitBusinessForm;
 
     //private OnFragmentInteractionListener mListener;
@@ -69,6 +69,8 @@ public class BusinessFormFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -84,20 +86,23 @@ public class BusinessFormFragment extends Fragment {
         etBusinessStreet = (EditText) v.findViewById(R.id.etBusinessStreet);
         etBusinessCity = (EditText) v.findViewById(R.id.etBusinessCity);
         etBusinessZip = (EditText) v.findViewById(R.id.etBusinessZip);
-        sprOnlinePresence = (Spinner) v.findViewById(R.id.sprOnlinePresence);
+        sprOnlinePresence = (MultiSelectionSpinner)  v.findViewById(R.id.sprOnlinePresence);
         etContactName = (EditText) v.findViewById(R.id.etContactName);
         etContactPhone = (EditText) v.findViewById(R.id.etContactPhone);
         etContactEmail = (EditText) v.findViewById(R.id.etContactEmail);
         btnSubmitBusinessForm = (Button)  v.findViewById(R.id.btnSubmit);
-        //btnNextStep = (Button)  v.findViewById(R.id.btnNextStep);
-        setUpSubmitListener();
+        String [] spinnerContentArr = { "Website", "Online Store", "Facebook Page","Twitter Account","Google Listing", "Yelp","Other"};
+        sprOnlinePresence.setItems(spinnerContentArr);
+        setupSubmitListener();
         return v;
     }
 
-    private void setUpSubmitListener() {
+    private void setupSubmitListener() {
         btnSubmitBusinessForm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String s = sprOnlinePresence.getSelectedItemsAsString();
+                Toast.makeText(getActivity(), s , Toast.LENGTH_LONG).show();
                 Intent i = new Intent(getActivity(), ConfirmationActivity.class);
                 startActivity(i);
             }

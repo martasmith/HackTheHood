@@ -53,14 +53,21 @@
         android:ems="10"
         android:layout_below="@+id/etBusinessZip"/>
 
-    <Spinner
+    <TextView
+        android:id="@+id/tvOnlinePresence"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tvBusinessPresence"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/etBusinessPhone"
+        android:textSize="15sp" />
+
+    <com.codepath.hackthehood.util.MultiSelectionSpinner
         android:id="@+id/sprOnlinePresence"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etBusinessPhone"
-        android:paddingRight="2dp"
-        android:spinnerMode="dialog"
-        android:entries="@array/onlinePresence" />
+        android:layout_below="@+id/tvOnlinePresence"
+        android:paddingRight="2dp"/>
 
 
     <EditText
