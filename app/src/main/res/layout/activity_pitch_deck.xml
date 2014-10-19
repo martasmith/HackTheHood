@@ -50,7 +50,7 @@
             android:layout_marginRight="5dp"
             android:background="#FFCCCCCC"
             android:layout_height="wrap_content"
-            android:text="@string/business_form_btn_text"
+            android:text="Confirmation page"
             android:onClick="businessFormBtnClicked" />
 
         </LinearLayout>

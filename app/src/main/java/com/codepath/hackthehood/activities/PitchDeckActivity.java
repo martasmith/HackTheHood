@@ -8,11 +8,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.adapters.SlidePagerAdapter;
-import com.codepath.hackthehood.models.User;
 import com.codepath.hackthehood.util.SlidePageTransformer;
 
 /**
@@ -69,7 +67,7 @@ public class PitchDeckActivity extends FragmentActivity {
 
     public void businessFormBtnClicked(View view) {
         // Open BusinessForm activity
-        Intent i = new Intent(PitchDeckActivity.this, BusinessFormActivity.class);
+        Intent i = new Intent(PitchDeckActivity.this, ConfirmationActivity.class);
         startActivity(i);
     }
 }

@@ -53,6 +53,7 @@
     <string name="title_activity_confirmation">Confirmation Activity</string>
     <string name="tv_conf_complete">Your initial submission is complete!</string>
     <string name="tv_conf_status">Your approval status is:</string>
+    <string name="tv_status_default">""</string>
     <string name="btn_to_assets">Start Entering Website Information</string>
     <string name="btn_share_confirmation">Share the great news with others!</string>
     <string name="tvAssetSpinnerTitle">Select your business type</string>

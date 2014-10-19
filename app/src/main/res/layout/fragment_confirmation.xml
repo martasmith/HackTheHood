@@ -12,6 +12,7 @@
     <TextView
         android:id="@+id/tvConfComplete"
         android:layout_width="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:textStyle="bold"
         android:layout_height="wrap_content"
         android:text="@string/tv_conf_complete" />
@@ -21,6 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvConfComplete"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/tv_conf_status" />
 
     <Button
@@ -28,6 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/btn_share_confirmation"
+        android:visibility="gone"
         android:layout_below="@+id/tvConfStatus"
         android:layout_alignRight="@+id/btnToAssets"
         android:layout_alignEnd="@+id/btnToAssets" />
@@ -40,6 +43,13 @@
         android:layout_below="@+id/btnShare"
         android:layout_centerHorizontal="true" />
 
+    <TextView
+        android:id="@+id/tvStatusText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivStatus"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/tv_status_default" />
     <Button
         android:id="@+id/btnToAssets"
         android:layout_width="wrap_content"
@@ -47,6 +57,7 @@
         android:text="@string/btn_to_assets"
         android:layout_alignParentBottom="true"
         android:layout_toEndOf="@+id/tvConfStatus"
+        android:visibility="gone"
         android:layout_alignLeft="@+id/ivStatus"
         android:layout_alignStart="@+id/ivStatus" />
 
