@@ -5,8 +5,6 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.SaveCallback;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -126,57 +124,43 @@ public class Website extends ParseObject {
     }
 
     private final String facebookUrlKey = "facebookUrl";
-    public void setFacebookUrl(URL facebookUrl) {
-        put(facebookUrlKey, facebookUrl.toString());
+    public void setFacebookUrl(String facebookUrl) {
+        put(facebookUrlKey, facebookUrl);
     }
-    public URL getFacebookUrl() {
-        return getURL(facebookUrlKey);
+    public String getFacebookUrl() {
+        return getString(facebookUrlKey);
     }
 
     private final String yelpUrlKey = "yelpUrl";
-    public void setYelpUrl(URL yelpUrl) {
-        put(yelpUrlKey, yelpUrl.toString());
+    public void setYelpUrl(String yelpUrl) {
+        put(yelpUrlKey, yelpUrl);
     }
-    public URL getYelpUrl() {
-        return getURL(yelpUrlKey);
+    public String getYelpUrl() {
+        return getString(yelpUrlKey);
     }
 
     private final String twitterUrlKey = "twitterUrl";
-    public void setTwitterUrl(URL twitterUrl) {
-        put(twitterUrlKey, twitterUrl.toString());
+    public void setTwitterUrl(String twitterUrl) {
+        put(twitterUrlKey, twitterUrl);
     }
-    public URL getTwitterUrl() {
-        return getURL(twitterUrlKey);
+    public String getTwitterUrl() {
+        return getString(twitterUrlKey);
     }
 
     private final String instagramUrlKey = "instagramUrl";
-    public void setInstagramUrl(URL instagramUrl) {
-        put(instagramUrlKey, instagramUrl.toString());
+    public void setInstagramUrl(String instagramUrl) {
+        put(instagramUrlKey, instagramUrl);
     }
-    public URL getInstagramUrl() {
-        return getURL(instagramUrlKey);
+    public String getInstagramUrl() {
+        return getString(instagramUrlKey);
     }
 
     private final String otherUrlsKey = "otherUrls";
-    public void setOtherUrls(List<URL> otherUrls) {
-        ArrayList<String> stringUrls = new ArrayList<String>();
-        for(URL url : otherUrls) {
-            stringUrls.add(otherUrls.toString());
-        }
-        put(otherUrlsKey, stringUrls);
+    public void setOtherUrls(List<String> otherUrls) {
+        put(otherUrlsKey, otherUrls);
     }
-    public List<URL> getOtherUrls() {
-        List<String> stringUrls = (List<String>)get(otherUrlsKey);
-        ArrayList<URL> otherUrls = new ArrayList<URL>();
-        for(String stringUrl : stringUrls) {
-            try {
-                URL url = new URL(stringUrl);
-                otherUrls.add(url);
-            } catch (MalformedURLException e) {
-
-            }
-        }
-        return otherUrls;
+    public List<String> getOtherUrls() {
+        return (List<String>)get(otherUrlsKey);
     }
 
     private final String logoKey = "logo";
@@ -193,13 +177,5 @@ public class Website extends ParseObject {
     }
     public ImageResource getHeader() {
         return (ImageResource)get(headerKey);
-    }
-
-    private URL getURL(String key) {
-        try {
-            return new URL(getString(key));
-        } catch (MalformedURLException e) {
-            return null;
-        }
     }
 }
