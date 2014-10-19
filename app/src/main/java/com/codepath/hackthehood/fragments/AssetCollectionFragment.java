@@ -21,6 +21,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.codepath.hackthehood.R;
+import com.codepath.hackthehood.activities.ConfirmationActivity;
 import com.codepath.hackthehood.activities.WebpageCollectionActivity;
 
 import java.io.File;
@@ -101,13 +102,17 @@ public class AssetCollectionFragment extends Fragment {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                submitAssets();
-                Toast.makeText(getActivity(), "You have clicked on Submit", Toast.LENGTH_SHORT).show();
+
+                if (submitAssets()) {
+                    Intent i = new Intent(getActivity(), ConfirmationActivity.class);
+                    startActivity(i);
+                }
+
             }
         });
     }
 
-    private void submitAssets() {
+    private boolean submitAssets() {
         businessType = sprBusinessType.getSelectedItem().toString();
         facebookLink = etFacebookLink.getText().toString();
         yelpLink = etYelpLink.getText().toString();
@@ -115,7 +120,7 @@ public class AssetCollectionFragment extends Fragment {
         instagramLink = etTwitterLink.getText().toString();
 
         //now get those 3 damn image bitmaps
-
+        return true;
 
     }
 
@@ -225,7 +230,7 @@ public class AssetCollectionFragment extends Fragment {
                 getCapturedPhoto("photoLogo.jpg",resultCode,ivLogo);
         }
         else if (requestCode == REQUEST_CODE_UPLOAD_PHOTO_HEADER && resultCode == getActivity().RESULT_OK) {
-            getPickedFromGallery(data,ivHeader);
+            getPickedFromGallery(data, ivHeader);
         }
         else if (requestCode == REQUEST_CODE_UPLOAD_PHOTO_LOGO && resultCode == getActivity().RESULT_OK) {
             getPickedFromGallery(data,ivLogo);
