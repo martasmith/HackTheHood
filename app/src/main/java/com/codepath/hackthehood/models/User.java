@@ -13,11 +13,6 @@ import java.io.Serializable;
 @ParseClassName("_User")
 public class User extends ParseUser {
 
-    public final int PENDING_REVIEW = 0;
-    public final int ACCEPTED = 1;
-    public final int DECLINED = 2;
-    public final int SITE_COMPLETED = 3;
-
     public User () {
     }
     /*
@@ -87,6 +82,10 @@ public class User extends ParseUser {
         return (Website)this.get(websiteKey);
     }
 
+    public final static int APPSTATUS_PENDING_REVIEW = 0;
+    public final static int APPSTATUS_ACCEPTED = 1;
+    public final static int APPSTATUS_DECLINED = 2;
+    public final static int APPSTATUS_SITE_COMPLETED = 3;
     private final String applicationStatusKey = "applicationStatus";
     public void setApplicationStatus(int applicationStatus) {
         put(applicationStatusKey, applicationStatus);
