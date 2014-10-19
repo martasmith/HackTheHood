@@ -42,8 +42,10 @@ public class User extends ParseUser {
                     newWebsite.saveInBackground(new SaveCallback() {
                         @Override
                         public void done(ParseException e) {
-                            if (e == null)
+                            if (e == null) {
                                 thisUser.setWebsite(newWebsite);
+                                thisUser.setApplicationStatus(User.APPSTATUS_PENDING_REVIEW);
+                            }
 
                             if (saveCallback != null)
                                 saveCallback.done(e);
@@ -53,9 +55,6 @@ public class User extends ParseUser {
                 }
             }
         });
-
-        setApplicationStatus(User.APPSTATUS_PENDING_REVIEW);
-
     }
 
     private final String fullNameKey = "fullName";
