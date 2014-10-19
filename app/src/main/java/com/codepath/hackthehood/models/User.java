@@ -84,7 +84,8 @@ public class User extends ParseUser {
     public final static int APPSTATUS_PENDING_REVIEW = 1;
     public final static int APPSTATUS_ACCEPTED = 2;
     public final static int APPSTATUS_DECLINED = 3;
-    public final static int APPSTATUS_SITE_COMPLETED = 4;
+    public final static int APPSTATUS_ASSETS_SUBMITTED = 4;
+    public final static int APPSTATUS_SITE_COMPLETED = 5;
     private final String applicationStatusKey = "applicationStatus";
     public void setApplicationStatus(int applicationStatus) {
         put(applicationStatusKey, applicationStatus);
