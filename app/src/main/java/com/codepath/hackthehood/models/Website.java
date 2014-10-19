@@ -56,10 +56,11 @@ public class Website extends ParseObject {
         final ArrayList<WebsitePage> websites = new ArrayList<WebsitePage>();
         final ImageResource logo = new ImageResource();
         final ImageResource header = new ImageResource();
+        final Address address = new Address();
 
         SaveCallback scaffoldingCallback = new SaveCallback() {
 
-            private int callbacksRemaining = 5;
+            private int callbacksRemaining = 6;
             private boolean hasPosted = false;
 
             @Override
@@ -80,6 +81,7 @@ public class Website extends ParseObject {
                     setWebsitePages(websites);
                     setHeader(header);
                     setLogo(logo);
+                    setAddress(address);
 
                     if(saveCallback != null)
                         saveCallback.done(null);
@@ -91,6 +93,7 @@ public class Website extends ParseObject {
         addPage(scaffoldingCallback, websites);
         logo.saveInBackground(scaffoldingCallback);
         header.saveInBackground(scaffoldingCallback);
+        address.saveInBackground(scaffoldingCallback);
     }
 
     private final String websitePagesKey = "websitePages";

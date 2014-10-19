@@ -54,6 +54,8 @@ public class User extends ParseUser {
             }
         });
 
+        setApplicationStatus(User.APPSTATUS_PENDING_REVIEW);
+
     }
 
     private final String fullNameKey = "fullName";
