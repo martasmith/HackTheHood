@@ -65,20 +65,11 @@ public class WebsitePage extends ParseObject {
     /*
         Exposed properties:
 
-            Integer pageNumber
             String title
             String text
             String notes
             List<PageResource> pageResources
      */
-
-    private final String pageNumberKey = "pageNumber";
-    public void setPageNumber(Integer pageNumber) {
-        put(pageNumberKey, pageNumber);
-    }
-    public Integer getPageNumber() {
-        return getInt(pageNumberKey);
-    }
 
     private final String titleKey = "title";
     public void setTitle(String title) {

@@ -35,9 +35,8 @@ public class Website extends ParseObject {
             ImageResource header
      */
 
-    private void addPage(final int pageNumber, final SaveCallback callback, final ArrayList<WebsitePage> websites) {
+    private void addPage(final SaveCallback callback, final ArrayList<WebsitePage> websites) {
         final WebsitePage newPage = new WebsitePage();
-        newPage.setPageNumber(pageNumber);
         newPage.addDefaultImageResources(
                 new SaveCallback() {
                         @Override
@@ -87,9 +86,9 @@ public class Website extends ParseObject {
                 }
             }
         };
-        addPage(1, scaffoldingCallback, websites);
-        addPage(2, scaffoldingCallback, websites);
-        addPage(3, scaffoldingCallback, websites);
+        addPage(scaffoldingCallback, websites);
+        addPage(scaffoldingCallback, websites);
+        addPage(scaffoldingCallback, websites);
         logo.saveInBackground(scaffoldingCallback);
         header.saveInBackground(scaffoldingCallback);
     }
