@@ -20,12 +20,9 @@ public class PageResource extends ParseObject {
             public void done(ParseException e) {
                 if(e == null) {
                     setImageResource(imageResource);
-                    if(saveCallback != null)
-                        saveCallback.done(null);
-                } else {
-                    if(saveCallback != null)
-                        saveCallback.done(e);
                 }
+                if(saveCallback != null)
+                    saveCallback.done(e);
             }
         });
     }

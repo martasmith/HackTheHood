@@ -8,39 +8,58 @@ import com.parse.SaveCallback;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by thomasharte on 12/10/2014.
- */
 @ParseClassName("WebsitePage")
 public class WebsitePage extends ParseObject {
 
     public WebsitePage() {}
 
-    private void addImageResource(final int count, final SaveCallback saveCallback, final ArrayList<PageResource> pageResources) {
-        if(count == 0) {
-            setPageResources(pageResources);
-
-            if(saveCallback != null)
-                saveCallback.done(null);
-            return;
-        }
-
+    private void addImageResource(final SaveCallback saveCallback, final ArrayList<PageResource> pageResources) {
         final PageResource pageResource = new PageResource();
         pageResource.addImageResource(new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                if(e != null) {
-                    if(saveCallback != null)
-                        saveCallback.done(e);
-                } else {
+                if (e == null) {
                     pageResources.add(pageResource);
-                    addImageResource(count-1, saveCallback, pageResources);
-                }
+                    pageResource.saveInBackground(saveCallback);
+                } else
+                    saveCallback.done(e);
             }
         });
     }
-    public void addDefaultImageResources(SaveCallback saveCallback) {
-        addImageResource(3, saveCallback, new ArrayList<PageResource>());
+
+    public void addDefaultImageResources(final SaveCallback saveCallback) {
+        final ArrayList<PageResource> pageResources = new ArrayList<PageResource>();
+
+        SaveCallback scaffoldingCallback = new SaveCallback() {
+
+            private int callbacksRemaining = 3;
+            private boolean hasPosted = false;
+
+            @Override
+            public void done(ParseException e) {
+                if(hasPosted) return;
+
+                if(e != null) {
+                    hasPosted = true;
+                    if(saveCallback != null) {
+                        saveCallback.done(e);
+                    }
+                }
+
+                callbacksRemaining--;
+                if(callbacksRemaining == 0) {
+                    hasPosted = true;
+
+                    setPageResources(pageResources);
+
+                    if(saveCallback != null)
+                        saveCallback.done(null);
+                }
+            }
+        };
+        addImageResource(saveCallback, new ArrayList<PageResource>());
+        addImageResource(saveCallback, new ArrayList<PageResource>());
+        addImageResource(saveCallback, new ArrayList<PageResource>());
     }
 
     /*
