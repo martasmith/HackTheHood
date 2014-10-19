@@ -13,9 +13,10 @@ import java.io.Serializable;
 @ParseClassName("_User")
 public class User extends ParseUser {
 
-    public enum ApplicationStatus {
-        PENDING_REVIEW, ACCEPTED, DECLINED, SITE_COMPLETED
-    }
+    public final int PENDING_REVIEW = 0;
+    public final int ACCEPTED = 1;
+    public final int DECLINED = 2;
+    public final int SITE_COMPLETED = 3;
 
     public User () {
     }
@@ -87,10 +88,10 @@ public class User extends ParseUser {
     }
 
     private final String applicationStatusKey = "applicationStatus";
-    public void setApplicationStatus(ApplicationStatus applicationStatus) {
+    public void setApplicationStatus(int applicationStatus) {
         put(applicationStatusKey, applicationStatus);
     }
-    public ApplicationStatus getApplicationStatus() {
-        return (ApplicationStatus)get(applicationStatusKey);
+    public int getApplicationStatus() {
+        return getInt(applicationStatusKey);
     }
 }

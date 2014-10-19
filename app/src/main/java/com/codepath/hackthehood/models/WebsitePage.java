@@ -3,6 +3,7 @@ package com.codepath.hackthehood.models;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -59,7 +60,18 @@ public class WebsitePage extends ParseObject {
     public void setPageResources(List<PageResource> resources) {
         put(pageResourcesKey, resources);
     }
-    public List<PageResource> getResources() {
+    public List<PageResource> getPageResources() {
         return (List<PageResource>)get(pageResourcesKey);
+    }
+
+    public List<ImageResource> getImageResources() {
+        List<PageResource> pageResources = getPageResources();
+        ArrayList<ImageResource> imageResources = new ArrayList<ImageResource>();
+        for(PageResource pageResource : pageResources) {
+            ImageResource imageResource = pageResource.getImage();
+            if(imageResource != null)
+                imageResources.add(imageResource);
+        }
+        return imageResources;
     }
 }
