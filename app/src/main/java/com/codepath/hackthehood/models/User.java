@@ -5,8 +5,6 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
-import java.io.Serializable;
-
 /**
  * Created by thomasharte on 12/10/2014.
  */
@@ -30,13 +28,13 @@ public class User extends ParseUser {
         final Website newWebsite = new Website();
         final User thisUser = this;
 
-        newWebsite.addStandardPages(new SaveCallback() {
+        newWebsite.addStandardPagesAndFields(new SaveCallback() {
             @Override
             public void done(ParseException e) {
 
-                if(e != null) {
+                if (e != null) {
 
-                    if(saveCallback != null)
+                    if (saveCallback != null)
                         saveCallback.done(e);
 
                 } else {

@@ -35,49 +35,63 @@ public class Website extends ParseObject {
             ImageResource header
      */
 
-    private void addPage(final int pageNumber, final SaveCallback finalCallback, final ArrayList<WebsitePage> websites) {
-        if(pageNumber == 4) {
-
-            setWebsitePages(websites);
-            if(finalCallback != null)
-                finalCallback.done(null);
-
-        } else {
-
-            final WebsitePage newPage = new WebsitePage();
-            newPage.setPageNumber(pageNumber);
-            newPage.addDefaultImageResources(
-                    new SaveCallback() {
+    private void addPage(final int pageNumber, final SaveCallback callback, final ArrayList<WebsitePage> websites) {
+        final WebsitePage newPage = new WebsitePage();
+        newPage.setPageNumber(pageNumber);
+        newPage.addDefaultImageResources(
+                new SaveCallback() {
                         @Override
                         public void done(ParseException e) {
-                            if (e != null) {
-                                if (finalCallback != null)
-                                    finalCallback.done(e);
-                                return;
-                            } else {
-                                websites.add(newPage);
-
-                                newPage.saveInBackground(new SaveCallback() {
-                                    @Override
-                                    public void done(ParseException e) {
-                                        if (e != null) {
-                                            if (finalCallback != null)
-                                                finalCallback.done(e);
-                                        } else {
-                                            addPage(pageNumber + 1, finalCallback, websites);
-                                        }
-                                    }
-
-                                });
-
-                            }
+                        if (e != null) {
+                           callback.done(e);
+                           return;
+                        } else {
+                            websites.add(newPage);
+                            newPage.saveInBackground(callback);
+                        }
                         }
                     });
-        }
     }
 
-    public void addStandardPages(SaveCallback saveCallback) {
-        addPage(1, saveCallback, new ArrayList<WebsitePage>());
+    public void addStandardPagesAndFields(final SaveCallback saveCallback) {
+        final ArrayList<WebsitePage> websites = new ArrayList<WebsitePage>();
+        final ImageResource logo = new ImageResource();
+        final ImageResource header = new ImageResource();
+
+        SaveCallback scaffoldingCallback = new SaveCallback() {
+
+            private int callbacksRemaining = 5;
+            private boolean hasPosted = false;
+
+            @Override
+            public void done(ParseException e) {
+                if(hasPosted) return;
+
+                if(e != null) {
+                    hasPosted = true;
+                    if(saveCallback != null) {
+                        saveCallback.done(e);
+                    }
+                }
+
+                callbacksRemaining--;
+                if(callbacksRemaining == 0) {
+                    hasPosted = true;
+
+                    setWebsitePages(websites);
+                    setHeader(header);
+                    setLogo(logo);
+
+                    if(saveCallback != null)
+                        saveCallback.done(null);
+                }
+            }
+        };
+        addPage(1, scaffoldingCallback, websites);
+        addPage(2, scaffoldingCallback, websites);
+        addPage(3, scaffoldingCallback, websites);
+        logo.saveInBackground(scaffoldingCallback);
+        header.saveInBackground(scaffoldingCallback);
     }
 
     private final String websitePagesKey = "websitePages";
