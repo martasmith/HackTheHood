@@ -44,22 +44,35 @@ public class Website extends ParseObject {
 
         } else {
 
-            WebsitePage newPage = new WebsitePage();
+            final WebsitePage newPage = new WebsitePage();
             newPage.setPageNumber(pageNumber);
-            websites.add(newPage);
+            newPage.addDefaultImageResources(
+                    new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            if (e != null) {
+                                if (finalCallback != null)
+                                    finalCallback.done(e);
+                                return;
+                            } else {
+                                websites.add(newPage);
 
-            newPage.saveInBackground(new SaveCallback() {
-                @Override
-                public void done(ParseException e) {
-                    if (e != null) {
-                        if(finalCallback != null)
-                            finalCallback.done(e);
-                    } else {
-                        addPage(pageNumber+1, finalCallback, websites);
-                    }
-                }
-            });
+                                newPage.saveInBackground(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        if (e != null) {
+                                            if (finalCallback != null)
+                                                finalCallback.done(e);
+                                        } else {
+                                            addPage(pageNumber + 1, finalCallback, websites);
+                                        }
+                                    }
 
+                                });
+
+                            }
+                        }
+                    });
         }
     }
 

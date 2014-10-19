@@ -1,7 +1,9 @@
 package com.codepath.hackthehood.models;
 
 import com.parse.ParseClassName;
+import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,33 @@ import java.util.List;
 public class WebsitePage extends ParseObject {
 
     public WebsitePage() {}
+
+    private void addImageResource(final int count, final SaveCallback saveCallback, final ArrayList<PageResource> pageResources) {
+        if(count == 0) {
+            setPageResources(pageResources);
+
+            if(saveCallback != null)
+                saveCallback.done(null);
+            return;
+        }
+
+        final PageResource pageResource = new PageResource();
+        pageResource.addImageResource(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e != null) {
+                    if(saveCallback != null)
+                        saveCallback.done(e);
+                } else {
+                    pageResources.add(pageResource);
+                    addImageResource(count-1, saveCallback, pageResources);
+                }
+            }
+        });
+    }
+    public void addDefaultImageResources(SaveCallback saveCallback) {
+        addImageResource(3, saveCallback, new ArrayList<PageResource>());
+    }
 
     /*
         Exposed properties:
@@ -68,7 +97,7 @@ public class WebsitePage extends ParseObject {
         List<PageResource> pageResources = getPageResources();
         ArrayList<ImageResource> imageResources = new ArrayList<ImageResource>();
         for(PageResource pageResource : pageResources) {
-            ImageResource imageResource = pageResource.getImage();
+            ImageResource imageResource = pageResource.getImageResource();
             if(imageResource != null)
                 imageResources.add(imageResource);
         }

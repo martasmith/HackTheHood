@@ -1,7 +1,9 @@
 package com.codepath.hackthehood.models;
 
 import com.parse.ParseClassName;
+import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.SaveCallback;
 
 /**
  * Created by thomasharte on 12/10/2014.
@@ -10,6 +12,23 @@ import com.parse.ParseObject;
 public class PageResource extends ParseObject {
 
     public PageResource() {}
+
+    public void addImageResource(final SaveCallback saveCallback) {
+        final ImageResource imageResource = new ImageResource();
+        imageResource.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e == null) {
+                    setImageResource(imageResource);
+                    if(saveCallback != null)
+                        saveCallback.done(null);
+                } else {
+                    if(saveCallback != null)
+                        saveCallback.done(e);
+                }
+            }
+        });
+    }
 
     /*
         Exposed properties:
@@ -36,10 +55,10 @@ public class PageResource extends ParseObject {
     }
 
     private final String imageKey = "image";
-    public void setImage(ImageResource image) {
+    public void setImageResource(ImageResource image) {
         put(imageKey, image);
     }
-    public ImageResource getImage() {
+    public ImageResource getImageResource() {
         return (ImageResource)get(imageKey);
     }
 }
