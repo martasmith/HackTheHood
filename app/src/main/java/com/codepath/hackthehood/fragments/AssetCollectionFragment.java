@@ -77,8 +77,8 @@ public class AssetCollectionFragment extends Fragment {
         setupPageCreationListener(btnPage1, "checkPage1");
         setupPageCreationListener(btnPage2,"checkPage2");
         setupPageCreationListener(btnPage3,"checkPage3");
-        setupImgUploadListener(ivHeader, "photo1.jpg", REQUEST_CODE_TAKE_PHOTO_HEADER, REQUEST_CODE_UPLOAD_PHOTO_HEADER);
-        setupImgUploadListener(ivLogo,"photo2.jpg",REQUEST_CODE_TAKE_PHOTO_LOGO,REQUEST_CODE_UPLOAD_PHOTO_LOGO);
+        setupImgUploadListener(ivHeader, "photoHeader.jpg", REQUEST_CODE_TAKE_PHOTO_HEADER, REQUEST_CODE_UPLOAD_PHOTO_HEADER);
+        setupImgUploadListener(ivLogo,"photoLogo.jpg",REQUEST_CODE_TAKE_PHOTO_LOGO,REQUEST_CODE_UPLOAD_PHOTO_LOGO);
         return v;
     }
 
@@ -219,10 +219,10 @@ public class AssetCollectionFragment extends Fragment {
             }
         }
         else if (requestCode == REQUEST_CODE_TAKE_PHOTO_HEADER) {
-                getCapturedPhoto("photo1.jpg",resultCode,ivHeader);
+                getCapturedPhoto("photoHeader.jpg",resultCode,ivHeader);
         }
         else if (requestCode == REQUEST_CODE_TAKE_PHOTO_LOGO) {
-                getCapturedPhoto("photo2.jpg",resultCode,ivLogo);
+                getCapturedPhoto("photoLogo.jpg",resultCode,ivLogo);
         }
         else if (requestCode == REQUEST_CODE_UPLOAD_PHOTO_HEADER && resultCode == getActivity().RESULT_OK) {
             getPickedFromGallery(data,ivHeader);
