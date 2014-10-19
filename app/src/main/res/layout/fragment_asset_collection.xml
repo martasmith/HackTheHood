@@ -74,21 +74,13 @@
         android:layout_toRightOf="@+id/imgLogo"
         android:src="@drawable/upload_header" />
 
-    <ImageView
-        android:id="@+id/imgMore"
-        android:layout_width="85dp"
-        android:layout_height="85dp"
-        android:layout_alignBottom="@+id/imgLogo"
-        android:layout_toRightOf="@+id/imgHeader"
-        android:src="@drawable/upload_more" />
-
     <LinearLayout
         android:id="@+id/llPage1Btn"
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
         android:gravity = "center_horizontal"
         android:orientation="horizontal"
-        android:layout_below="@id/imgMore"
+        android:layout_below="@id/imgHeader"
         android:weightSum="1.0">
 
         <Button
