@@ -1,48 +1,34 @@
 package com.codepath.hackthehood.fragments;
 
-import java.io.File;
-import java.io.IOException;
-
-import android.app.Activity;
-import android.util.Log;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Spinner;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.os.Environment;
-import android.provider.MediaStore;
+
 import com.codepath.hackthehood.R;
-import com.codepath.hackthehood.activities.AssetCollectionActivity;
 import com.codepath.hackthehood.activities.WebpageCollectionActivity;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link AssetCollectionFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link AssetCollectionFragment#newInstance} factory method to
- * create an instance of this fragment.
- *
- */
+import java.io.File;
+import java.io.IOException;
+
+
 public class AssetCollectionFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+
     private final int REQUEST_CODE_WEB_CONTENT = 10;
     private final int REQUEST_CODE_TAKE_PHOTO_HEADER = 20;
     private final int REQUEST_CODE_TAKE_PHOTO_LOGO = 21;
@@ -52,37 +38,15 @@ public class AssetCollectionFragment extends Fragment {
     private final int REQUEST_CODE_UPLOAD_PHOTO_MORE = 32;
     public final String APP_TAG = "HTH_app";
 
-
-    private String mParam1;
-    private String mParam2;
     private String title, tickImgName;
     private EditText etFacebookLink, etYelpLink, etTwitterLink, etInstagramLink;
     private Spinner sprBusinessType;
     private ImageView ivHeader, ivLogo, ivMore, checkPage1,checkPage2,checkPage3;
     private Button btnPage1,btnPage2,btnPage3, btnSubmit;
     private PopupMenu popup;
-    public String photoFileName = "photo.jpg";
+    //public String photoFileName;
 
 
-    //private OnFragmentInteractionListener mListener;
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AssetCollectionFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AssetCollectionFragment newInstance(String param1, String param2) {
-        AssetCollectionFragment fragment = new AssetCollectionFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
     public AssetCollectionFragment() {
         // Required empty public constructor
     }
@@ -90,17 +54,11 @@ public class AssetCollectionFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_asset_collection, container, false);
         View v = inflater.inflate(R.layout.fragment_asset_collection, container, false);
         sprBusinessType = (Spinner) v.findViewById(R.id.sprBusinessType);
         etFacebookLink = (EditText) v.findViewById(R.id.etFacebookLink);
@@ -121,10 +79,9 @@ public class AssetCollectionFragment extends Fragment {
         setupPageCreationListener(btnPage1,"checkPage1");
         setupPageCreationListener(btnPage2,"checkPage2");
         setupPageCreationListener(btnPage3,"checkPage3");
-
-        setupImgUploadListener(ivHeader,REQUEST_CODE_TAKE_PHOTO_HEADER,REQUEST_CODE_UPLOAD_PHOTO_HEADER);
-        setupImgUploadListener(ivLogo,REQUEST_CODE_TAKE_PHOTO_LOGO,REQUEST_CODE_UPLOAD_PHOTO_LOGO);
-        setupImgUploadListener(ivMore,REQUEST_CODE_TAKE_PHOTO_MORE,REQUEST_CODE_UPLOAD_PHOTO_MORE);
+        setupImgUploadListener(ivHeader,"photo1.jpg",REQUEST_CODE_TAKE_PHOTO_HEADER,REQUEST_CODE_UPLOAD_PHOTO_HEADER);
+        setupImgUploadListener(ivLogo,"photo2.jpg",REQUEST_CODE_TAKE_PHOTO_LOGO,REQUEST_CODE_UPLOAD_PHOTO_LOGO);
+        setupImgUploadListener(ivMore,"photo3.jpg",REQUEST_CODE_TAKE_PHOTO_MORE,REQUEST_CODE_UPLOAD_PHOTO_MORE);
         return v;
     }
 
@@ -152,7 +109,7 @@ public class AssetCollectionFragment extends Fragment {
         });
     }
 
-    private void setupImgUploadListener(final ImageView img, final int cameraRequestCode, final int galleryRequestCode) {
+    private void setupImgUploadListener(final ImageView img, final String photoFileName, final int cameraRequestCode, final int galleryRequestCode) {
         img.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -170,27 +127,27 @@ public class AssetCollectionFragment extends Fragment {
                      switch (item.getItemId()) {
                          case R.id.takePhoto:
                          {
-                             capturePhoto(cameraRequestCode);
+                             capturePhoto(photoFileName,cameraRequestCode);
                          }
                          break;
                          case R.id.useExisting:
                          {
-                             pickFromGallery(galleryRequestCode);
+                             pickFromGallery(photoFileName, galleryRequestCode);
                          }
                          break;
                      }
-
                      return true;
                     }
                 });
 
                 popup.show();//showing popup menu
+
             }
-        });//closing the setOnClickListener method
+        });//closing the setOnClickListener method,
 
     }
 
-    private void capturePhoto(int requestCode) {
+    private void capturePhoto(String photoFileName, int requestCode) {
         // create Intent to take a picture and return control to the calling application
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, getPhotoFileUri(photoFileName)); // set the image file name
@@ -198,7 +155,7 @@ public class AssetCollectionFragment extends Fragment {
         startActivityForResult(intent, requestCode);
     }
 
-    private void getCapturedPhoto(int resultCode, ImageView img) {
+    private void getCapturedPhoto(String photoFileName, int resultCode, ImageView img) {
         if (resultCode == getActivity().RESULT_OK) {
             //extract photo that was just taken by the camera
             Uri takenPhotoUri = getPhotoFileUri(photoFileName);
@@ -206,12 +163,13 @@ public class AssetCollectionFragment extends Fragment {
             Bitmap takenImage = BitmapFactory.decodeFile(takenPhotoUri.getPath());
             // Load the taken image into a preview
             img.setImageBitmap(takenImage);
-        } else { // Result was a failure
+        } else {
+            // Result was a failure
             Toast.makeText(getActivity(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void pickFromGallery(int requestCode) {
+    private void pickFromGallery(String photoFileName, int requestCode) {
         // Create intent for picking a photo from the gallery
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         // Bring up gallery to select a photo
@@ -251,13 +209,13 @@ public class AssetCollectionFragment extends Fragment {
             }
         }
         else if (requestCode == REQUEST_CODE_TAKE_PHOTO_HEADER) {
-                getCapturedPhoto(resultCode,ivHeader);
+                getCapturedPhoto("photo1.jpg",resultCode,ivHeader);
         }
         else if (requestCode == REQUEST_CODE_TAKE_PHOTO_LOGO) {
-                getCapturedPhoto(resultCode,ivLogo);
+                getCapturedPhoto("photo2.jpg",resultCode,ivLogo);
         }
         else if (requestCode == REQUEST_CODE_TAKE_PHOTO_MORE) {
-                getCapturedPhoto(resultCode,ivMore);
+                getCapturedPhoto("photo3.jpg",resultCode,ivMore);
         }
         else if (requestCode == REQUEST_CODE_UPLOAD_PHOTO_HEADER && resultCode == getActivity().RESULT_OK) {
             getPickedFromGallery(data,ivHeader);
@@ -286,48 +244,4 @@ public class AssetCollectionFragment extends Fragment {
         return Uri.fromFile(new File(mediaStorageDir.getPath() + File.separator + fileName));
     }
 
-    /*
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-    */
-
-
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    /*
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
-    }
-    */
 }

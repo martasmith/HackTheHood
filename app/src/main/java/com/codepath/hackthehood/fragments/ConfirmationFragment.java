@@ -77,8 +77,8 @@ public class ConfirmationFragment extends Fragment {
         //User.ApplicationStatus applicationStatus = user.getApplicationStatus();
 
         //hard-coded manual testing of all use-cases
-        //String applicationStatus = "ACCEPTED";
-        String applicationStatus = "PENDING_REVIEW";
+        String applicationStatus = "ACCEPTED";
+        //String applicationStatus = "PENDING_REVIEW";
         //String applicationStatus = "DECLINED";
         //String applicationStatus = "SITE_COMPLETED";
 

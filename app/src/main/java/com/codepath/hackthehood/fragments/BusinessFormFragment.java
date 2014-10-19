@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.activities.ConfirmationActivity;
@@ -22,7 +21,6 @@ import com.parse.ParseUser;
 
 public class BusinessFormFragment extends Fragment {
 
-    private TextView tvBformTime, tvBusinessInfo, tvContactInfo;
     private EditText etBusinessName, etBusinessStreet, etBusinessCity, etBusinessZip,
                      etBusinessPhone,etContactName,etContactPhone,etContactEmail;
     private MultiSelectionSpinner sprOnlinePresence;
@@ -126,7 +124,6 @@ public class BusinessFormFragment extends Fragment {
 
             return true;
         }
-
 
     }
 
