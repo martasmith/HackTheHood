@@ -37,10 +37,10 @@
 
     <ImageView
         android:id="@+id/ivStatus"
-        android:layout_width="300dp"
-        android:layout_height="350dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:src="@drawable/ic_approved"
-        android:layout_below="@+id/btnShare"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -50,13 +50,17 @@
         android:layout_below="@+id/ivStatus"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/tv_status_default" />
+
     <Button
         android:id="@+id/btnToAssets"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/btn_to_assets"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/tvConfStatus"
         android:visibility="gone"
         android:layout_alignLeft="@+id/ivStatus"
         android:layout_alignStart="@+id/ivStatus" />
