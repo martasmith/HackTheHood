@@ -20,12 +20,14 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.codepath.hackthehood.R;
+import com.codepath.hackthehood.models.ImageResource;
 import com.codepath.hackthehood.models.User;
 import com.codepath.hackthehood.models.WebsitePage;
 import com.parse.ParseUser;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 
 public class WebpageCollectionFragment extends Fragment {
@@ -118,17 +120,16 @@ public class WebpageCollectionFragment extends Fragment {
         pageText = etPageText.getText().toString();
         designerNotes = etDesignerNotes.getText().toString();
 
-        //get current user
-        User user = (User) ParseUser.getCurrentUser();
-
         if (page != null) {
             page.setNotes(designerNotes);
             page.setTitle(title);
             page.setText(pageText);
             page.setNotes(designerNotes);
-            page.getImageResources().get(0).setBitmap(photo1Bitmap,null);
-            page.getImageResources().get(1).setBitmap(photo2Bitmap,null);
-            page.getImageResources().get(2).setBitmap(photo2Bitmap,null);
+            List<ImageResource> imageResources = page.getImageResources();
+            int num = imageResources.size();
+            imageResources.get(0).setBitmap(photo1Bitmap,null);
+            imageResources.get(1).setBitmap(photo2Bitmap,null);
+            imageResources.get(2).setBitmap(photo2Bitmap,null);
 
             try {
                 page.save();
