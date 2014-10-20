@@ -51,6 +51,7 @@ public class BusinessFormActivity extends FragmentActivity {
     }
 
     public void changeUser(MenuItem menuItem) {
+        businessFormFragment.storeCurrentForm();
         ParseUser.logOut();
         startActivity(new Intent(this, PitchDeckActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }

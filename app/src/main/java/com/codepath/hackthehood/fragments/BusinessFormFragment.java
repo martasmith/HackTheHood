@@ -36,9 +36,13 @@ public class BusinessFormFragment extends Fragment {
 
     @Override
     public void onPause() {
+        storeCurrentForm();
+        super.onPause();
+    }
+
+    public void storeCurrentForm() {
         readBusinessForm();
         setAllFields();
-        super.onPause();
     }
 
     @Override
@@ -106,7 +110,6 @@ public class BusinessFormFragment extends Fragment {
         contactName = etContactName.getText().toString();
         contactPhone = etContactPhone.getText().toString();
         contactEmail = etContactEmail.getText().toString();
-
     }
 
     private boolean submitBusinessForm() {
@@ -138,6 +141,7 @@ public class BusinessFormFragment extends Fragment {
     private void setAllFields() {
         //get current user
         User user = (User) ParseUser.getCurrentUser();
+        if(user == null) return;
 
         //set  Parse user values
         user.setFullName(contactName);
