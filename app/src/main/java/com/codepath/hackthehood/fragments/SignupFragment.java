@@ -84,7 +84,9 @@ public class SignupFragment extends android.support.v4.app.Fragment {
                                 @Override
                                 public void done(ParseException e) {
                                     if (e == null) {
-                                        user.saveEventually();
+                                        try {
+                                            user.save();
+                                        } catch (Exception ec) {}
                                         startActivity(new Intent(getActivity(), BusinessFormActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                                     } else {
                                         showException(e);

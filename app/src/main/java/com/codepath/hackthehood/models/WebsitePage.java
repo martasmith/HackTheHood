@@ -13,18 +13,18 @@ public class WebsitePage extends NullForNothingParseObject {
 
     public WebsitePage() {}
 
-    private void addImageResource(final SaveCallback saveCallback, final ArrayList<PageResource> pageResources) {
+    private PageResource addImageResource(final SaveCallback saveCallback) {
         final PageResource pageResource = new PageResource();
         pageResource.addImageResource(new SaveCallback() {
             @Override
             public void done(ParseException e) {
                 if (e == null) {
-                    pageResources.add(pageResource);
                     pageResource.saveInBackground(saveCallback);
                 } else
                     saveCallback.done(e);
             }
         });
+        return pageResource;
     }
 
     public void addDefaultImageResources(final SaveCallback saveCallback) {
@@ -57,9 +57,9 @@ public class WebsitePage extends NullForNothingParseObject {
                 }
             }
         };
-        addImageResource(saveCallback, new ArrayList<PageResource>());
-        addImageResource(saveCallback, new ArrayList<PageResource>());
-        addImageResource(saveCallback, new ArrayList<PageResource>());
+        pageResources.add(addImageResource(saveCallback));
+        pageResources.add(addImageResource(saveCallback));
+        pageResources.add(addImageResource(saveCallback));
     }
 
     /*

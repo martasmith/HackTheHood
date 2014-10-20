@@ -35,7 +35,7 @@ public class Website extends NullForNothingParseObject {
             ImageResource header
      */
 
-    private void addPage(final SaveCallback callback, final ArrayList<WebsitePage> websites) {
+    private WebsitePage addPage(final SaveCallback callback) {
         final WebsitePage newPage = new WebsitePage();
         newPage.addDefaultImageResources(
                 new SaveCallback() {
@@ -45,15 +45,15 @@ public class Website extends NullForNothingParseObject {
                            callback.done(e);
                            return;
                         } else {
-                            websites.add(newPage);
                             newPage.saveInBackground(callback);
                         }
                         }
                     });
+        return newPage;
     }
 
     public void addStandardPagesAndFields(final SaveCallback saveCallback) {
-        final ArrayList<WebsitePage> websites = new ArrayList<WebsitePage>();
+        final ArrayList<WebsitePage> websitePages = new ArrayList<WebsitePage>();
         final ImageResource logo = new ImageResource();
         final ImageResource header = new ImageResource();
         final Address address = new Address();
@@ -78,7 +78,7 @@ public class Website extends NullForNothingParseObject {
                 if(callbacksRemaining == 0) {
                     hasPosted = true;
 
-                    setWebsitePages(websites);
+                    setWebsitePages(websitePages);
                     setHeader(header);
                     setLogo(logo);
                     setAddress(address);
@@ -88,9 +88,9 @@ public class Website extends NullForNothingParseObject {
                 }
             }
         };
-        addPage(scaffoldingCallback, websites);
-        addPage(scaffoldingCallback, websites);
-        addPage(scaffoldingCallback, websites);
+        websitePages.add(addPage(scaffoldingCallback));
+        websitePages.add(addPage(scaffoldingCallback));
+        websitePages.add(addPage(scaffoldingCallback));
         logo.saveInBackground(scaffoldingCallback);
         header.saveInBackground(scaffoldingCallback);
         address.saveInBackground(scaffoldingCallback);
