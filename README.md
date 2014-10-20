@@ -10,6 +10,12 @@ Problems the charity faces are:
 ## A pitch deck is shown; users can sign up or log in if previously signed up
 ![Pitch deck, sign up and log in walkthrough](images/PitchDeckSignupLogin.gif)
 
+## User can submit their application to join the programme
+![Application walkthrough](images/Application.gif)
+
+## User can share their status
+![Sharing walkthrough](images/Sharing.gif)
+
 # User Stories
 * charity employees can add businesses to the program;
 * businesses can see the current status of their site;
