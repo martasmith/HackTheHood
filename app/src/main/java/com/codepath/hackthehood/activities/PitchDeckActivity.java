@@ -66,10 +66,4 @@ public class PitchDeckActivity extends FragmentActivity {
         Intent i = new Intent(PitchDeckActivity.this, LoginSignupActivity.class);
         startActivity(i);
     }
-
-    public void businessFormBtnClicked(View view) {
-        // Open BusinessForm activity
-        Intent i = new Intent(PitchDeckActivity.this, ConfirmationActivity.class);
-        startActivity(i);
-    }
 }

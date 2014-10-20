@@ -133,6 +133,9 @@ public class BusinessFormFragment extends Fragment {
             return false;
         } else {
 
+            User user = (User) ParseUser.getCurrentUser();
+            user.setApplicationStatus(User.APPSTATUS_PENDING_REVIEW);
+
             setAllFields();
             return true;
         }
@@ -169,6 +172,11 @@ public class BusinessFormFragment extends Fragment {
     private void getAllFields() {
         //get current user
         User user = (User) ParseUser.getCurrentUser();
+        try {
+            user.fetch();
+        } catch (ParseException e) {
+            return;
+        }
 
         //set  Parse user values
         contactName = user.getFullName();
@@ -178,7 +186,7 @@ public class BusinessFormFragment extends Fragment {
         //set website values
         Website website = user.getWebsite();
         try {
-            website.fetchIfNeeded();
+            website.fetch();
         } catch (ParseException e) {
             return;
         }
@@ -188,6 +196,11 @@ public class BusinessFormFragment extends Fragment {
 
         //set business address
         Address businessAddress = website.getAddress();
+        try {
+            businessAddress.fetch();
+        } catch (ParseException e) {
+            return;
+        }
         businessStreet = businessAddress.getStreetAddress();
         businessCity = businessAddress.getCity();
         businessZip = businessAddress.getPostalCode();

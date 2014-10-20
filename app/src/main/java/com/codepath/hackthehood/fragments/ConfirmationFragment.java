@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.activities.AssetCollectionActivity;
 import com.codepath.hackthehood.models.User;
+import com.parse.ParseException;
 import com.parse.ParseUser;
 
 
@@ -56,6 +57,11 @@ public class ConfirmationFragment extends Fragment {
     private void adaptViewToCurrentStatus() {
         //get current user
         User user = (User) ParseUser.getCurrentUser();
+        try {
+            user.fetch();
+        } catch (ParseException e) {
+            return;
+        }
         int imageResource = R.drawable.ic_success;
         int applicationStatus = user.getApplicationStatus();
         

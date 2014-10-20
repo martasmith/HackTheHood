@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.fragments.BusinessFormFragment;
+import com.codepath.hackthehood.models.User;
 import com.parse.ParseUser;
 
 public class BusinessFormActivity extends FragmentActivity {
@@ -28,6 +29,19 @@ public class BusinessFormActivity extends FragmentActivity {
         businessFormFragment = new BusinessFormFragment();
         ft.replace(R.id.flBusinessForm, businessFormFragment);
         ft.commit();
+
+        // check whether we should be skipping ahead
+        User user = (User) ParseUser.getCurrentUser();
+        switch(user.getApplicationStatus()) {
+            case User.APPSTATUS_ACCEPTED:
+                startActivity(new Intent(this, AssetCollectionActivity.class));
+            break;
+            case User.APPSTATUS_STARTED:
+            break;
+            default:
+                startActivity(new Intent(this, ConfirmationActivity.class));
+            break;
+        }
     }
 
     @Override

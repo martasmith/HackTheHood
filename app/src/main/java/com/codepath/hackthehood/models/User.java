@@ -44,7 +44,7 @@ public class User extends ParseUser {
                         public void done(ParseException e) {
                             if (e == null) {
                                 thisUser.setWebsite(newWebsite);
-                                thisUser.setApplicationStatus(User.APPSTATUS_PENDING_REVIEW);
+                                thisUser.setApplicationStatus(User.APPSTATUS_STARTED);
                             }
 
                             if (saveCallback != null)
@@ -82,6 +82,7 @@ public class User extends ParseUser {
     }
 
     public final static int APPSTATUS_PENDING_REVIEW = 1;
+    public final static int APPSTATUS_STARTED = 1;
     public final static int APPSTATUS_ACCEPTED = 2;
     public final static int APPSTATUS_DECLINED = 3;
     public final static int APPSTATUS_ASSETS_SUBMITTED = 4;
