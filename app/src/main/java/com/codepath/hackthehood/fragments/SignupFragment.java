@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.codepath.hackthehood.R;
@@ -19,6 +20,7 @@ import com.parse.SignUpCallback;
 public class SignupFragment extends android.support.v4.app.Fragment {
 
     private EditText etEmail, etEmailConfirmation, etPassword;
+    private ProgressBar pbLoading;
 
     public SignupFragment() {
         // Required empty public constructor
@@ -40,25 +42,30 @@ public class SignupFragment extends android.support.v4.app.Fragment {
         etEmail = (EditText)view.findViewById(R.id.etEmail);
         etEmailConfirmation = (EditText)view.findViewById(R.id.etEmailConfirmation);
         etPassword = (EditText)view.findViewById(R.id.etPassword);
+        pbLoading = (ProgressBar)view.findViewById(R.id.pbLoading);
 
         // hook up to capture presses on the sign-up button
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                signUp();
+                signUp((Button)view);
             }
         });
 
         return view;
     }
 
-    private void signUp() {
+    private void signUp(final Button button) {
         // validate email
         String emailAddress = etEmail.getText().toString();
         if(!emailAddress.equals(etEmailConfirmation.getText().toString())) {
             Toast.makeText(getActivity(), "E-mail addresses don't match", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        // disable button, enable spinner
+        button.setEnabled(false);
+        pbLoading.setVisibility(View.VISIBLE);
 
         final User user = new User();
         user.setUsername(emailAddress);
@@ -70,6 +77,8 @@ public class SignupFragment extends android.support.v4.app.Fragment {
                     public void done(ParseException e) {
                         if (e != null) {
                             showException(e);
+                            button.setEnabled(true);
+                            pbLoading.setVisibility(View.INVISIBLE);
                         } else {
                             user.addDefaultWebsite(new SaveCallback() {
                                 @Override
