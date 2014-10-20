@@ -16,6 +16,9 @@ Problems the charity faces are:
 ## User can share their status
 ![Sharing walkthrough](images/Sharing.gif)
 
+## User can add data for a single page of their web site
+![Sharing walkthrough](images/EnterSinglePageOfData.gif)
+
 # User Stories
 * charity employees can add businesses to the program;
 * businesses can see the current status of their site;
