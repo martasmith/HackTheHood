@@ -121,15 +121,6 @@ public class WebpageCollectionFragment extends Fragment {
         //get current user
         User user = (User) ParseUser.getCurrentUser();
 
-        // set  current website page based on image icon name - safer than page name, as that can change more so than a var name.
-        if (tickImgName.equals("checkPage1")) {
-            page = user.getWebsite().getWebsitePages().get(0);
-        } else if (tickImgName.equals("checkPage2")) {
-            page = user.getWebsite().getWebsitePages().get(1);
-        } else if (tickImgName.equals("checkPage3")){
-            page = user.getWebsite().getWebsitePages().get(2);
-        }
-
         if (page != null) {
             page.setNotes(designerNotes);
             page.setTitle(title);
