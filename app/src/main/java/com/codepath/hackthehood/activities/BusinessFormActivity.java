@@ -32,6 +32,9 @@ public class BusinessFormActivity extends FragmentActivity {
 
         // check whether we should be skipping ahead
         User user = (User) ParseUser.getCurrentUser();
+        try {
+            user.fetch();
+        } catch (Exception e) {}
         switch(user.getApplicationStatus()) {
             case User.APPSTATUS_ACCEPTED:
                 startActivity(new Intent(this, AssetCollectionActivity.class));
