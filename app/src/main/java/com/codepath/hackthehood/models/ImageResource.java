@@ -28,7 +28,7 @@ public class ImageResource extends NullForNothingParseObject {
     private int setCount = 0;
     public void setBitmap(final Bitmap bitmap, final SaveCallback saveCallback) {
         if(bitmap == null) {
-            this.put(bitmapKey, null);
+            this.remove(bitmapKey);
             return;
         }
 

@@ -107,6 +107,9 @@ public class WebsitePage extends NullForNothingParseObject {
         List<PageResource> pageResources = getPageResources();
         ArrayList<ImageResource> imageResources = new ArrayList<ImageResource>();
         for(PageResource pageResource : pageResources) {
+            try {
+                pageResource.fetch();
+            } catch(Exception e) {}
             ImageResource imageResource = pageResource.getImageResource();
             if(imageResource != null)
                 imageResources.add(imageResource);
