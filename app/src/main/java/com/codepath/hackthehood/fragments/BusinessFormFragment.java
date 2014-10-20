@@ -16,6 +16,7 @@ import com.codepath.hackthehood.models.Address;
 import com.codepath.hackthehood.models.User;
 import com.codepath.hackthehood.models.Website;
 import com.codepath.hackthehood.util.MultiSelectionSpinner;
+import com.parse.ParseException;
 import com.parse.ParseUser;
 
 
@@ -35,8 +36,9 @@ public class BusinessFormFragment extends Fragment {
 
     @Override
     public void onPause() {
-        super.onPause();
+        readBusinessForm();
         setAllFields();
+        super.onPause();
     }
 
     @Override
@@ -65,7 +67,7 @@ public class BusinessFormFragment extends Fragment {
         setupSubmitListener();
 
         getAllFields();
-        populateBusinessForm();
+        writeBusinessForm();
 
         return v;
     }
@@ -82,7 +84,7 @@ public class BusinessFormFragment extends Fragment {
         });
     }
 
-    private void populateBusinessForm() {
+    private void writeBusinessForm() {
         etBusinessName.setText(businessName);
         etBusinessStreet.setText(businessStreet);
         etBusinessCity.setText(businessCity);
@@ -94,7 +96,7 @@ public class BusinessFormFragment extends Fragment {
         etContactEmail.setText(contactEmail);
     }
 
-    private boolean submitBusinessForm() {
+    private void readBusinessForm() {
         businessName = etBusinessName.getText().toString();
         businessStreet = etBusinessStreet.getText().toString();
         businessCity = etBusinessCity.getText().toString();
@@ -104,6 +106,12 @@ public class BusinessFormFragment extends Fragment {
         contactName = etContactName.getText().toString();
         contactPhone = etContactPhone.getText().toString();
         contactEmail = etContactEmail.getText().toString();
+
+    }
+
+    private boolean submitBusinessForm() {
+
+        readBusinessForm();
 
         if (businessName.isEmpty()) {
             Toast.makeText(getActivity(), "Business name is required", Toast.LENGTH_LONG).show();
@@ -163,6 +171,11 @@ public class BusinessFormFragment extends Fragment {
 
         //set website values
         Website website = user.getWebsite();
+        try {
+            website.fetchIfNeeded();
+        } catch (ParseException e) {
+            return;
+        }
         businessName = website.getBusinessName();
         businessPhone = website.getPhoneNumber();
         onlinePresence = website.getOnlinePresenceType();

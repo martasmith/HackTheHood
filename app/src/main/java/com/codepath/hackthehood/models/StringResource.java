@@ -7,7 +7,7 @@ import com.parse.ParseObject;
  * Created by thomasharte on 12/10/2014.
  */
 @ParseClassName("StringResource")
-public class StringResource extends ParseObject {
+public class StringResource extends NullForNothingParseObject {
 
     public StringResource() {}
 

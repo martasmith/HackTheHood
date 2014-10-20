@@ -13,7 +13,7 @@ import com.parse.SaveCallback;
 import java.io.ByteArrayOutputStream;
 
 @ParseClassName("ImageResource")
-public class ImageResource extends ParseObject {
+public class ImageResource extends NullForNothingParseObject {
 
     public ImageResource() {}
 
@@ -65,6 +65,6 @@ public class ImageResource extends ParseObject {
     }
     public String getBitmapUrl() {
         ParseFile file = (ParseFile)get(bitmapKey);
-        return file.getUrl();
+        return (file != null) ? file.getUrl() : null;
     }
 }

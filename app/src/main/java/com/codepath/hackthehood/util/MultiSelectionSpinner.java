@@ -189,6 +189,13 @@ public class MultiSelectionSpinner extends Spinner implements
     // Tom's note: this is a horrid O(n^2) implementation owing to my poor Java knowledge;
     // it'll have to do for today
     public void setSelectedItemsAsString(String string) {
+        if(string == null) {
+            for (int i = 0; i < _items.length; ++i) {
+                mSelection[i] = false;
+            }
+            return;
+        }
+
         String[] items = string.split(", ");
 
         for (int i = 0; i < _items.length; ++i) {

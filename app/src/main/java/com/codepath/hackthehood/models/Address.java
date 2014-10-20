@@ -8,7 +8,7 @@ import com.parse.ParseObject;
  */
 
 @ParseClassName("Address")
-public class Address extends ParseObject {
+public class Address extends NullForNothingParseObject {
 
     public Address() {}
 

@@ -12,7 +12,7 @@ import java.util.List;
  * Created by thomasharte on 12/10/2014.
  */
 @ParseClassName("Website")
-public class Website extends ParseObject {
+public class Website extends NullForNothingParseObject {
 
     public Website() {}
 

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ParseClassName("WebsitePage")
-public class WebsitePage extends ParseObject {
+public class WebsitePage extends NullForNothingParseObject {
 
     public WebsitePage() {}
 

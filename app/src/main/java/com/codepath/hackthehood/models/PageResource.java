@@ -9,7 +9,7 @@ import com.parse.SaveCallback;
  * Created by thomasharte on 12/10/2014.
  */
 @ParseClassName("PageResource")
-public class PageResource extends ParseObject {
+public class PageResource extends NullForNothingParseObject {
 
     public PageResource() {}
 
