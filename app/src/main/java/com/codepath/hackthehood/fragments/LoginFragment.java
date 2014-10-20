@@ -37,6 +37,7 @@ public class LoginFragment extends android.support.v4.app.Fragment {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
         final Button btnLogin = (Button)view.findViewById(R.id.btnLogin);
+        final Button btnForgottenPassword = (Button)view.findViewById(R.id.btnForgottenPassword);
         final EditText etEmail = (EditText)view.findViewById(R.id.etEmail);
         final EditText etPassword = (EditText)view.findViewById(R.id.etPassword);
 
@@ -58,6 +59,15 @@ public class LoginFragment extends android.support.v4.app.Fragment {
                     }
                 });
 
+            }
+        });
+
+        btnForgottenPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String emailAddress = etEmail.getText().toString();
+                ParseUser.requestPasswordResetInBackground(emailAddress);
+                Toast.makeText(getActivity(), "A password reset email has been sent to " + emailAddress, Toast.LENGTH_SHORT).show();
             }
         });
 
