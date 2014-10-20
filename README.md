@@ -17,7 +17,10 @@ Problems the charity faces are:
 ![Sharing walkthrough](images/Sharing.gif)
 
 ## User can add data for a single page of their web site
-![Sharing walkthrough](images/EnterSinglePageOfData.gif)
+![Single page submission walkthrough](images/EnterSinglePageOfData.gif)
+
+## User can submit whole business
+![Full business submission walkthrough](images/SubmitWholeBusiness.gif)
 
 # User Stories
 * charity employees can add businesses to the program;
