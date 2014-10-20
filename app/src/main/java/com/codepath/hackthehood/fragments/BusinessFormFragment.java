@@ -33,6 +33,12 @@ public class BusinessFormFragment extends Fragment {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        submitBusinessForm();
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
@@ -104,23 +110,21 @@ public class BusinessFormFragment extends Fragment {
             user.setFullName(contactName);
             user.setEmail(contactEmail);
             user.setPhoneNumber(contactPhone);
-            //user.setApplicationStatus(User.ApplicationStatus.PENDING_REVIEW);
             user.saveEventually();
-
-            //set business address
-            Address businessAddress = new Address();
-            businessAddress.setStreetAddress(businessStreet);
-            businessAddress.setCity(businessCity);
-            businessAddress.setPostalCode(businessZip);
-            businessAddress.saveEventually();
 
             //set website values
             Website website = user.getWebsite();
             website.setBusinessName(businessName);
-            website.setAddress(businessAddress);
             website.setPhoneNumber(businessPhone);
             website.setOnlinePresenceType(onlinePresence);
             website.saveEventually();
+
+            //set business address
+            Address businessAddress = website.getAddress();
+            businessAddress.setStreetAddress(businessStreet);
+            businessAddress.setCity(businessCity);
+            businessAddress.setPostalCode(businessZip);
+            businessAddress.saveEventually();
 
             return true;
         }
