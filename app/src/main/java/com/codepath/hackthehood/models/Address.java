@@ -20,7 +20,7 @@ public class Address extends NullForNothingParseObject {
             String postalCode
      */
 
-    private final String streetAddressKey = "streetAddress";
+    private final static String streetAddressKey = "streetAddress";
     public void setStreetAddress(String streetAddress) {
         put(streetAddressKey, streetAddress);
     }
@@ -28,7 +28,7 @@ public class Address extends NullForNothingParseObject {
         return getString(streetAddressKey);
     }
 
-    private final String cityKey = "city";
+    private final static String cityKey = "city";
     public void setCity(String city) {
         put(cityKey, city);
     }
@@ -36,7 +36,7 @@ public class Address extends NullForNothingParseObject {
         return getString(cityKey);
     }
 
-    private final String postalCodeKey = "postalCode";
+    private final static String postalCodeKey = "postalCode";
     public void setPostalCode(String postalCode) {
         put(postalCodeKey, postalCode);
     }

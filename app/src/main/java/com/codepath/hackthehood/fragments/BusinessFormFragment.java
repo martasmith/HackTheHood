@@ -147,21 +147,23 @@ public class BusinessFormFragment extends Fragment {
         user.setFullName(contactName);
         user.setEmail(contactEmail);
         user.setPhoneNumber(contactPhone);
-        user.saveEventually();
 
         //set website values
         Website website = user.getWebsite();
         website.setBusinessName(businessName);
         website.setPhoneNumber(businessPhone);
         website.setOnlinePresenceType(onlinePresence);
-        website.saveEventually();
 
         //set business address
         Address businessAddress = website.getAddress();
         businessAddress.setStreetAddress(businessStreet);
         businessAddress.setCity(businessCity);
         businessAddress.setPostalCode(businessZip);
-        businessAddress.saveEventually();
+        try {
+            businessAddress.save();
+            website.save();
+            user.save();
+        } catch (Exception e) {}
     }
 
     private void getAllFields() {
