@@ -185,4 +185,20 @@ public class MultiSelectionSpinner extends Spinner implements
         }
         return sb.toString();
     }
+
+    // Tom's note: this is a horrid O(n^2) implementation owing to my poor Java knowledge;
+    // it'll have to do for today
+    public void setSelectedItemsAsString(String string) {
+        String[] items = string.split(", ");
+
+        for (int i = 0; i < _items.length; ++i) {
+            boolean itemWasFound = false;
+            for(int j = 0; j < items.length; j++) {
+                if(items[j].equals(_items[i]))
+                    itemWasFound = true;
+            }
+
+            mSelection[i] = itemWasFound;
+        }
+    }
 }

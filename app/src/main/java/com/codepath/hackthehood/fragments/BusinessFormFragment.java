@@ -25,6 +25,7 @@ public class BusinessFormFragment extends Fragment {
                      etBusinessPhone,etContactName,etContactPhone,etContactEmail;
     private MultiSelectionSpinner sprOnlinePresence;
     private Button btnSubmitBusinessForm;
+
     private String businessName, businessStreet,businessCity,businessZip,businessPhone,onlinePresence,contactName,contactPhone,contactEmail;
 
 
@@ -35,7 +36,7 @@ public class BusinessFormFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        submitBusinessForm();
+        setAllFields();
     }
 
     @Override
@@ -57,9 +58,15 @@ public class BusinessFormFragment extends Fragment {
         etContactPhone = (EditText) v.findViewById(R.id.etContactPhone);
         etContactEmail = (EditText) v.findViewById(R.id.etContactEmail);
         btnSubmitBusinessForm = (Button)  v.findViewById(R.id.btnSubmit);
+
         String [] spinnerContentArr = {"Website", "Online Store", "Facebook Page","Twitter Account","Google Listing", "Yelp","Other"};
         sprOnlinePresence.setItems(spinnerContentArr);
+
         setupSubmitListener();
+
+        getAllFields();
+        populateBusinessForm();
+
         return v;
     }
 
@@ -73,6 +80,18 @@ public class BusinessFormFragment extends Fragment {
                 }
             }
         });
+    }
+
+    private void populateBusinessForm() {
+        etBusinessName.setText(businessName);
+        etBusinessStreet.setText(businessStreet);
+        etBusinessCity.setText(businessCity);
+        etBusinessZip.setText(businessZip);
+        etBusinessPhone.setText(businessPhone);
+        sprOnlinePresence.setSelectedItemsAsString(onlinePresence);
+        etContactName.setText(contactName);
+        etContactPhone.setText(contactPhone);
+        etContactEmail.setText(contactEmail);
     }
 
     private boolean submitBusinessForm() {
@@ -103,32 +122,56 @@ public class BusinessFormFragment extends Fragment {
             return false;
         } else {
 
-            //get current user
-            User user = (User) ParseUser.getCurrentUser();
-
-            //set  Parse user values
-            user.setFullName(contactName);
-            user.setEmail(contactEmail);
-            user.setPhoneNumber(contactPhone);
-            user.saveEventually();
-
-            //set website values
-            Website website = user.getWebsite();
-            website.setBusinessName(businessName);
-            website.setPhoneNumber(businessPhone);
-            website.setOnlinePresenceType(onlinePresence);
-            website.saveEventually();
-
-            //set business address
-            Address businessAddress = website.getAddress();
-            businessAddress.setStreetAddress(businessStreet);
-            businessAddress.setCity(businessCity);
-            businessAddress.setPostalCode(businessZip);
-            businessAddress.saveEventually();
-
+            setAllFields();
             return true;
         }
+    }
 
+    private void setAllFields() {
+        //get current user
+        User user = (User) ParseUser.getCurrentUser();
+
+        //set  Parse user values
+        user.setFullName(contactName);
+        user.setEmail(contactEmail);
+        user.setPhoneNumber(contactPhone);
+        user.saveEventually();
+
+        //set website values
+        Website website = user.getWebsite();
+        website.setBusinessName(businessName);
+        website.setPhoneNumber(businessPhone);
+        website.setOnlinePresenceType(onlinePresence);
+        website.saveEventually();
+
+        //set business address
+        Address businessAddress = website.getAddress();
+        businessAddress.setStreetAddress(businessStreet);
+        businessAddress.setCity(businessCity);
+        businessAddress.setPostalCode(businessZip);
+        businessAddress.saveEventually();
+    }
+
+    private void getAllFields() {
+        //get current user
+        User user = (User) ParseUser.getCurrentUser();
+
+        //set  Parse user values
+        contactName = user.getFullName();
+        contactEmail = user.getEmail();
+        contactPhone = user.getPhoneNumber();
+
+        //set website values
+        Website website = user.getWebsite();
+        businessName = website.getBusinessName();
+        businessPhone = website.getPhoneNumber();
+        onlinePresence = website.getOnlinePresenceType();
+
+        //set business address
+        Address businessAddress = website.getAddress();
+        businessStreet = businessAddress.getStreetAddress();
+        businessCity = businessAddress.getCity();
+        businessZip = businessAddress.getPostalCode();
     }
 
 }
