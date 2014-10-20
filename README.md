@@ -6,6 +6,10 @@ Problems the charity faces are:
 1. signing up businesses; and
 2. ensuring necessary assets are made available to the student by the businesses.
 
+# Completed User Stories
+## A pitch deck is shown; users can sign up or log in if previously signed up
+![Pitch deck, sign up and log in walkthrough](images/PitchDeckSignupLogin.gif)
+
 # User Stories
 * charity employees can add businesses to the program;
 * businesses can see the current status of their site;
