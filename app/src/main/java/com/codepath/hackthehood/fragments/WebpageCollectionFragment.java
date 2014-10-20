@@ -45,13 +45,15 @@ public class WebpageCollectionFragment extends Fragment {
     private Button btnAddSite;
     private PopupMenu popup;
     private Bitmap photo1Bitmap, photo2Bitmap, photo3Bitmap;
+    private WebsitePage page;
 
 
-    public static WebpageCollectionFragment newInstance(String tickImgName, String title) {
+    public static WebpageCollectionFragment newInstance(String tickImgName, String title, int pageIndex) {
         WebpageCollectionFragment fragment = new WebpageCollectionFragment();
         Bundle args = new Bundle();
         args.putString("tickImgName", tickImgName);
         args.putString("title", title);
+        args.putInt("pageIndex", pageIndex);
         fragment.setArguments(args);
         return fragment;
     }
@@ -65,6 +67,18 @@ public class WebpageCollectionFragment extends Fragment {
         if (getArguments() != null) {
             tickImgName = getArguments().getString("tickImgName");
             title = getArguments().getString("title");
+
+            int pageIndex = getArguments().getInt("pageIndex");
+            User user = (User) ParseUser.getCurrentUser();
+            try {
+                user.fetch();
+                user.getWebsite().fetch();
+            } catch(Exception e) {}
+            page = user.getWebsite().getWebsitePages().get(pageIndex);
+            try {
+                page.fetch();
+            } catch(Exception e) {}
+
         }
     }
 

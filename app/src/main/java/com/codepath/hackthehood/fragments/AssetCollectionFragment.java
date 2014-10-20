@@ -77,15 +77,15 @@ public class AssetCollectionFragment extends Fragment {
         btnSubmit = (Button) v.findViewById(R.id.btnSubmit);
         btnSubmit.setEnabled(false);
         setUpSubmitAssetsListener();
-        setupPageCreationListener(btnPage1, "checkPage1");
-        setupPageCreationListener(btnPage2,"checkPage2");
-        setupPageCreationListener(btnPage3,"checkPage3");
+        setupPageCreationListener(btnPage1, "checkPage1", 0);
+        setupPageCreationListener(btnPage2, "checkPage2", 1);
+        setupPageCreationListener(btnPage3, "checkPage3", 2);
         setupImgUploadListener(ivHeader, "photoHeader.jpg", REQUEST_CODE_TAKE_PHOTO_HEADER, REQUEST_CODE_UPLOAD_PHOTO_HEADER);
         setupImgUploadListener(ivLogo,"photoLogo.jpg",REQUEST_CODE_TAKE_PHOTO_LOGO,REQUEST_CODE_UPLOAD_PHOTO_LOGO);
         return v;
     }
 
-    private void setupPageCreationListener(final Button btn, final String checkPage) {
+    private void setupPageCreationListener(final Button btn, final String checkPage, final int pageIndex) {
         btn.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -94,6 +94,7 @@ public class AssetCollectionFragment extends Fragment {
                 title = btn.getText().toString();
                 i.putExtra("title",title);
                 i.putExtra("tickImgName",checkPage);
+                i.putExtra("pageIndex", pageIndex);
                 startActivityForResult(i, REQUEST_CODE_WEB_CONTENT);
 
             }
