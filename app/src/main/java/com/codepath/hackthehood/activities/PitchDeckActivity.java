@@ -11,7 +11,9 @@ import android.widget.Button;
 
 import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.adapters.SlidePagerAdapter;
+import com.codepath.hackthehood.models.User;
 import com.codepath.hackthehood.util.SlidePageTransformer;
+import com.parse.ParseUser;
 
 /**
  * Created by ravi on 10/06/14.
@@ -20,9 +22,6 @@ public class PitchDeckActivity extends FragmentActivity {
 
     private ViewPager vpSlidePager;
     private SlidePagerAdapter aSlideAdapter;
-
-    private Button btnGetStarted;
-    private Button btnBusinessForm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +34,12 @@ public class PitchDeckActivity extends FragmentActivity {
         vpSlidePager.setAdapter(aSlideAdapter);
         vpSlidePager.setPageTransformer(true, new SlidePageTransformer());
 
-        // Setup CTAs
-        btnGetStarted = (Button) findViewById(R.id.btnGetStarted);
-        btnBusinessForm = (Button) findViewById(R.id.btnBusinessForm);
+        // skip straight to the business form if there's a current user,
+        // pretending that this activity never happened
+        User user = (User) ParseUser.getCurrentUser();
+        if(user != null) {
+            startActivity(new Intent(this, BusinessFormActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+        }
     }
 
     @Override

@@ -20,12 +20,6 @@ public class LoginSignupActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        User user = (User)ParseUser.getCurrentUser();
-        if(user != null) {
-            startActivity(new Intent(LoginSignupActivity.this, BusinessFormActivity.class));
-            return;
-        }
-
         setContentView(R.layout.activity_login_signup);
 
         // establish the login and signup pages within the view pager, via an adaptor, naturally

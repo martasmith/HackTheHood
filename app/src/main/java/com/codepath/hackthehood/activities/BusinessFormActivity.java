@@ -2,6 +2,7 @@ package com.codepath.hackthehood.activities;
 
 import android.app.Activity;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -10,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.fragments.BusinessFormFragment;
+import com.parse.ParseUser;
 
 public class BusinessFormActivity extends FragmentActivity {
 
@@ -46,5 +48,10 @@ public class BusinessFormActivity extends FragmentActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void changeUser(MenuItem menuItem) {
+        ParseUser.logOut();
+        startActivity(new Intent(this, PitchDeckActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
 }

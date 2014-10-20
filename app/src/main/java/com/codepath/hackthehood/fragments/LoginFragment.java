@@ -59,7 +59,7 @@ public class LoginFragment extends android.support.v4.app.Fragment {
                     @Override
                     public void done(ParseUser parseUser, ParseException e) {
                         if(e == null) {
-                            startActivity(new Intent(getActivity(), BusinessFormActivity.class));
+                            startActivity(new Intent(getActivity(), BusinessFormActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                         } else {
                             Toast.makeText(getActivity(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                             btnLogin.setEnabled(true);

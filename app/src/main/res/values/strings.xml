@@ -17,6 +17,7 @@
     <string name="forgottenPassword">I forgot my password</string>
     <string name="confirmEmailHint">Confirm e-mail address</string>
     <string name="signUp">Sign Up</string>
+    <string name="change_user">Log Out</string>
 
     <string-array name="onlinePresence">
         <item>Select current online presence</item>
