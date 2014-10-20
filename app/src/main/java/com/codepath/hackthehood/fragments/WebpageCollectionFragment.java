@@ -121,27 +121,27 @@ public class WebpageCollectionFragment extends Fragment {
         //get current user
         User user = (User) ParseUser.getCurrentUser();
 
-        //initialize current website page
-        WebsitePage currentWebsitePage = null;
-
         // set  current website page based on image icon name - safer than page name, as that can change more so than a var name.
         if (tickImgName.equals("checkPage1")) {
-            currentWebsitePage = user.getWebsite().getWebsitePages().get(0);
+            page = user.getWebsite().getWebsitePages().get(0);
         } else if (tickImgName.equals("checkPage2")) {
-            currentWebsitePage = user.getWebsite().getWebsitePages().get(1);
+            page = user.getWebsite().getWebsitePages().get(1);
         } else if (tickImgName.equals("checkPage3")){
-            currentWebsitePage = user.getWebsite().getWebsitePages().get(2);
+            page = user.getWebsite().getWebsitePages().get(2);
         }
 
-        if (currentWebsitePage != null) {
-            currentWebsitePage.setNotes(designerNotes);
-            currentWebsitePage.setTitle(title);
-            currentWebsitePage.setText(pageText);
-            currentWebsitePage.setNotes(designerNotes);
-            currentWebsitePage.getImageResources().get(0).setBitmap(photo1Bitmap,null);
-            currentWebsitePage.getImageResources().get(1).setBitmap(photo2Bitmap,null);
-            currentWebsitePage.getImageResources().get(2).setBitmap(photo2Bitmap,null);
-            currentWebsitePage.saveEventually();
+        if (page != null) {
+            page.setNotes(designerNotes);
+            page.setTitle(title);
+            page.setText(pageText);
+            page.setNotes(designerNotes);
+            page.getImageResources().get(0).setBitmap(photo1Bitmap,null);
+            page.getImageResources().get(1).setBitmap(photo2Bitmap,null);
+            page.getImageResources().get(2).setBitmap(photo2Bitmap,null);
+
+            try {
+                page.save();
+            } catch(Exception e) {}
         }
     }
 
