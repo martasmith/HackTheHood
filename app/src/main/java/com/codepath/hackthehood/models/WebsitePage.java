@@ -57,9 +57,9 @@ public class WebsitePage extends NullForNothingParseObject {
                 }
             }
         };
-        pageResources.add(addImageResource(saveCallback));
-        pageResources.add(addImageResource(saveCallback));
-        pageResources.add(addImageResource(saveCallback));
+        pageResources.add(addImageResource(scaffoldingCallback));
+        pageResources.add(addImageResource(scaffoldingCallback));
+        pageResources.add(addImageResource(scaffoldingCallback));
     }
 
     /*
