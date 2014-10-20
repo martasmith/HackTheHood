@@ -21,6 +21,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.codepath.hackthehood.R;
+import com.codepath.hackthehood.activities.ConfirmationActivity;
 import com.codepath.hackthehood.activities.WebpageCollectionActivity;
 
 import java.io.File;
@@ -32,19 +33,18 @@ public class AssetCollectionFragment extends Fragment {
     private final int REQUEST_CODE_WEB_CONTENT = 10;
     private final int REQUEST_CODE_TAKE_PHOTO_HEADER = 20;
     private final int REQUEST_CODE_TAKE_PHOTO_LOGO = 21;
-    private final int REQUEST_CODE_TAKE_PHOTO_MORE = 22;
     private final int REQUEST_CODE_UPLOAD_PHOTO_HEADER = 30;
     private final int REQUEST_CODE_UPLOAD_PHOTO_LOGO = 31;
-    private final int REQUEST_CODE_UPLOAD_PHOTO_MORE = 32;
     public final String APP_TAG = "HTH_app";
 
-    private String title, tickImgName;
+    private String title, tickImgName,businessType,facebookLink,yelpLink,twitterLink,instagramLink;
     private EditText etFacebookLink, etYelpLink, etTwitterLink, etInstagramLink;
     private Spinner sprBusinessType;
-    private ImageView ivHeader, ivLogo, ivMore, checkPage1,checkPage2,checkPage3;
+    private ImageView ivHeader, ivLogo,checkPage1,checkPage2,checkPage3;
     private Button btnPage1,btnPage2,btnPage3, btnSubmit;
     private PopupMenu popup;
-    //public String photoFileName;
+
+
 
 
     public AssetCollectionFragment() {
@@ -67,7 +67,6 @@ public class AssetCollectionFragment extends Fragment {
         etInstagramLink = (EditText) v.findViewById(R.id.etInstagramLink);
         ivLogo = (ImageView) v.findViewById(R.id.imgLogo);
         ivHeader = (ImageView) v.findViewById(R.id.imgHeader);
-        ivMore = (ImageView) v.findViewById(R.id.imgMore);
         btnPage1 = (Button) v.findViewById(R.id.btnPage1);
         btnPage2 = (Button) v.findViewById(R.id.btnPage2);
         btnPage3 = (Button) v.findViewById(R.id.btnPage3);
@@ -76,12 +75,11 @@ public class AssetCollectionFragment extends Fragment {
         checkPage3 = (ImageView) v.findViewById(R.id.checkPage3);
         btnSubmit = (Button) v.findViewById(R.id.btnSubmit);
         setUpSubmitAssetsListener();
-        setupPageCreationListener(btnPage1,"checkPage1");
+        setupPageCreationListener(btnPage1, "checkPage1");
         setupPageCreationListener(btnPage2,"checkPage2");
         setupPageCreationListener(btnPage3,"checkPage3");
-        setupImgUploadListener(ivHeader,"photo1.jpg",REQUEST_CODE_TAKE_PHOTO_HEADER,REQUEST_CODE_UPLOAD_PHOTO_HEADER);
-        setupImgUploadListener(ivLogo,"photo2.jpg",REQUEST_CODE_TAKE_PHOTO_LOGO,REQUEST_CODE_UPLOAD_PHOTO_LOGO);
-        setupImgUploadListener(ivMore,"photo3.jpg",REQUEST_CODE_TAKE_PHOTO_MORE,REQUEST_CODE_UPLOAD_PHOTO_MORE);
+        setupImgUploadListener(ivHeader, "photoHeader.jpg", REQUEST_CODE_TAKE_PHOTO_HEADER, REQUEST_CODE_UPLOAD_PHOTO_HEADER);
+        setupImgUploadListener(ivLogo,"photoLogo.jpg",REQUEST_CODE_TAKE_PHOTO_LOGO,REQUEST_CODE_UPLOAD_PHOTO_LOGO);
         return v;
     }
 
@@ -104,9 +102,26 @@ public class AssetCollectionFragment extends Fragment {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "You have clicked on Submit", Toast.LENGTH_SHORT).show();
+
+                if (submitAssets()) {
+                    Intent i = new Intent(getActivity(), ConfirmationActivity.class);
+                    startActivity(i);
+                }
+
             }
         });
+    }
+
+    private boolean submitAssets() {
+        businessType = sprBusinessType.getSelectedItem().toString();
+        facebookLink = etFacebookLink.getText().toString();
+        yelpLink = etYelpLink.getText().toString();
+        twitterLink = etTwitterLink.getText().toString();
+        instagramLink = etTwitterLink.getText().toString();
+
+        //now get those 3 damn image bitmaps
+        return true;
+
     }
 
     private void setupImgUploadListener(final ImageView img, final String photoFileName, final int cameraRequestCode, final int galleryRequestCode) {
@@ -209,22 +224,16 @@ public class AssetCollectionFragment extends Fragment {
             }
         }
         else if (requestCode == REQUEST_CODE_TAKE_PHOTO_HEADER) {
-                getCapturedPhoto("photo1.jpg",resultCode,ivHeader);
+                getCapturedPhoto("photoHeader.jpg",resultCode,ivHeader);
         }
         else if (requestCode == REQUEST_CODE_TAKE_PHOTO_LOGO) {
-                getCapturedPhoto("photo2.jpg",resultCode,ivLogo);
-        }
-        else if (requestCode == REQUEST_CODE_TAKE_PHOTO_MORE) {
-                getCapturedPhoto("photo3.jpg",resultCode,ivMore);
+                getCapturedPhoto("photoLogo.jpg",resultCode,ivLogo);
         }
         else if (requestCode == REQUEST_CODE_UPLOAD_PHOTO_HEADER && resultCode == getActivity().RESULT_OK) {
-            getPickedFromGallery(data,ivHeader);
+            getPickedFromGallery(data, ivHeader);
         }
         else if (requestCode == REQUEST_CODE_UPLOAD_PHOTO_LOGO && resultCode == getActivity().RESULT_OK) {
             getPickedFromGallery(data,ivLogo);
-        }
-        else if (requestCode == REQUEST_CODE_UPLOAD_PHOTO_MORE && resultCode == getActivity().RESULT_OK) {
-            getPickedFromGallery(data,ivMore);
         }
 
     }

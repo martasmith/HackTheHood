@@ -21,11 +21,12 @@ import com.parse.ParseUser;
 public class ConfirmationFragment extends Fragment {
 
 
-    private String shareMsg;
-    private TextView tvConfComplete, tvConfStatus,tvStatusText;
+    private String mShareMessage;
     private ImageView ivStatus;
-    private Button btnToAssets, btnShareConfirm;
-
+    private TextView tvMainText;
+    private TextView tvSubText;
+    private Button btnShare;
+    private Button btnAddAssets;
 
     public ConfirmationFragment() {
         // Required empty public constructor
@@ -39,83 +40,106 @@ public class ConfirmationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_confirmation, container, false);
-        tvConfComplete = (TextView) v.findViewById(R.id.tvConfComplete);
-        tvConfStatus = (TextView) v.findViewById(R.id.tvConfStatus);
-        ivStatus = (ImageView) v.findViewById(R.id.ivStatus);
-        btnToAssets = (Button) v.findViewById(R.id.btnToAssets);
-        btnShareConfirm = (Button) v.findViewById(R.id.btnShare);
-        tvStatusText = (TextView) v.findViewById(R.id.tvStatusText);
-        tvStatusText.setMovementMethod(LinkMovementMethod.getInstance());
+        View rootView = inflater.inflate(R.layout.fragment_confirmation, container, false);
+        ivStatus = (ImageView) rootView.findViewById(R.id.ivStatus);
+        tvMainText = (TextView) rootView.findViewById(R.id.tvMainText);
+        tvSubText = (TextView) rootView.findViewById(R.id.tvSubText);
+        btnShare = (Button) rootView.findViewById(R.id.btnShare);
+        btnAddAssets = (Button) rootView.findViewById(R.id.btnToAssets);
 
-        populateCurrentStatus();
+        adaptViewToCurrentStatus();
         setUpNextStepListener();
         setUpShareListener();
-        return v;
+        return rootView;
+    }
 
+    private void adaptViewToCurrentStatus() {
+        //get current user
+        User user = (User) ParseUser.getCurrentUser();
+        int imageResource = R.drawable.ic_success;
+        int applicationStatus = user.getApplicationStatus();
+        
+        String actionBarTitle = "";
+        String mainText = "";
+        String subText = "";
+        mShareMessage = "";
+
+        switch (applicationStatus) {
+            case User.APPSTATUS_PENDING_REVIEW:
+                mainText = "Thank you for your interest!";
+                subText = "We will let you know once your application has been approved!";
+                actionBarTitle = "Application Submitted";
+                mShareMessage = "I just applied to get my website created by Hack the Hood!";
+                break;
+
+            case User.APPSTATUS_ACCEPTED:
+                mainText = "Congratulations!";
+                subText = "We have accepted your application! Please submit assets for your website!";
+                actionBarTitle = "Application Accepted";
+                btnShare.setVisibility(View.GONE);
+                btnAddAssets.setVisibility(View.VISIBLE);
+                imageResource = R.drawable.ic_approved;
+                break;
+
+            case User.APPSTATUS_DECLINED:
+                mainText = "Sorry, you application was denied.";
+                subText = "We won't be able to build a website for you at this time! Please feel free to apply again in future.";
+                actionBarTitle = "Application Denied";
+                btnShare.setVisibility(View.GONE);
+                btnAddAssets.setVisibility(View.GONE);
+                imageResource = R.drawable.ic_denied;
+                //TODO: Add option to Log out at this time
+                break;
+
+            case User.APPSTATUS_ASSETS_SUBMITTED:
+                mainText = "Thanks for submitting the assets!";
+                subText = "Our students will create your website in our upcoming bootcamp! If we have any questions, we will get in touch.";
+                actionBarTitle = "Assets Submitted";
+                mShareMessage = "I just applied to get my website created by Hack the Hood!";
+                btnShare.setVisibility(View.VISIBLE);
+                btnAddAssets.setVisibility(View.GONE);
+                break;
+
+            case User.APPSTATUS_SITE_COMPLETED:
+                mainText = "Congratulations! Your website has been created!";
+                subText = "Thank you for your support! Our students have created a beautiful website for you! Check it out!";
+                actionBarTitle = "Website Created";
+                mShareMessage = "Hack the Hood students created a beautiful website for my business for free! Check it out!";
+                btnShare.setVisibility(View.VISIBLE);
+                btnAddAssets.setVisibility(View.GONE);
+                //TODO: Add option to see the website
+                break;
+
+            default:
+                break;
+        }
+
+        tvMainText.setText(mainText);
+        tvSubText.setText(subText);
+        ivStatus.setImageResource(imageResource);
+        getActivity().getActionBar().setTitle(actionBarTitle);
+//      tvSubText.setText(Html.fromHtml("Please <a href=\"http://www.hackthehood.org/contact-us.html\">contact Hack the Hood</a> for more information."));
+//      tvSubText.setText(Html.fromHtml("While you're waiting for confirmation, read the <a href=\"http://www.hackthehood.org/blog\">Hack the Hood blog!</a>"));
     }
 
     private void setUpShareListener() {
-        btnShareConfirm.setOnClickListener(new View.OnClickListener() {
+        btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                tellAFriend();
+            public void onClick(View view) {
+                shareButtonClicked(view);
             }
         });
     }
 
-    private void tellAFriend() {
+    private void shareButtonClicked(View view) {
         Intent sharingIntent = new Intent(Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
-        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareMsg);
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, mShareMessage);
         startActivity(Intent.createChooser(sharingIntent, "Share using"));
     }
 
-    private void populateCurrentStatus() {
-        //get current user
-        User user = (User) ParseUser.getCurrentUser();
-        //User.ApplicationStatus applicationStatus = user.getApplicationStatus();
-
-        //hard-coded manual testing of all use-cases
-        String applicationStatus = "ACCEPTED";
-        //String applicationStatus = "PENDING_REVIEW";
-        //String applicationStatus = "DECLINED";
-        //String applicationStatus = "SITE_COMPLETED";
-
-        if (applicationStatus.equals("PENDING_REVIEW")) {
-            fillCurrentStatusValues("Pending Review",R.drawable.ic_under_review);
-        } else if (applicationStatus.equals("ACCEPTED")) {
-            fillCurrentStatusValues("Accepted",R.drawable.ic_approved);
-        } else if (applicationStatus.equals("DECLINED")) {
-            fillCurrentStatusValues("Declined",R.drawable.ic_denied);
-        } else if (applicationStatus.equals("SITE_COMPLETED")) {
-            fillCurrentStatusValues("Site completed",R.drawable.ic_complete);
-        }
-    }
-
-    private void fillCurrentStatusValues(String status, int imageResource) {
-        String approvalStat = " <font color=\"red\"><b>"+status+"</b></font>";
-        tvConfStatus.setText(Html.fromHtml(tvConfStatus.getText() + approvalStat));
-        ivStatus.setImageResource(imageResource);
-        // now fill the bottom of the page with relevant data
-        if (status.equals("Pending Review")) {
-            shareMsg = "I just signed up for a free website with Hack the Hood!";
-            btnShareConfirm.setVisibility(View.VISIBLE);
-            tvStatusText.setText(Html.fromHtml("While you're waiting for confirmation, read the <a href=\"http://www.hackthehood.org/blog\">Hack the Hood blog!</a>"));
-        } else if (status.equals("Declined")) {
-            tvStatusText.setText(Html.fromHtml("Please <a href=\"http://www.hackthehood.org/contact-us.html\">contact Hack the Hood</a> for more information."));
-        } else if (status.equals("Accepted")) {
-            shareMsg = "I just got accepted for a free website with Hack the Hood!";
-            btnToAssets.setVisibility(View.VISIBLE);
-        } else if (status.equals("Site completed")) {
-            shareMsg = "I just received my free website from Hack the Hood!";
-            btnShareConfirm.setVisibility(View.VISIBLE);
-        }
-
-    }
-
     private void setUpNextStepListener() {
-        btnToAssets.setOnClickListener(new View.OnClickListener() {
+        btnAddAssets.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), AssetCollectionActivity.class);
@@ -123,5 +147,4 @@ public class ConfirmationFragment extends Fragment {
             }
         });
     }
-
 }
