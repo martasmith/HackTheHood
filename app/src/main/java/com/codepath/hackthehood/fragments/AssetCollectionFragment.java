@@ -23,6 +23,9 @@ import android.widget.Toast;
 import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.activities.ConfirmationActivity;
 import com.codepath.hackthehood.activities.WebpageCollectionActivity;
+import com.codepath.hackthehood.models.User;
+import com.codepath.hackthehood.models.Website;
+import com.parse.ParseUser;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,9 +46,7 @@ public class AssetCollectionFragment extends Fragment {
     private ImageView ivHeader, ivLogo,checkPage1,checkPage2,checkPage3;
     private Button btnPage1,btnPage2,btnPage3, btnSubmit;
     private PopupMenu popup;
-
-
-
+    private Bitmap headerBitmap, logoBitmap;
 
     public AssetCollectionFragment() {
         // Required empty public constructor
@@ -74,6 +75,7 @@ public class AssetCollectionFragment extends Fragment {
         checkPage2 = (ImageView) v.findViewById(R.id.checkPage2);
         checkPage3 = (ImageView) v.findViewById(R.id.checkPage3);
         btnSubmit = (Button) v.findViewById(R.id.btnSubmit);
+        btnSubmit.setEnabled(false);
         setUpSubmitAssetsListener();
         setupPageCreationListener(btnPage1, "checkPage1");
         setupPageCreationListener(btnPage2,"checkPage2");
@@ -102,25 +104,35 @@ public class AssetCollectionFragment extends Fragment {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (submitAssets()) {
-                    Intent i = new Intent(getActivity(), ConfirmationActivity.class);
-                    startActivity(i);
-                }
-
+                submitAssets();
+                Intent i = new Intent(getActivity(), ConfirmationActivity.class);
+                startActivity(i);
             }
         });
     }
 
-    private boolean submitAssets() {
+    private void submitAssets() {
+
         businessType = sprBusinessType.getSelectedItem().toString();
         facebookLink = etFacebookLink.getText().toString();
         yelpLink = etYelpLink.getText().toString();
         twitterLink = etTwitterLink.getText().toString();
         instagramLink = etTwitterLink.getText().toString();
 
-        //now get those 3 damn image bitmaps
-        return true;
+        //get current user
+        User user = (User) ParseUser.getCurrentUser();
+        Website website = user.getWebsite();
+        website.setTypeOfBusiness(businessType);
+        website.setFacebookUrl(facebookLink);
+        website.setYelpUrl(yelpLink);
+        website.setTwitterUrl(twitterLink);
+        website.setInstagramUrl(instagramLink);
+        website.getLogo().setBitmap(logoBitmap,null);
+        website.getHeader().setBitmap(headerBitmap,null);
+
+        // set applicationStatus to APPSTATUS_ASSETS_SUBMITTED
+        user.setApplicationStatus(4);
+        website.saveEventually();
 
     }
 
@@ -175,9 +187,15 @@ public class AssetCollectionFragment extends Fragment {
             //extract photo that was just taken by the camera
             Uri takenPhotoUri = getPhotoFileUri(photoFileName);
             // by this point we have the camera photo on disk
-            Bitmap takenImage = BitmapFactory.decodeFile(takenPhotoUri.getPath());
-            // Load the taken image into a preview
-            img.setImageBitmap(takenImage);
+            if (photoFileName.equals("photoHeader.jpg")) {
+                headerBitmap = BitmapFactory.decodeFile(takenPhotoUri.getPath());
+                // Load the taken image into a preview
+                img.setImageBitmap(headerBitmap);
+            } else if (photoFileName.equals("photoLogo.jpg")) {
+                logoBitmap = BitmapFactory.decodeFile(takenPhotoUri.getPath());
+                // Load the taken image into a preview
+                img.setImageBitmap(logoBitmap);
+            }
         } else {
             // Result was a failure
             Toast.makeText(getActivity(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
@@ -191,16 +209,22 @@ public class AssetCollectionFragment extends Fragment {
         startActivityForResult(intent, requestCode);
     }
 
+
     private void getPickedFromGallery(Intent data, ImageView img) {
         //extract photo that was just picked from the gallery
         if (data != null) {
             Uri photoUri = data.getData();
             // Do something with the photo based on Uri
-            Bitmap selectedImage = null;
             try {
-                selectedImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), photoUri);
-                // Load the selected image into a preview
-                img.setImageBitmap(selectedImage);
+                if (img.getDrawable() == ivHeader.getDrawable()) {
+                    headerBitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), photoUri);
+                    // Load the selected image into a preview
+                    img.setImageBitmap(headerBitmap);
+                } else if (img.getDrawable() == ivLogo.getDrawable()) {
+                    logoBitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), photoUri);
+                    // Load the selected image into a preview
+                    img.setImageBitmap(logoBitmap);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -208,6 +232,7 @@ public class AssetCollectionFragment extends Fragment {
             Toast.makeText(getActivity(), "No photo was selected", Toast.LENGTH_SHORT).show();
         }
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -217,10 +242,13 @@ public class AssetCollectionFragment extends Fragment {
             //Toast.makeText(getActivity(), "tickImgName= " + tickImgName, Toast.LENGTH_LONG).show();
             if (tickImgName.equals("checkPage1")) {
                   checkPage1.setVisibility(View.VISIBLE);
+                  checkAllWebpagesVisited();
             } else if (tickImgName.equals("checkPage2")) {
                 checkPage2.setVisibility(View.VISIBLE);
+                checkAllWebpagesVisited();
             } else if (tickImgName.equals("checkPage3")) {
                 checkPage3.setVisibility(View.VISIBLE);
+                checkAllWebpagesVisited();
             }
         }
         else if (requestCode == REQUEST_CODE_TAKE_PHOTO_HEADER) {
@@ -236,6 +264,15 @@ public class AssetCollectionFragment extends Fragment {
             getPickedFromGallery(data,ivLogo);
         }
 
+    }
+
+    public void checkAllWebpagesVisited() {
+        // while none of the input fields are required, check to make sure the user visited all website page views
+        // before we allow them to submit
+        if ((checkPage1.getVisibility() == View.VISIBLE) &&
+                (checkPage2.getVisibility() == View.VISIBLE) && (checkPage3.getVisibility() == View.VISIBLE)) {
+            btnSubmit.setEnabled(true);
+        }
     }
 
     // Returns the Uri for a photo stored on disk given the fileName

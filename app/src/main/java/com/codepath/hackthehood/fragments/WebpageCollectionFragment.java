@@ -20,6 +20,9 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.codepath.hackthehood.R;
+import com.codepath.hackthehood.models.User;
+import com.codepath.hackthehood.models.WebsitePage;
+import com.parse.ParseUser;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,7 +30,6 @@ import java.io.IOException;
 
 public class WebpageCollectionFragment extends Fragment {
 
-    private final int REQUEST_CODE_WEB_CONTENT = 10;
     private final int REQUEST_CODE_TAKE_PHOTO_1 = 20;
     private final int REQUEST_CODE_TAKE_PHOTO_2 = 21;
     private final int REQUEST_CODE_TAKE_PHOTO_3 = 22;
@@ -37,18 +39,19 @@ public class WebpageCollectionFragment extends Fragment {
     public final String APP_TAG = "HTH_app";
 
     // TODO: Rename and change types of parameters
-    private String tickImgName;
+    private String tickImgName, title, pageText,designerNotes;
     private EditText etPageText, etDesignerNotes;
     private ImageView ivFileUpload1,ivFileUpload2,ivFileUpload3;
     private Button btnAddSite;
     private PopupMenu popup;
-    public String photoFileName = "photo2.jpg";
+    private Bitmap photo1Bitmap, photo2Bitmap, photo3Bitmap;
 
 
-    public static WebpageCollectionFragment newInstance(String tickImgName) {
+    public static WebpageCollectionFragment newInstance(String tickImgName, String title) {
         WebpageCollectionFragment fragment = new WebpageCollectionFragment();
         Bundle args = new Bundle();
         args.putString("tickImgName", tickImgName);
+        args.putString("title", title);
         fragment.setArguments(args);
         return fragment;
     }
@@ -61,6 +64,7 @@ public class WebpageCollectionFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             tickImgName = getArguments().getString("tickImgName");
+            title = getArguments().getString("title");
         }
     }
 
@@ -75,7 +79,7 @@ public class WebpageCollectionFragment extends Fragment {
         ivFileUpload3 = (ImageView) v.findViewById(R.id.imgFile3);
         btnAddSite = (Button) v.findViewById(R.id.btnAddSite);
         setupAddSiteListener();
-        setupImgUploadListener(ivFileUpload1,"photoFile1.jpg", REQUEST_CODE_TAKE_PHOTO_1,REQUEST_CODE_UPLOAD_PHOTO_1);
+        setupImgUploadListener(ivFileUpload1, "photoFile1.jpg", REQUEST_CODE_TAKE_PHOTO_1, REQUEST_CODE_UPLOAD_PHOTO_1);
         setupImgUploadListener(ivFileUpload2,"photoFile2.jpg",REQUEST_CODE_TAKE_PHOTO_2,REQUEST_CODE_UPLOAD_PHOTO_2);
         setupImgUploadListener(ivFileUpload3,"photoFile3.jpg",REQUEST_CODE_TAKE_PHOTO_3,REQUEST_CODE_UPLOAD_PHOTO_3);
         return v;
@@ -85,6 +89,7 @@ public class WebpageCollectionFragment extends Fragment {
         btnAddSite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                submitWebpageData();
                 Intent data = new Intent();
                 data.putExtra("tickImgName", tickImgName);
                 getActivity().setResult(getActivity().RESULT_OK, data);
@@ -92,6 +97,38 @@ public class WebpageCollectionFragment extends Fragment {
 
             }
         });
+    }
+
+    private void submitWebpageData() {
+
+        pageText = etPageText.getText().toString();
+        designerNotes = etDesignerNotes.getText().toString();
+
+        //get current user
+        User user = (User) ParseUser.getCurrentUser();
+
+        //initialize current website page
+        WebsitePage currentWebsitePage = null;
+
+        // set  current website page based on image icon name - safer than page name, as that can change more so than a var name.
+        if (tickImgName.equals("checkPage1")) {
+            currentWebsitePage = user.getWebsite().getWebsitePages().get(0);
+        } else if (tickImgName.equals("checkPage2")) {
+            currentWebsitePage = user.getWebsite().getWebsitePages().get(1);
+        } else if (tickImgName.equals("checkPage3")){
+            currentWebsitePage = user.getWebsite().getWebsitePages().get(2);
+        }
+
+        if (currentWebsitePage != null) {
+            currentWebsitePage.setNotes(designerNotes);
+            currentWebsitePage.setTitle(title);
+            currentWebsitePage.setText(pageText);
+            currentWebsitePage.setNotes(designerNotes);
+            currentWebsitePage.getImageResources().get(0).setBitmap(photo1Bitmap,null);
+            currentWebsitePage.getImageResources().get(1).setBitmap(photo2Bitmap,null);
+            currentWebsitePage.getImageResources().get(2).setBitmap(photo2Bitmap,null);
+            currentWebsitePage.saveEventually();
+        }
     }
 
     private void setupImgUploadListener(final ImageView img, final String photoFileName, final int cameraRequestCode, final int galleryRequestCode) {
@@ -145,9 +182,19 @@ public class WebpageCollectionFragment extends Fragment {
             //extract photo that was just taken by the camera
             Uri takenPhotoUri = getPhotoFileUri(photoFileName);
             // by this point we have the camera photo on disk
-            Bitmap takenImage = BitmapFactory.decodeFile(takenPhotoUri.getPath());
-            // Load the taken image into a preview
-            img.setImageBitmap(takenImage);
+            if (photoFileName.equals("photoFile1.jpg")) {
+                photo1Bitmap = BitmapFactory.decodeFile(takenPhotoUri.getPath());
+                // Load the taken image into a preview
+                img.setImageBitmap(photo1Bitmap);
+            } else if (photoFileName.equals("photoFile2.jpg")) {
+                photo2Bitmap = BitmapFactory.decodeFile(takenPhotoUri.getPath());
+                // Load the taken image into a preview
+                img.setImageBitmap(photo2Bitmap);
+            } else if (photoFileName.equals("photoFile3.jpg")) {
+                photo3Bitmap = BitmapFactory.decodeFile(takenPhotoUri.getPath());
+                // Load the taken image into a preview
+                img.setImageBitmap(photo3Bitmap);
+            }
         } else { // Result was a failure
             Toast.makeText(getActivity(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
         }
@@ -164,12 +211,20 @@ public class WebpageCollectionFragment extends Fragment {
         //extract photo that was just picked from the gallery
         if (data != null) {
             Uri photoUri = data.getData();
-            // Do something with the photo based on Uri
-            Bitmap selectedImage = null;
             try {
-                selectedImage = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), photoUri);
-                // Load the selected image into a preview
-                img.setImageBitmap(selectedImage);
+                if (img.getDrawable() == ivFileUpload1.getDrawable()) {
+                    photo1Bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), photoUri);
+                    // Load the selected image into a preview
+                    img.setImageBitmap(photo1Bitmap);
+                } else if (img.getDrawable() == ivFileUpload2.getDrawable()) {
+                    photo2Bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), photoUri);
+                    // Load the selected image into a preview
+                    img.setImageBitmap(photo2Bitmap);
+                } else if (img.getDrawable() == ivFileUpload3.getDrawable()) {
+                    photo3Bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), photoUri);
+                    // Load the selected image into a preview
+                    img.setImageBitmap(photo3Bitmap);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
