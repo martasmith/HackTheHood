@@ -39,14 +39,17 @@ public class BusinessFormFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
+        storeCurrentForm();
+    }
 
+    public void storeCurrentForm() {
         User user = (User) ParseUser.getCurrentUser();
-        if(user == null) return;
-
-        pushAllParseFields();
-        user.saveEventually();
-        user.getWebsite().saveEventually();
-        user.getWebsite().getAddress().saveEventually();
+        if(user != null) {
+            pushAllParseFields();
+            user.saveEventually();
+            user.getWebsite().saveEventually();
+            user.getWebsite().getAddress().saveEventually();
+        }
     }
 
     @Override
@@ -89,23 +92,18 @@ public class BusinessFormFragment extends Fragment {
         });
     }
 
-    private boolean submitBusinessForm() {
+    private void submitBusinessForm() {
 
         if (etBusinessName.getText().toString().isEmpty()) {
             Toast.makeText(getActivity(), "Business name is required", Toast.LENGTH_LONG).show();
-            return false;
         } else if (etBusinessPhone.getText().toString().isEmpty()) {
             Toast.makeText(getActivity(), "Business phone is required", Toast.LENGTH_LONG).show();
-            return false;
         } else if (etContactName.getText().toString().isEmpty()) {
             Toast.makeText(getActivity(), "Contact name is required", Toast.LENGTH_LONG).show();
-            return false;
         } else if (etContactEmail.getText().toString().isEmpty()) {
             Toast.makeText(getActivity(), "Contact email is required", Toast.LENGTH_LONG).show();
-            return false;
         } else if (etContactPhone.getText().toString().isEmpty()) {
             Toast.makeText(getActivity(), "Contact phone is required", Toast.LENGTH_LONG).show();
-            return false;
         } else {
 
             User user = (User) ParseUser.getCurrentUser();
@@ -127,8 +125,6 @@ public class BusinessFormFragment extends Fragment {
                             }
                         }
                     });
-
-            return true;
         }
     }
 
@@ -170,7 +166,7 @@ public class BusinessFormFragment extends Fragment {
 
             @Override
             public ParseObject next() {
-                switch(index) {
+                switch(index++) {
                     default: return user;
                     case 1: return user.getWebsite();
                     case 2: return user.getWebsite().getAddress();
