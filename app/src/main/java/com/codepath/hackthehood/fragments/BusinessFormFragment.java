@@ -13,11 +13,17 @@ import android.widget.Toast;
 import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.activities.ConfirmationActivity;
 import com.codepath.hackthehood.models.Address;
+import com.codepath.hackthehood.models.ParseHelper;
 import com.codepath.hackthehood.models.User;
 import com.codepath.hackthehood.models.Website;
 import com.codepath.hackthehood.util.MultiSelectionSpinner;
+import com.parse.GetCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
+
+import java.util.Iterator;
 
 
 public class BusinessFormFragment extends Fragment {
@@ -25,10 +31,6 @@ public class BusinessFormFragment extends Fragment {
     private EditText etBusinessName, etBusinessStreet, etBusinessCity, etBusinessZip,
                      etBusinessPhone,etContactName,etContactPhone,etContactEmail;
     private MultiSelectionSpinner sprOnlinePresence;
-    private Button btnSubmitBusinessForm;
-
-    private String businessName, businessStreet,businessCity,businessZip,businessPhone,onlinePresence,contactName,contactPhone,contactEmail;
-
 
     public BusinessFormFragment() {
         // Required empty public constructor
@@ -36,13 +38,15 @@ public class BusinessFormFragment extends Fragment {
 
     @Override
     public void onPause() {
-        storeCurrentForm();
         super.onPause();
-    }
 
-    public void storeCurrentForm() {
-        readBusinessForm();
-        setAllFields();
+        User user = (User) ParseUser.getCurrentUser();
+        if(user == null) return;
+
+        pushAllParseFields();
+        user.saveEventually();
+        user.getWebsite().saveEventually();
+        user.getWebsite().getAddress().saveEventually();
     }
 
     @Override
@@ -54,81 +58,52 @@ public class BusinessFormFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_business_form, container, false);
-        etBusinessName = (EditText) v.findViewById(R.id.etBusinessName);
-        etBusinessStreet = (EditText) v.findViewById(R.id.etBusinessStreet);
-        etBusinessCity = (EditText) v.findViewById(R.id.etBusinessCity);
-        etBusinessZip = (EditText) v.findViewById(R.id.etBusinessZip);
-        etBusinessPhone = (EditText) v.findViewById(R.id.etBusinessPhone);
-        sprOnlinePresence = (MultiSelectionSpinner)  v.findViewById(R.id.sprOnlinePresence);
-        etContactName = (EditText) v.findViewById(R.id.etContactName);
-        etContactPhone = (EditText) v.findViewById(R.id.etContactPhone);
-        etContactEmail = (EditText) v.findViewById(R.id.etContactEmail);
-        btnSubmitBusinessForm = (Button)  v.findViewById(R.id.btnSubmit);
+
+        etBusinessName      = (EditText) v.findViewById(R.id.etBusinessName);
+        etBusinessStreet    = (EditText) v.findViewById(R.id.etBusinessStreet);
+        etBusinessCity      = (EditText) v.findViewById(R.id.etBusinessCity);
+        etBusinessZip       = (EditText) v.findViewById(R.id.etBusinessZip);
+        etBusinessPhone     = (EditText) v.findViewById(R.id.etBusinessPhone);
+        sprOnlinePresence   = (MultiSelectionSpinner) v.findViewById(R.id.sprOnlinePresence);
+        etContactName       = (EditText) v.findViewById(R.id.etContactName);
+        etContactPhone      = (EditText) v.findViewById(R.id.etContactPhone);
+        etContactEmail      = (EditText) v.findViewById(R.id.etContactEmail);
+        Button btnSubmitBusinessForm = (Button) v.findViewById(R.id.btnSubmit);
 
         String [] spinnerContentArr = {"Website", "Online Store", "Facebook Page","Twitter Account","Google Listing", "Yelp","Other"};
         sprOnlinePresence.setItems(spinnerContentArr);
 
-        setupSubmitListener();
-
-        getAllFields();
-        writeBusinessForm();
+        setupSubmitListener(btnSubmitBusinessForm);
+        getAllParseFields();
 
         return v;
     }
 
-    private void setupSubmitListener() {
+    private void setupSubmitListener(Button btnSubmitBusinessForm) {
         btnSubmitBusinessForm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (submitBusinessForm()) {
-                    Intent i = new Intent(getActivity(), ConfirmationActivity.class);
-                    startActivity(i);
+                submitBusinessForm();
                 }
-            }
+
         });
-    }
-
-    private void writeBusinessForm() {
-        etBusinessName.setText(businessName);
-        etBusinessStreet.setText(businessStreet);
-        etBusinessCity.setText(businessCity);
-        etBusinessZip.setText(businessZip);
-        etBusinessPhone.setText(businessPhone);
-        sprOnlinePresence.setSelectedItemsAsString(onlinePresence);
-        etContactName.setText(contactName);
-        etContactPhone.setText(contactPhone);
-        etContactEmail.setText(contactEmail);
-    }
-
-    private void readBusinessForm() {
-        businessName = etBusinessName.getText().toString();
-        businessStreet = etBusinessStreet.getText().toString();
-        businessCity = etBusinessCity.getText().toString();
-        businessZip = etBusinessZip.getText().toString();
-        businessPhone = etBusinessPhone.getText().toString();
-        onlinePresence = sprOnlinePresence.getSelectedItemsAsString();
-        contactName = etContactName.getText().toString();
-        contactPhone = etContactPhone.getText().toString();
-        contactEmail = etContactEmail.getText().toString();
     }
 
     private boolean submitBusinessForm() {
 
-        readBusinessForm();
-
-        if (businessName.isEmpty()) {
+        if (etBusinessName.getText().toString().isEmpty()) {
             Toast.makeText(getActivity(), "Business name is required", Toast.LENGTH_LONG).show();
             return false;
-        } else if (businessPhone.isEmpty()) {
+        } else if (etBusinessPhone.getText().toString().isEmpty()) {
             Toast.makeText(getActivity(), "Business phone is required", Toast.LENGTH_LONG).show();
             return false;
-        } else if (contactName.isEmpty()) {
+        } else if (etContactName.getText().toString().isEmpty()) {
             Toast.makeText(getActivity(), "Contact name is required", Toast.LENGTH_LONG).show();
             return false;
-        } else if (contactEmail.isEmpty()) {
+        } else if (etContactEmail.getText().toString().isEmpty()) {
             Toast.makeText(getActivity(), "Contact email is required", Toast.LENGTH_LONG).show();
             return false;
-        } else if (contactPhone.isEmpty()) {
+        } else if (etContactPhone.getText().toString().isEmpty()) {
             Toast.makeText(getActivity(), "Contact phone is required", Toast.LENGTH_LONG).show();
             return false;
         } else {
@@ -136,74 +111,112 @@ public class BusinessFormFragment extends Fragment {
             User user = (User) ParseUser.getCurrentUser();
             user.setApplicationStatus(User.APPSTATUS_PENDING_REVIEW);
 
-            setAllFields();
+            pushAllParseFields();
+
+            ParseObject[] objectsToSave = {user, user.getWebsite(), user.getWebsite().getAddress()};
+            beginLoading();
+            ParseHelper.saveObjectsInBackgroundInParallel(objectsToSave, new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            if(e != null) {
+                                didReceiveParseException(e);
+                                endLoading();
+                            } else {
+                                Intent i = new Intent(getActivity(), ConfirmationActivity.class);
+                                startActivity(i);
+                            }
+                        }
+                    });
+
             return true;
         }
     }
 
-    private void setAllFields() {
+    private void pushAllParseFields() {
+
         //get current user
         User user = (User) ParseUser.getCurrentUser();
         if(user == null) return;
 
         //set  Parse user values
-        user.setFullName(contactName);
-        user.setEmail(contactEmail);
-        user.setPhoneNumber(contactPhone);
+        user.setFullName(etContactName.getText().toString());
+        user.setEmail(etContactEmail.getText().toString());
+        user.setPhoneNumber(etContactPhone.getText().toString());
 
         //set website values
         Website website = user.getWebsite();
-        website.setBusinessName(businessName);
-        website.setPhoneNumber(businessPhone);
-        website.setOnlinePresenceType(onlinePresence);
+        website.setBusinessName(etBusinessName.getText().toString());
+        website.setPhoneNumber(etBusinessPhone.getText().toString());
+        website.setOnlinePresenceType(sprOnlinePresence.getSelectedItemsAsString());
 
         //set business address
         Address businessAddress = website.getAddress();
-        businessAddress.setStreetAddress(businessStreet);
-        businessAddress.setCity(businessCity);
-        businessAddress.setPostalCode(businessZip);
-        try {
-            businessAddress.save();
-            website.save();
-            user.save();
-        } catch (Exception e) {}
+        businessAddress.setStreetAddress(etBusinessStreet.getText().toString());
+        businessAddress.setCity(etBusinessCity.getText().toString());
+        businessAddress.setPostalCode(etBusinessZip.getText().toString());
+
     }
 
-    private void getAllFields() {
-        //get current user
-        User user = (User) ParseUser.getCurrentUser();
-        try {
-            user.fetch();
-        } catch (ParseException e) {
-            return;
-        }
+    private void getAllParseFields() {
+        beginLoading();
+        final User user = (User) ParseUser.getCurrentUser();
+        ParseHelper.fetchObjectsInBackgroundInSerial(new Iterator<ParseObject>() {
+            private int index = 0;
 
-        //set  Parse user values
-        contactName = user.getFullName();
-        contactEmail = user.getEmail();
-        contactPhone = user.getPhoneNumber();
+            @Override
+            public boolean hasNext() {
+                return index != 3;
+            }
 
-        //set website values
-        Website website = user.getWebsite();
-        try {
-            website.fetch();
-        } catch (ParseException e) {
-            return;
-        }
-        businessName = website.getBusinessName();
-        businessPhone = website.getPhoneNumber();
-        onlinePresence = website.getOnlinePresenceType();
+            @Override
+            public ParseObject next() {
+                switch(index) {
+                    default: return user;
+                    case 1: return user.getWebsite();
+                    case 2: return user.getWebsite().getAddress();
+                }
+            }
 
-        //set business address
-        Address businessAddress = website.getAddress();
-        try {
-            businessAddress.fetch();
-        } catch (ParseException e) {
-            return;
-        }
-        businessStreet = businessAddress.getStreetAddress();
-        businessCity = businessAddress.getCity();
-        businessZip = businessAddress.getPostalCode();
+            @Override
+            public void remove() {
+
+            }
+        }, new GetCallback() {
+            @Override
+            public void done(ParseObject parseObject, ParseException e) {
+                if(e != null) {
+                    endLoading();
+                    didReceiveParseException(e);
+                    return;
+                }
+
+                Website website = user.getWebsite();
+                Address address = website.getAddress();
+
+                etBusinessName.setText(website.getBusinessName());
+                etBusinessStreet.setText(address.getStreetAddress());
+                etBusinessCity.setText(address.getCity());
+                etBusinessZip.setText(address.getPostalCode());
+                etBusinessPhone.setText(website.getPhoneNumber());
+                sprOnlinePresence.setSelectedItemsAsString(website.getOnlinePresenceType());
+                etContactName.setText(user.getFullName());
+                etContactPhone.setText(user.getPhoneNumber());
+                etContactEmail.setText(user.getEmail());
+            }
+        });
+    }
+
+    // TODO: throw these three up to the activity
+    private void didReceiveParseException(com.parse.ParseException e) {
+
+    }
+
+    private void beginLoading() {
+
+    }
+
+    private void endLoading() {
+
     }
 
 }
