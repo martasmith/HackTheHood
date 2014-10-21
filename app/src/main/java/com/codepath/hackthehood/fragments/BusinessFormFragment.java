@@ -28,8 +28,8 @@ import java.util.Iterator;
 
 public class BusinessFormFragment extends Fragment {
 
-    private EditText etBusinessName, etBusinessStreet, etBusinessCity, etBusinessZip,
-                     etBusinessPhone,etContactName,etContactPhone,etContactEmail;
+    private EditText etBusinessName,    etBusinessStreet,   etBusinessCity,     etBusinessZip,
+                     etBusinessPhone,   etContactName,      etContactPhone,     etContactEmail;
     private MultiSelectionSpinner sprOnlinePresence;
 
     public BusinessFormFragment() {
@@ -150,10 +150,10 @@ public class BusinessFormFragment extends Fragment {
         businessAddress.setStreetAddress(etBusinessStreet.getText().toString());
         businessAddress.setCity(etBusinessCity.getText().toString());
         businessAddress.setPostalCode(etBusinessZip.getText().toString());
-
     }
 
     private void getAllParseFields() {
+
         beginLoading();
         final User user = (User) ParseUser.getCurrentUser();
         ParseHelper.fetchObjectsInBackgroundInSerial(new Iterator<ParseObject>() {
@@ -174,9 +174,8 @@ public class BusinessFormFragment extends Fragment {
             }
 
             @Override
-            public void remove() {
+            public void remove() {}
 
-            }
         }, new GetCallback() {
             @Override
             public void done(ParseObject parseObject, ParseException e) {
