@@ -81,18 +81,18 @@ public class User extends ParseUser {
         return (Website)this.get(websiteKey);
     }
 
-    public final static int APPSTATUS_PENDING_REVIEW = 1;
     public final static int APPSTATUS_STARTED = 1;
-    public final static int APPSTATUS_ACCEPTED = 2;
-    public final static int APPSTATUS_DECLINED = 3;
-    public final static int APPSTATUS_ASSETS_SUBMITTED = 4;
-    public final static int APPSTATUS_SITE_COMPLETED = 5;
+    public final static int APPSTATUS_PENDING_REVIEW = 2;
+    public final static int APPSTATUS_ACCEPTED = 3;
+    public final static int APPSTATUS_DECLINED = 4;
+    public final static int APPSTATUS_ASSETS_SUBMITTED = 5;
+    public final static int APPSTATUS_SITE_COMPLETED = 6;
     private final String applicationStatusKey = "applicationStatus";
     public void setApplicationStatus(int applicationStatus) {
         put(applicationStatusKey, applicationStatus);
     }
     public int getApplicationStatus() {
         int status = getInt(applicationStatusKey);
-        return (status >= APPSTATUS_PENDING_REVIEW && status <= APPSTATUS_SITE_COMPLETED) ? status : APPSTATUS_ACCEPTED;
+        return (status >= APPSTATUS_STARTED && status <= APPSTATUS_SITE_COMPLETED) ? status : APPSTATUS_ACCEPTED;
     }
 }
