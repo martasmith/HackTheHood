@@ -20,10 +20,10 @@
     </android.support.v4.view.ViewPager>
 
     <LinearLayout
+        android:id="@+id/llCTAContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:paddingTop="30dp"
         android:paddingBottom="30dp"
         android:orientation="horizontal">
 
@@ -32,7 +32,8 @@
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:background="#FFCCCCCC"
+            android:background="@android:color/holo_green_dark"
+            android:textColor="@android:color/white"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="5dp"
