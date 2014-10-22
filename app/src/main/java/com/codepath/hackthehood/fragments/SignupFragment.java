@@ -75,24 +75,24 @@ public class SignupFragment extends android.support.v4.app.Fragment {
                 new SignUpCallback() {
                     @Override
                     public void done(ParseException e) {
+                        pbLoading.setVisibility(View.INVISIBLE);
+                        button.setEnabled(true);
                         if (e != null) {
                             showException(e);
-                            button.setEnabled(true);
-                            pbLoading.setVisibility(View.INVISIBLE);
                         } else {
-                            user.addDefaultWebsite(new SaveCallback() {
-                                @Override
-                                public void done(ParseException e) {
-                                    if (e == null) {
-                                        try {
-                                            user.save();
-                                        } catch (Exception ec) {}
+//                            user.addDefaultWebsite(new SaveCallback() {
+//                                @Override
+//                                public void done(ParseException e) {
+//                                    if (e == null) {
+//                                        try {
+//                                            user.save();
+//                                        } catch (Exception ec) {}
                                         startActivity(new Intent(getActivity(), BusinessFormActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                                    } else {
-                                        showException(e);
-                                    }
-                                }
-                            });
+//                                    } else {
+//                                        showException(e);
+//                                    }
+//                                }
+//                            });
                         }
                     }
                 });

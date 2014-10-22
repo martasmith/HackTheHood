@@ -43,7 +43,7 @@ public class BusinessFormFragment extends NetworkFragment {
 
     public void storeCurrentForm() {
         User user = (User) ParseUser.getCurrentUser();
-        if(user != null) {
+        if(user != null && user.getWebsite() != null && user.getWebsite().getAddress() != null) {
             pushAllParseFields();
             user.saveEventually();
             user.getWebsite().saveEventually();

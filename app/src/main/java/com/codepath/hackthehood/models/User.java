@@ -81,12 +81,15 @@ public class User extends ParseUser {
         return (Website)this.get(websiteKey);
     }
 
-    public final static int APPSTATUS_STARTED = 1;
-    public final static int APPSTATUS_PENDING_REVIEW = 2;
-    public final static int APPSTATUS_ACCEPTED = 3;
-    public final static int APPSTATUS_DECLINED = 4;
-    public final static int APPSTATUS_ASSETS_SUBMITTED = 5;
-    public final static int APPSTATUS_SITE_COMPLETED = 6;
+    public final static int APPSTATUS_STARTED = 0;  // leave this as 0; this means users default to
+                                                    // APPSTATUS_STARTED without any scaffolding,
+                                                    // conveniently if we're using the Parse UI for
+                                                    // user creation
+    public final static int APPSTATUS_PENDING_REVIEW = 1;
+    public final static int APPSTATUS_ACCEPTED = 2;
+    public final static int APPSTATUS_DECLINED = 3;
+    public final static int APPSTATUS_ASSETS_SUBMITTED = 4;
+    public final static int APPSTATUS_SITE_COMPLETED = 5;
     private final String applicationStatusKey = "applicationStatus";
     public void setApplicationStatus(int applicationStatus) {
         put(applicationStatusKey, applicationStatus);

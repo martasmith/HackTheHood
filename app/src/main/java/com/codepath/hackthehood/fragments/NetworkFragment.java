@@ -9,6 +9,9 @@ import com.codepath.hackthehood.activities.NetworkFragmentContainer;
  * Created by thomasharte on 21/10/2014.
  */
 public class NetworkFragment extends Fragment {
+
+    private int localNetworkActivityCount = 0;
+
     protected void didReceiveNetworkException(com.parse.ParseException e) {
         Activity activity = getActivity();
         if(activity instanceof NetworkFragmentContainer)
@@ -16,6 +19,7 @@ public class NetworkFragment extends Fragment {
     }
 
     protected void incrementNetworkActivityCount() {
+        localNetworkActivityCount++;
         Activity activity = getActivity();
         if(activity instanceof NetworkFragmentContainer)
             ((NetworkFragmentContainer) activity).incrementActivityCount();
@@ -25,6 +29,15 @@ public class NetworkFragment extends Fragment {
         Activity activity = getActivity();
         if(activity instanceof NetworkFragmentContainer)
             ((NetworkFragmentContainer) activity).decrementActivityCount();
+        localNetworkActivityCount--;
+    }
 
+    @Override
+    public void onDestroy() {
+        while(localNetworkActivityCount > 0) {
+            decrementNetworkActivityCount();
+        }
+
+        super.onDestroy();
     }
 }
