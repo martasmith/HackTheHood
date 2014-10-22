@@ -1,6 +1,7 @@
 package com.codepath.hackthehood.fragments;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.activities.ConfirmationActivity;
+import com.codepath.hackthehood.activities.NetworkFragmentContainer;
 import com.codepath.hackthehood.models.Address;
 import com.codepath.hackthehood.models.ParseHelper;
 import com.codepath.hackthehood.models.User;
@@ -82,50 +84,63 @@ public class BusinessFormFragment extends Fragment {
         return v;
     }
 
+    private void showValidationError(String error) {
+        Toast.makeText(getActivity(), error, Toast.LENGTH_LONG).show();
+    }
+
     private void setupSubmitListener(Button btnSubmitBusinessForm) {
         btnSubmitBusinessForm.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                submitBusinessForm();
+            public void onClick(final View v) {
+
+                if (etBusinessName.getText().toString().isEmpty()) {
+                    showValidationError("Business name is required");
+                    return;
                 }
 
-        });
-    }
+                if (etBusinessPhone.getText().toString().isEmpty()) {
+                    showValidationError("Business phone is required");
+                    return;
+                }
 
-    private void submitBusinessForm() {
+                if (etContactName.getText().toString().isEmpty()) {
+                    showValidationError("Contact name is required");
+                    return;
+                }
 
-        if (etBusinessName.getText().toString().isEmpty()) {
-            Toast.makeText(getActivity(), "Business name is required", Toast.LENGTH_LONG).show();
-        } else if (etBusinessPhone.getText().toString().isEmpty()) {
-            Toast.makeText(getActivity(), "Business phone is required", Toast.LENGTH_LONG).show();
-        } else if (etContactName.getText().toString().isEmpty()) {
-            Toast.makeText(getActivity(), "Contact name is required", Toast.LENGTH_LONG).show();
-        } else if (etContactEmail.getText().toString().isEmpty()) {
-            Toast.makeText(getActivity(), "Contact email is required", Toast.LENGTH_LONG).show();
-        } else if (etContactPhone.getText().toString().isEmpty()) {
-            Toast.makeText(getActivity(), "Contact phone is required", Toast.LENGTH_LONG).show();
-        } else {
+                if (etContactEmail.getText().toString().isEmpty()) {
+                    showValidationError("Contact email is required");
+                    return;
+                }
 
-            User user = (User) ParseUser.getCurrentUser();
-            user.setApplicationStatus(User.APPSTATUS_PENDING_REVIEW);
+                if (etContactPhone.getText().toString().isEmpty()) {
+                    showValidationError("Contact phone is required");
+                    return;
+                }
 
-            pushAllParseFields();
+                User user = (User) ParseUser.getCurrentUser();
+                user.setApplicationStatus(User.APPSTATUS_PENDING_REVIEW);
 
-            ParseObject[] objectsToSave = {user, user.getWebsite(), user.getWebsite().getAddress()};
-            beginLoading();
-            ParseHelper.saveObjectsInBackgroundInParallel(objectsToSave, new SaveCallback() {
+                pushAllParseFields();
+
+                ParseObject[] objectsToSave = {user, user.getWebsite(), user.getWebsite().getAddress()};
+                incrementNetworkActivityCount();
+                v.setEnabled(false);
+                ParseHelper.saveObjectsInBackgroundInParallel(objectsToSave, new SaveCallback() {
                         @Override
                         public void done(ParseException e) {
+                            v.setEnabled(true);
                             if(e != null) {
-                                didReceiveParseException(e);
-                                endLoading();
+                                didReceiveNetworkException(e);
+                                decrementNetworkActivityCount();
                             } else {
                                 Intent i = new Intent(getActivity(), ConfirmationActivity.class);
                                 startActivity(i);
                             }
                         }
                     });
-        }
+            }
+         });
     }
 
     private void pushAllParseFields() {
@@ -154,9 +169,9 @@ public class BusinessFormFragment extends Fragment {
 
     private void getAllParseFields() {
 
-        beginLoading();
+        incrementNetworkActivityCount();
         final User user = (User) ParseUser.getCurrentUser();
-        ParseHelper.fetchObjectsInBackgroundInSerial(new Iterator<ParseObject>() {
+        ParseHelper.fetchObjectsInBackgroundInSerial(true, new Iterator<ParseObject>() {
             private int index = 0;
 
             @Override
@@ -179,39 +194,71 @@ public class BusinessFormFragment extends Fragment {
         }, new GetCallback() {
             @Override
             public void done(ParseObject parseObject, ParseException e) {
+                decrementNetworkActivityCount();
                 if(e != null) {
-                    endLoading();
-                    didReceiveParseException(e);
+                    didReceiveNetworkException(e);
                     return;
                 }
 
                 Website website = user.getWebsite();
-                Address address = website.getAddress();
-
-                etBusinessName.setText(website.getBusinessName());
-                etBusinessStreet.setText(address.getStreetAddress());
-                etBusinessCity.setText(address.getCity());
-                etBusinessZip.setText(address.getPostalCode());
-                etBusinessPhone.setText(website.getPhoneNumber());
-                sprOnlinePresence.setSelectedItemsAsString(website.getOnlinePresenceType());
-                etContactName.setText(user.getFullName());
-                etContactPhone.setText(user.getPhoneNumber());
-                etContactEmail.setText(user.getEmail());
+                if(website == null) {
+                    scaffoldUser();
+                } else {
+                    populateForm();
+                }
             }
         });
     }
 
+    private void scaffoldUser() {
+        User user = (User) ParseUser.getCurrentUser();
+        incrementNetworkActivityCount();
+        user.addDefaultWebsite(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                decrementNetworkActivityCount();
+                if(e != null) {
+                    didReceiveNetworkException(e);
+                    return;
+                }
+                populateForm();
+            }
+        });
+    }
+
+    private void populateForm() {
+        User user = (User) ParseUser.getCurrentUser();
+        Website website = user.getWebsite();
+        Address address = website.getAddress();
+
+        etBusinessName.setText(website.getBusinessName());
+        etBusinessStreet.setText(address.getStreetAddress());
+        etBusinessCity.setText(address.getCity());
+        etBusinessZip.setText(address.getPostalCode());
+        etBusinessPhone.setText(website.getPhoneNumber());
+        sprOnlinePresence.setSelectedItemsAsString(website.getOnlinePresenceType());
+        etContactName.setText(user.getFullName());
+        etContactPhone.setText(user.getPhoneNumber());
+        etContactEmail.setText(user.getEmail());
+    }
+
     // TODO: throw these three up to the activity
-    private void didReceiveParseException(com.parse.ParseException e) {
-
+    private void didReceiveNetworkException(com.parse.ParseException e) {
+        Activity activity = getActivity();
+        if(activity instanceof NetworkFragmentContainer)
+            ((NetworkFragmentContainer) activity).didReceiveException(e);
     }
 
-    private void beginLoading() {
-
+    private void incrementNetworkActivityCount() {
+        Activity activity = getActivity();
+        if(activity instanceof NetworkFragmentContainer)
+            ((NetworkFragmentContainer) activity).incrementActivityCount();
     }
 
-    private void endLoading() {
+    private void decrementNetworkActivityCount() {
+        Activity activity = getActivity();
+        if(activity instanceof NetworkFragmentContainer)
+            ((NetworkFragmentContainer) activity).decrementActivityCount();
 
     }
-
 }

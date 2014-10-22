@@ -12,7 +12,7 @@ import java.util.Iterator;
  */
 public class ParseHelper {
 
-    static public void fetchObjectsInBackgroundInParallel(final ParseObject[] objects, final GetCallback getCallback) {
+    static public void fetchObjectsInBackgroundInParallel(final boolean onlyIfNeeded, final ParseObject[] objects, final GetCallback getCallback) {
         GetCallback parallelCallback = new GetCallback() {
 
             private int numberOfObjectsRemaining = objects.length;
@@ -34,8 +34,13 @@ public class ParseHelper {
             }
         };
 
-        for(ParseObject object : objects)
-            object.fetchInBackground(parallelCallback);
+        if(onlyIfNeeded == true) {
+            for(ParseObject object : objects)
+                object.fetchIfNeededInBackground(parallelCallback);
+        } else {
+            for(ParseObject object : objects)
+                object.fetchInBackground(parallelCallback);
+        }
     }
 
     static public void saveObjectsInBackgroundInParallel(final ParseObject[] objects, final SaveCallback saveCallback) {
@@ -64,7 +69,7 @@ public class ParseHelper {
             object.saveInBackground(parallelCallback);
     }
 
-    static public void fetchObjectsInBackgroundInSerial(final Iterator<ParseObject> objects, final GetCallback getCallback) {
+    static public void fetchObjectsInBackgroundInSerial(final boolean onlyIfNeeded, final Iterator<ParseObject> objects, final GetCallback getCallback) {
         class SerialGetCallback extends GetCallback {
 
             private int listIndex = 0;
@@ -76,7 +81,15 @@ public class ParseHelper {
                 }
 
                 ParseObject nextObject = objects.next();
-                nextObject.fetchInBackground(this);
+                if(nextObject == null) {
+                    getCallback.done(null, null);
+                    return;
+                }
+
+                if(onlyIfNeeded == true)
+                    nextObject.fetchIfNeededInBackground(this);
+                else
+                    nextObject.fetchInBackground(this);
             }
 
             @Override
