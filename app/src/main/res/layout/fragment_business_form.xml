@@ -1,105 +1,104 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.codepath.hackthehood.fragments.BusinessFormFragment">
+    android:fillViewport="true">
 
-    <EditText
-        android:id="@+id/etBusinessName"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:hint="Business Name" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.codepath.hackthehood.fragments.BusinessFormFragment">
 
-    <EditText
-        android:id="@+id/etBusinessStreet"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/etBusinessName"
-        android:inputType="textPostalAddress"
-        android:hint="Street Address" />
+        <EditText
+            android:id="@+id/etBusinessName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:hint="Business Name" />
 
-    <EditText
-        android:id="@+id/etBusinessCity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/etBusinessStreet"
-        android:inputType="textPostalAddress"
-        android:hint="City" />
+        <EditText
+            android:id="@+id/etBusinessStreet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:hint="Street Address"
+            android:inputType="textPostalAddress" />
 
-    <EditText
-        android:id="@+id/etBusinessZip"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:hint="Zip Code"
-        android:ems="10"
-        android:layout_below="@+id/etBusinessCity"/>
+        <EditText
+            android:id="@+id/etBusinessCity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="City"
+            android:inputType="textPostalAddress" />
 
-    <EditText
-        android:id="@+id/etBusinessPhone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="phone"
-        android:hint="Business Phone"
-        android:ems="10"
-        android:layout_below="@+id/etBusinessZip"/>
+        <EditText
+            android:id="@+id/etBusinessZip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Zip Code"
+            android:inputType="number" />
 
-    <TextView
-        android:id="@+id/tvOnlinePresence"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tvBusinessPresence"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="5dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/etBusinessPhone"/>
+        <EditText
+            android:id="@+id/etBusinessPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Business Phone"
+            android:inputType="phone" />
 
-    <com.codepath.hackthehood.util.MultiSelectionSpinner
-        android:id="@+id/sprOnlinePresence"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvOnlinePresence"
-        android:paddingRight="2dp"/>
+        <TextView
+            android:id="@+id/tvOnlinePresence"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:text="@string/tvBusinessPresence"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
+        <com.codepath.hackthehood.util.MultiSelectionSpinner
+            android:id="@+id/sprOnlinePresence"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="2dp" />
 
-    <EditText
-        android:id="@+id/etContactName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:hint="Contact Name"
-        android:ems="10"
-        android:layout_below="@+id/sprOnlinePresence"/>
+        <EditText
+            android:id="@+id/etContactName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Contact Name"
+            android:inputType="textPersonName" />
 
-    <EditText
-        android:id="@+id/etContactPhone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="phone"
-        android:hint="Contact Phone"
-        android:ems="10"
-        android:layout_below="@+id/etContactName"/>
+        <EditText
+            android:id="@+id/etContactPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Contact Phone"
+            android:inputType="phone" />
 
-    <EditText
-        android:id="@+id/etContactEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:hint="Contact Email"
-        android:ems="10"
-        android:layout_below="@+id/etContactPhone"/>
+        <EditText
+            android:id="@+id/etContactEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Contact Email"
+            android:inputType="textEmailAddress" />
 
-    <Button
-        android:id="@+id/btnSubmit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Submit"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:text="Submit" />
 
-</RelativeLayout>
+    </LinearLayout>
+</ScrollView>
