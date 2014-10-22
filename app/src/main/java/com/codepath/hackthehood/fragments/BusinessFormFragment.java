@@ -1,10 +1,8 @@
 package com.codepath.hackthehood.fragments;
 
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +11,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.activities.ConfirmationActivity;
-import com.codepath.hackthehood.activities.NetworkFragmentContainer;
 import com.codepath.hackthehood.models.Address;
 import com.codepath.hackthehood.models.ParseHelper;
 import com.codepath.hackthehood.models.User;
@@ -28,7 +25,7 @@ import com.parse.SaveCallback;
 import java.util.Iterator;
 
 
-public class BusinessFormFragment extends Fragment {
+public class BusinessFormFragment extends NetworkFragment {
 
     private EditText etBusinessName,    etBusinessStreet,   etBusinessCity,     etBusinessZip,
                      etBusinessPhone,   etContactName,      etContactPhone,     etContactEmail;
@@ -240,25 +237,5 @@ public class BusinessFormFragment extends Fragment {
         etContactName.setText(user.getFullName());
         etContactPhone.setText(user.getPhoneNumber());
         etContactEmail.setText(user.getEmail());
-    }
-
-    // TODO: throw these three up to the activity
-    private void didReceiveNetworkException(com.parse.ParseException e) {
-        Activity activity = getActivity();
-        if(activity instanceof NetworkFragmentContainer)
-            ((NetworkFragmentContainer) activity).didReceiveException(e);
-    }
-
-    private void incrementNetworkActivityCount() {
-        Activity activity = getActivity();
-        if(activity instanceof NetworkFragmentContainer)
-            ((NetworkFragmentContainer) activity).incrementActivityCount();
-    }
-
-    private void decrementNetworkActivityCount() {
-        Activity activity = getActivity();
-        if(activity instanceof NetworkFragmentContainer)
-            ((NetworkFragmentContainer) activity).decrementActivityCount();
-
     }
 }

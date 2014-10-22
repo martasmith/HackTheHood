@@ -15,11 +15,13 @@ import android.widget.TextView;
 import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.activities.AssetCollectionActivity;
 import com.codepath.hackthehood.models.User;
+import com.parse.GetCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 
-public class ConfirmationFragment extends Fragment {
+public class ConfirmationFragment extends NetworkFragment {
 
 
     private String mShareMessage;
@@ -56,12 +58,24 @@ public class ConfirmationFragment extends Fragment {
 
     private void adaptViewToCurrentStatus() {
         //get current user
-        User user = (User) ParseUser.getCurrentUser();
-        try {
-            user.fetch();
-        } catch (ParseException e) {
-            return;
-        }
+        final User user = (User) ParseUser.getCurrentUser();
+        incrementNetworkActivityCount();
+        user.fetchInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject parseObject, ParseException e) {
+                decrementNetworkActivityCount();
+                if (e != null) {
+                    didReceiveNetworkException(e);
+                    return;
+                }
+
+                pushUserToView();
+            }
+        });
+    }
+
+    private void pushUserToView() {
+        final User user = (User) ParseUser.getCurrentUser();
         int imageResource = R.drawable.ic_success;
         int applicationStatus = user.getApplicationStatus();
         
