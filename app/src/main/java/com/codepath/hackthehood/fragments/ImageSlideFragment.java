@@ -21,12 +21,15 @@ import com.codepath.hackthehood.R;
 public class ImageSlideFragment extends Fragment {
     private static final String IMG_SRC = "imageSrc";
     private static final String TITLE_TEXT = "titleText";
+    private static final String TITLE_DESC = "titleDescription";
 
     private ImageView ivBackgroundImage;
     private TextView tvTitleTextView;
+    private TextView tvDescriptionTextView;
 
     private String mImageSrc;
     private String mTitleText;
+    private String mDescriptionText;
 
     /**
      * Use this factory method to create a new instance of
@@ -36,11 +39,12 @@ public class ImageSlideFragment extends Fragment {
      * @param titleText Title text to show
      * @return A new instance of fragment ImageSlideFragment.
      */
-    public static ImageSlideFragment newInstance(String imageSrc, String titleText) {
+    public static ImageSlideFragment newInstance(String imageSrc, String titleText, String titleDescription) {
         ImageSlideFragment fragment = new ImageSlideFragment();
         Bundle args = new Bundle();
         args.putString(IMG_SRC, imageSrc);
         args.putString(TITLE_TEXT, titleText);
+        args.putString(TITLE_DESC, titleDescription);
         fragment.setArguments(args);
         return fragment;
     }
@@ -54,6 +58,7 @@ public class ImageSlideFragment extends Fragment {
         if (getArguments() != null) {
             mImageSrc = getArguments().getString(IMG_SRC);
             mTitleText = getArguments().getString(TITLE_TEXT);
+            mDescriptionText = getArguments().getString(TITLE_DESC);
         }
     }
 
@@ -64,7 +69,9 @@ public class ImageSlideFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_image_slide, container, false);
         tvTitleTextView = (TextView)rootView.findViewById(R.id.tvTitle);
         ivBackgroundImage = (ImageView)rootView.findViewById(R.id.ivBackgroundImage);
-        tvTitleTextView.setText(mTitleText);
+        tvTitleTextView.setText(mDescriptionText);
+        tvDescriptionTextView = (TextView)rootView.findViewById(R.id.tvDescription);
+        // tvDescriptionTextView.setText(mDescriptionText);
         return rootView;
     }
 

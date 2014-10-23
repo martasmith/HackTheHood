@@ -27,11 +27,12 @@ public class SlidePagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                ImageSlideFragment firstSlide = ImageSlideFragment.newInstance("", "Get your business online for free");
+                // Support local youth development
+                ImageSlideFragment firstSlide = ImageSlideFragment.newInstance("", "Support local youth development", "Hack the Hood introduces low-income youth of color to tech careers by hiring and training them as web consultants who build and promote sites for small local businesses.");
                 return firstSlide;
 
             case 1:
-                ImageSlideFragment secondSlide = ImageSlideFragment.newInstance("", "Support local youth development");
+                ImageSlideFragment secondSlide = ImageSlideFragment.newInstance("", "", "Get your business online for free");
                 return secondSlide;
 
             case 2:

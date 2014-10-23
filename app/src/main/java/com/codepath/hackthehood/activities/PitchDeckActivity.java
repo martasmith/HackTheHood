@@ -46,7 +46,6 @@ public class PitchDeckActivity extends FragmentActivity {
         vpSlidePager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                Log.i("INFO", "Position = " + position + " Offset = " + positionOffset + " Pixels = " + positionOffsetPixels);
                 switch (position) {
                     case 0:
                         // Keep it off screen
