@@ -82,6 +82,8 @@ public class BusinessFormFragment extends NetworkFragment {
         setupSubmitListener(btnSubmitBusinessForm);
         getAllParseFields();
 
+        getActivity().getActionBar().setTitle("Business Form");
+
         return v;
     }
 

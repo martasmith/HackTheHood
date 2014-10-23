@@ -6,72 +6,114 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:padding="10dp"
         tools:context="com.codepath.hackthehood.fragments.BusinessFormFragment">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/business_section_title"
+            android:paddingLeft="10dp"
+            android:paddingStart="10dp"
+            android:paddingRight="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textStyle="bold"
+            android:id="@+id/tvBusinessTitle" />
 
         <EditText
             android:id="@+id/etBusinessName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:hint="Business Name" />
+            android:hint="@string/business_name_hint_text" />
 
         <EditText
             android:id="@+id/etBusinessStreet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:hint="Street Address"
+            android:hint="@string/street_address_hint_text"
             android:inputType="textPostalAddress" />
 
-        <EditText
-            android:id="@+id/etBusinessCity"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="City"
-            android:inputType="textPostalAddress" />
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/etBusinessZip"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Zip Code"
-            android:inputType="number" />
+            <EditText
+                android:id="@+id/etBusinessCity"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:hint="@string/city_hint_text"
+                android:inputType="textPostalAddress" />
+
+            <EditText
+                android:id="@+id/etBusinessZip"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/postal_code_hint_text"
+                android:inputType="number" />
+
+        </LinearLayout>
 
         <EditText
             android:id="@+id/etBusinessPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Business Phone"
+            android:hint="@string/business_phone_hint_text"
             android:inputType="phone" />
 
         <TextView
             android:id="@+id/tvOnlinePresence"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:visibility="gone"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"
             android:text="@string/tvBusinessPresence"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <com.codepath.hackthehood.util.MultiSelectionSpinner
             android:id="@+id/sprOnlinePresence"
             android:layout_width="fill_parent"
+            android:visibility="gone"
             android:layout_height="wrap_content"
+            android:paddingLeft="2dp"
+            android:paddingStart="2dp"
+            android:paddingEnd="2dp"
             android:paddingRight="2dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:paddingLeft="10dp"
+            android:paddingStart="10dp"
+            android:paddingRight="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="5dp"
+            android:text="@string/contact_section_title"
+            android:id="@+id/tvContactSectionTitle"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/etContactName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Contact Name"
+            android:hint="@string/contact_name_hint_text"
             android:inputType="textPersonName" />
 
         <EditText
@@ -79,7 +121,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Contact Phone"
+            android:hint="@string/contact_phone_hint_text"
             android:inputType="phone" />
 
         <EditText
@@ -87,18 +129,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Contact Email"
+            android:hint="@string/contact_email_hint_text"
             android:inputType="textEmailAddress" />
 
         <Button
             android:id="@+id/btnSubmit"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:layout_marginTop="50dp"
-            android:text="Submit" />
+            android:background="@android:color/holo_blue_light"
+            android:textColor="@android:color/white"
+            android:fontFamily="sans-serif-light"
+            android:layout_marginTop="60dp"
+            android:text="@string/submit_button_hint_text" />
 
     </LinearLayout>
 </ScrollView>
