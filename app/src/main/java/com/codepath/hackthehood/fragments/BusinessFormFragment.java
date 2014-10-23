@@ -27,7 +27,7 @@ import java.util.Iterator;
 
 public class BusinessFormFragment extends NetworkFragment {
 
-    private OnBusinessFormSubmitListener mListener;
+    private BusinessFormListener mListener;
 
     private EditText etBusinessName,    etBusinessStreet,   etBusinessCity,     etBusinessZip,
                      etBusinessPhone,   etContactName,      etContactPhone,     etContactEmail;
@@ -183,27 +183,31 @@ public class BusinessFormFragment extends NetworkFragment {
 
             @Override
             public ParseObject next() {
-                switch(index++) {
-                    default: return user;
-                    case 1: return user.getWebsite();
-                    case 2: return user.getWebsite().getAddress();
+                switch (index++) {
+                    default:
+                        return user;
+                    case 1:
+                        return user.getWebsite();
+                    case 2:
+                        return user.getWebsite().getAddress();
                 }
             }
 
             @Override
-            public void remove() {}
+            public void remove() {
+            }
 
         }, new GetCallback() {
             @Override
             public void done(ParseObject parseObject, ParseException e) {
                 decrementNetworkActivityCount();
-                if(e != null) {
+                if (e != null) {
                     didReceiveNetworkException(e);
                     return;
                 }
 
                 Website website = user.getWebsite();
-                if(website == null) {
+                if (website == null) {
                     scaffoldUser();
                 } else {
                     populateForm();
@@ -219,7 +223,7 @@ public class BusinessFormFragment extends NetworkFragment {
             @Override
             public void done(ParseException e) {
                 decrementNetworkActivityCount();
-                if(e != null) {
+                if (e != null) {
                     didReceiveNetworkException(e);
                     return;
                 }
@@ -246,10 +250,10 @@ public class BusinessFormFragment extends NetworkFragment {
 
     public void onAttachFragment(Fragment fragment) {
         try {
-            mListener = (OnBusinessFormSubmitListener) fragment;
+            mListener = (BusinessFormListener) fragment;
         } catch (ClassCastException e) {
             throw new ClassCastException(fragment.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement BusinessFormListener");
         }
     }
 
@@ -259,7 +263,7 @@ public class BusinessFormFragment extends NetworkFragment {
         mListener = null;
     }
 
-    public interface OnBusinessFormSubmitListener {
+    public interface BusinessFormListener {
         public void onBusinessFormSubmit();
     }
 }

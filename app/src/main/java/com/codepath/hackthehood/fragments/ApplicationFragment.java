@@ -14,7 +14,7 @@ import com.parse.ParseUser;
 /**
  * Created by ravi on 10/22/14.
  */
-public class ApplicationFragment extends Fragment implements BusinessFormFragment.OnBusinessFormSubmitListener {
+public class ApplicationFragment extends Fragment implements BusinessFormFragment.BusinessFormListener, AssetCollectionFragment.AssetFormListener {
     public ApplicationFragment() {
         // Required empty public constructor
     }
@@ -76,6 +76,12 @@ public class ApplicationFragment extends Fragment implements BusinessFormFragmen
 
     @Override
     public void onBusinessFormSubmit() {
+        setFragmentBasedOnState();
+        getView().invalidate();
+    }
+
+    @Override
+    public void onAssetFormSubmit() {
         setFragmentBasedOnState();
         getView().invalidate();
     }

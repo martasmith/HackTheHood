@@ -25,7 +25,7 @@ public class MainNavigationActivity extends FragmentActivity {
         navDrawer.setupDrawerConfiguration((ListView) findViewById(R.id.lvDrawer),
                 R.layout.drawer_nav_item, R.id.flContent);
         // Add nav items
-        navDrawer.addNavItem("Application", "Application Fragment", ApplicationFragment.class);
+        navDrawer.addNavItem("My Application", "Application Fragment", ApplicationFragment.class);
         // Select default
         if (savedInstanceState == null) {
             navDrawer.selectDrawerItem(0);

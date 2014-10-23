@@ -33,6 +33,7 @@ import java.io.IOException;
 
 public class AssetCollectionFragment extends Fragment {
 
+    private AssetFormListener mListener;
     private final int REQUEST_CODE_WEB_CONTENT = 10;
     private final int REQUEST_CODE_TAKE_PHOTO_HEADER = 20;
     private final int REQUEST_CODE_TAKE_PHOTO_LOGO = 21;
@@ -55,6 +56,7 @@ public class AssetCollectionFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        onAttachFragment(getParentFragment());
     }
 
     @Override
@@ -106,8 +108,9 @@ public class AssetCollectionFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 submitAssets();
-                Intent i = new Intent(getActivity(), ConfirmationActivity.class);
-                startActivity(i);
+                if (mListener != null) {
+                    mListener.onAssetFormSubmit();
+                }
             }
         });
     }
@@ -291,4 +294,22 @@ public class AssetCollectionFragment extends Fragment {
         return Uri.fromFile(new File(mediaStorageDir.getPath() + File.separator + fileName));
     }
 
+    public void onAttachFragment(Fragment fragment) {
+        try {
+            mListener = (AssetFormListener) fragment;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(fragment.toString()
+                    + " must implement AssetFormListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    public interface AssetFormListener {
+        public void onAssetFormSubmit();
+    }
 }
