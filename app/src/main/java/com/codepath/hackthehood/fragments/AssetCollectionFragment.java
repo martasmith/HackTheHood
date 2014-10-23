@@ -21,7 +21,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.codepath.hackthehood.R;
-import com.codepath.hackthehood.activities.ConfirmationActivity;
 import com.codepath.hackthehood.activities.WebpageCollectionActivity;
 import com.codepath.hackthehood.models.User;
 import com.codepath.hackthehood.models.Website;

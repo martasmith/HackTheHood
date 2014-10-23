@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codepath.hackthehood.R;
-import com.codepath.hackthehood.activities.AssetCollectionActivity;
 import com.codepath.hackthehood.models.User;
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -159,8 +158,8 @@ public class ConfirmationFragment extends NetworkFragment {
         btnAddAssets.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getActivity(), AssetCollectionActivity.class);
-                startActivity(i);
+//                Intent i = new Intent(getActivity(), AssetCollectionActivity.class);
+//                startActivity(i);
             }
         });
     }
