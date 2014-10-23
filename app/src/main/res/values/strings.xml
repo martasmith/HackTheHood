@@ -18,6 +18,8 @@
     <string name="confirmEmailHint">Confirm e-mail address</string>
     <string name="signUp">Sign Up</string>
     <string name="change_user">Log Out</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
 
     <string-array name="onlinePresence">
         <item>Select current online presence</item>
@@ -58,5 +60,8 @@
     <string name="btn_to_assets">Start Entering Website Information</string>
     <string name="btn_share_confirmation">Share</string>
     <string name="tvAssetSpinnerTitle">Select your business type</string>
+    <string name="title_activity_main_navigation">MainNavigationActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

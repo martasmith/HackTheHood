@@ -1,8 +1,8 @@
 package com.codepath.hackthehood.fragments;
 
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +11,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.codepath.hackthehood.R;
-import com.codepath.hackthehood.activities.ConfirmationActivity;
 import com.codepath.hackthehood.models.Address;
 import com.codepath.hackthehood.models.ParseHelper;
 import com.codepath.hackthehood.models.User;
@@ -27,6 +26,8 @@ import java.util.Iterator;
 
 
 public class BusinessFormFragment extends NetworkFragment {
+
+    private OnBusinessFormSubmitListener mListener;
 
     private EditText etBusinessName,    etBusinessStreet,   etBusinessCity,     etBusinessZip,
                      etBusinessPhone,   etContactName,      etContactPhone,     etContactEmail;
@@ -55,6 +56,8 @@ public class BusinessFormFragment extends NetworkFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        onAttachFragment(getParentFragment());
     }
 
     @Override
@@ -132,8 +135,9 @@ public class BusinessFormFragment extends NetworkFragment {
                                 didReceiveNetworkException(e);
                                 decrementNetworkActivityCount();
                             } else {
-                                Intent i = new Intent(getActivity(), ConfirmationActivity.class);
-                                startActivity(i);
+                                if (mListener != null) {
+                                    mListener.onBusinessFormSubmit();
+                                }
                             }
                         }
                     });
@@ -238,5 +242,24 @@ public class BusinessFormFragment extends NetworkFragment {
         etContactName.setText(user.getFullName());
         etContactPhone.setText(user.getPhoneNumber());
         etContactEmail.setText(user.getEmail());
+    }
+
+    public void onAttachFragment(Fragment fragment) {
+        try {
+            mListener = (OnBusinessFormSubmitListener) fragment;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(fragment.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    public interface OnBusinessFormSubmitListener {
+        public void onBusinessFormSubmit();
     }
 }

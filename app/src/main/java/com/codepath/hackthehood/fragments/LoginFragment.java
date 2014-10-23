@@ -11,12 +11,10 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.codepath.hackthehood.R;
-import com.codepath.hackthehood.activities.BusinessFormActivity;
-import com.codepath.hackthehood.activities.ConfirmationActivity;
+import com.codepath.hackthehood.activities.MainNavigationActivity;
 import com.codepath.hackthehood.models.User;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 
@@ -59,7 +57,7 @@ public class LoginFragment extends android.support.v4.app.Fragment {
                     @Override
                     public void done(ParseUser parseUser, ParseException e) {
                         if(e == null) {
-                            startActivity(new Intent(getActivity(), BusinessFormActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                            startActivity(new Intent(getActivity(), MainNavigationActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                         } else {
                             Toast.makeText(getActivity(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                             btnLogin.setEnabled(true);

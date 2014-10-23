@@ -82,7 +82,7 @@ public class PitchDeckActivity extends FragmentActivity {
         // pretending that this activity never happened
         User user = (User) ParseUser.getCurrentUser();
         if(user != null) {
-            startActivity(new Intent(this, BusinessFormActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            startActivity(new Intent(this, MainNavigationActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
         }
     }
 

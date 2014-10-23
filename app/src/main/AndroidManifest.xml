@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.codepath.hackthehood">
+    package="com.codepath.hackthehood" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -10,7 +10,11 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <permission android:protectionLevel="signature" android:name="com.codepath.hackthehood.permission.C2D_MESSAGE" />
+
+    <permission
+        android:name="com.codepath.hackthehood.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
     <uses-permission android:name="com.codepath.hackthehood.permission.C2D_MESSAGE" />
 
     <application
@@ -24,13 +28,14 @@
         <activity
             android:name=".activities.PitchDeckActivity"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen">
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -50,28 +55,39 @@
         <activity
             android:name=".activities.LoginSignupActivity"
             android:label="@string/title_activity_login_signup"
-            android:noHistory="true">
+            android:noHistory="true" >
         </activity>
         <activity
             android:name=".activities.ConfirmationActivity"
-            android:label="@string/title_activity_confirmation">
+            android:label="@string/title_activity_confirmation" >
         </activity>
+
         <service android:name="com.parse.PushService" />
-        <receiver android:name="com.parse.GcmBroadcastReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND">
+
+        <receiver
+            android:name="com.parse.GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
                 <category android:name="com.codepath.hackthehood" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".util.PushReceiver" android:exported="false">
+        <receiver
+            android:name=".util.PushReceiver"
+            android:exported="false" >
             <intent-filter>
                 <action android:name="com.parse.push.intent.RECEIVE" />
                 <action android:name="com.parse.push.intent.DELETE" />
                 <action android:name="com.parse.push.intent.OPEN" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name=".activities.MainNavigationActivity"
+            android:label="@string/title_activity_main_navigation">
+        </activity>
     </application>
 
 </manifest>
