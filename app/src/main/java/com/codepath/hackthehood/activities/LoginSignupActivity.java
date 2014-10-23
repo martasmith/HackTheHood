@@ -2,17 +2,12 @@ package com.codepath.hackthehood.activities;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+
 import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.adapters.LoginSignupPagerAdapter;
-import com.codepath.hackthehood.models.User;
-import com.parse.Parse;
-import com.parse.ParseException;
-import com.parse.ParseUser;
-import com.parse.SaveCallback;
 
 public class LoginSignupActivity extends FragmentActivity {
 

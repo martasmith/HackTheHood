@@ -1,12 +1,12 @@
 package com.codepath.hackthehood.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
+
 import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.fragments.AssetCollectionFragment;
 import com.parse.ParseUser;

@@ -2,7 +2,6 @@ package com.codepath.hackthehood.models;
 
 import com.parse.ParseClassName;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.SaveCallback;
 
 /**

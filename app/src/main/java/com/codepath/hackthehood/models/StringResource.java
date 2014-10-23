@@ -1,7 +1,6 @@
 package com.codepath.hackthehood.models;
 
 import com.parse.ParseClassName;
-import com.parse.ParseObject;
 
 /**
  * Created by thomasharte on 12/10/2014.

@@ -6,9 +6,6 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.fragments.WebpageCollectionFragment;
-import com.codepath.hackthehood.models.User;
-import com.codepath.hackthehood.models.WebsitePage;
-import com.parse.ParseUser;
 
 public class WebpageCollectionActivity extends FragmentActivity {
 

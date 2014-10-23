@@ -1,13 +1,11 @@
 package com.codepath.hackthehood.models;
 
 import android.graphics.Bitmap;
-
 import android.os.AsyncTask;
 
 import com.parse.ParseClassName;
 import com.parse.ParseException;
 import com.parse.ParseFile;
-import com.parse.ParseObject;
 import com.parse.SaveCallback;
 
 import java.io.ByteArrayOutputStream;
