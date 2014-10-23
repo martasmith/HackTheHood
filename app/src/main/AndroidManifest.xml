@@ -41,10 +41,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.BusinessFormActivity"
-            android:label="@string/title_activity_business_form" >
-        </activity>
-        <activity
             android:name=".activities.AssetCollectionActivity"
             android:label="@string/title_activity_asset_collection" >
         </activity>
