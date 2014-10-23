@@ -2,6 +2,7 @@ package com.codepath.hackthehood.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +15,17 @@ import com.codepath.hackthehood.models.User;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParsePush;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class ConfirmationFragment extends NetworkFragment {
 
-
+    private ConfirmationViewListener mListener;
     private String mShareMessage;
     private ImageView ivStatus;
     private TextView tvMainText;
@@ -34,6 +40,7 @@ public class ConfirmationFragment extends NetworkFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        onAttachFragment(getParentFragment());
     }
 
     @Override
@@ -136,6 +143,8 @@ public class ConfirmationFragment extends NetworkFragment {
         getActivity().getActionBar().setTitle(actionBarTitle);
 //      tvSubText.setText(Html.fromHtml("Please <a href=\"http://www.hackthehood.org/contact-us.html\">contact Hack the Hood</a> for more information."));
 //      tvSubText.setText(Html.fromHtml("While you're waiting for confirmation, read the <a href=\"http://www.hackthehood.org/blog\">Hack the Hood blog!</a>"));
+
+        updateStateAndNotify();
     }
 
     private void setUpShareListener() {
@@ -158,9 +167,79 @@ public class ConfirmationFragment extends NetworkFragment {
         btnAddAssets.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent i = new Intent(getActivity(), AssetCollectionActivity.class);
-//                startActivity(i);
+                if (mListener != null) {
+                    mListener.startAssetCollection();
+                }
             }
         });
+    }
+
+    public void onAttachFragment(Fragment fragment) {
+        try {
+            mListener = (ConfirmationViewListener) fragment;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(fragment.toString()
+                    + " must implement BusinessFormListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    public interface ConfirmationViewListener {
+        public void startAssetCollection();
+    }
+
+    private void updateStateAndNotify() {
+        final User user = (User) ParseUser.getCurrentUser();
+        int applicationStatus = user.getApplicationStatus();
+
+        switch (applicationStatus) {
+            case User.APPSTATUS_PENDING_REVIEW:
+                user.setApplicationStatus(User.APPSTATUS_ACCEPTED);
+                user.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e == null) {
+                            sendPushMessage("Congratulations!", "We have accepted your application! Please submit assets for your website!");
+                        }
+                    }
+                });
+                break;
+
+            case User.APPSTATUS_ASSETS_SUBMITTED:
+                user.setApplicationStatus(User.APPSTATUS_SITE_COMPLETED);
+                user.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e == null) {
+                            sendPushMessage("Congratulations! Your website has been created!", "Thank you for your support! Our students have created a beautiful website for you! Check it out!");
+                        }
+                    }
+                });
+                break;
+
+            default:
+                break;
+        }
+
+
+    }
+
+    private void sendPushMessage(String title, String message) {
+
+        JSONObject data = null;
+        try {
+            data = new JSONObject("{\"title\": \"" + title + "\", \"alert\": \"" + message +"\", \"confirm\": \"true\"}");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        ParsePush push = new ParsePush();
+        push.setData(data);
+        push.sendInBackground();
     }
 }

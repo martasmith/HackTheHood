@@ -14,7 +14,9 @@ import com.parse.ParseUser;
 /**
  * Created by ravi on 10/22/14.
  */
-public class ApplicationFragment extends Fragment implements BusinessFormFragment.BusinessFormListener, AssetCollectionFragment.AssetFormListener {
+public class ApplicationFragment extends Fragment implements BusinessFormFragment.BusinessFormListener,
+        AssetCollectionFragment.AssetFormListener,
+        ConfirmationFragment.ConfirmationViewListener {
     public ApplicationFragment() {
         // Required empty public constructor
     }
@@ -55,10 +57,6 @@ public class ApplicationFragment extends Fragment implements BusinessFormFragmen
                 break;
 
             case User.APPSTATUS_ACCEPTED:
-                AssetCollectionFragment assetCollectionFragment = new AssetCollectionFragment();
-                fragmentTransaction.replace(R.id.flApplicationFragmentContainer, assetCollectionFragment);
-                break;
-
             case User.APPSTATUS_PENDING_REVIEW:
             case User.APPSTATUS_ASSETS_SUBMITTED:
             case User.APPSTATUS_DECLINED:
@@ -84,5 +82,13 @@ public class ApplicationFragment extends Fragment implements BusinessFormFragmen
     public void onAssetFormSubmit() {
         setFragmentBasedOnState();
         getView().invalidate();
+    }
+
+    @Override
+    public void startAssetCollection() {
+        FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+        AssetCollectionFragment assetCollectionFragment = new AssetCollectionFragment();
+        fragmentTransaction.replace(R.id.flApplicationFragmentContainer, assetCollectionFragment);
+        fragmentTransaction.commit();
     }
 }
