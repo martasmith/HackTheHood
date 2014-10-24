@@ -3,6 +3,8 @@ package com.codepath.hackthehood.fragments;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -23,6 +25,7 @@ import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.models.ImageResource;
 import com.codepath.hackthehood.models.User;
 import com.codepath.hackthehood.models.WebsitePage;
+import com.codepath.hackthehood.util.BitmapScaler;
 import com.parse.ParseUser;
 
 import java.io.File;
@@ -183,24 +186,21 @@ public class WebpageCollectionFragment extends Fragment {
         startActivityForResult(intent, requestCode);
     }
 
-    private void getCapturedPhoto(String photoFileName, int resultCode, ImageView img) {
+    private void getCapturedPhoto(String photoFileName, Bitmap bMap, int resultCode, ImageView img) {
         if (resultCode == getActivity().RESULT_OK) {
             //extract photo that was just taken by the camera
             Uri takenPhotoUri = getPhotoFileUri(photoFileName);
-            // by this point we have the camera photo on disk
-            if (photoFileName.equals("photoFile1.jpg")) {
-                photo1Bitmap = BitmapFactory.decodeFile(takenPhotoUri.getPath());
-                // Load the taken image into a preview
-                img.setImageBitmap(photo1Bitmap);
-            } else if (photoFileName.equals("photoFile2.jpg")) {
-                photo2Bitmap = BitmapFactory.decodeFile(takenPhotoUri.getPath());
-                // Load the taken image into a preview
-                img.setImageBitmap(photo2Bitmap);
-            } else if (photoFileName.equals("photoFile3.jpg")) {
-                photo3Bitmap = BitmapFactory.decodeFile(takenPhotoUri.getPath());
-                // Load the taken image into a preview
-                img.setImageBitmap(photo3Bitmap);
-            }
+
+            // by this point we have the camera photo on disk, rotate image to correct position
+            bMap = rotateBitmapOrientation(takenPhotoUri.getPath());
+
+            // Resize the bitmap
+            //Bitmap bMapScaled = Bitmap.createScaledBitmap(bMap, 85, 85, true);
+            Bitmap bMapScaled =  BitmapScaler.scaleToFill(bMap, 85, 85);
+
+
+            // Loads the re-sized Bitmap into an ImageView
+            img.setImageBitmap(bMapScaled);
         } else { // Result was a failure
             Toast.makeText(getActivity(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
         }
@@ -213,24 +213,20 @@ public class WebpageCollectionFragment extends Fragment {
         startActivityForResult(intent, requestCode);
     }
 
-    private void getPickedFromGallery(Intent data, ImageView img) {
+    private void getPickedFromGallery(Intent data, Bitmap bMap, ImageView img) {
         //extract photo that was just picked from the gallery
         if (data != null) {
             Uri photoUri = data.getData();
             try {
-                if (img.getDrawable() == ivFileUpload1.getDrawable()) {
-                    photo1Bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), photoUri);
-                    // Load the selected image into a preview
-                    img.setImageBitmap(photo1Bitmap);
-                } else if (img.getDrawable() == ivFileUpload2.getDrawable()) {
-                    photo2Bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), photoUri);
-                    // Load the selected image into a preview
-                    img.setImageBitmap(photo2Bitmap);
-                } else if (img.getDrawable() == ivFileUpload3.getDrawable()) {
-                    photo3Bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), photoUri);
-                    // Load the selected image into a preview
-                    img.setImageBitmap(photo3Bitmap);
-                }
+                bMap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), photoUri);
+
+                // Resize the bitmap
+                //Bitmap bMapScaled = Bitmap.createScaledBitmap(bMap, 85, 85, true);
+                Bitmap bMapScaled =  BitmapScaler.scaleToFill(bMap, 85, 85);
+
+                // Loads the re-sized Bitmap into an ImageView
+                img.setImageBitmap(bMapScaled);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -239,26 +235,61 @@ public class WebpageCollectionFragment extends Fragment {
         }
     }
 
+    public Bitmap rotateBitmapOrientation(String photoFilePath) {
+        // Create and configure BitmapFactory
+        BitmapFactory.Options bounds = new BitmapFactory.Options();
+        bounds.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(photoFilePath, bounds);
+        BitmapFactory.Options opts = new BitmapFactory.Options();
+        Bitmap bm = BitmapFactory.decodeFile(photoFilePath, opts);
+        // Read EXIF Data
+
+        ExifInterface exif;
+        String orientString = "";
+
+        try {
+            exif = new ExifInterface(photoFilePath);
+            orientString = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        int orientation = orientString != null ? Integer.parseInt(orientString) : ExifInterface.ORIENTATION_NORMAL;
+        int rotationAngle = 0;
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_90) rotationAngle = 90;
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_180) rotationAngle = 180;
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_270) rotationAngle = 270;
+        // Rotate Bitmap
+        Matrix matrix = new Matrix();
+        matrix.setRotate(rotationAngle, (float) bm.getWidth() / 2, (float) bm.getHeight() / 2);
+        Bitmap rotatedBitmap = Bitmap.createBitmap(bm, 0, 0, bounds.outWidth, bounds.outHeight, matrix, true);
+        // Return result
+        return rotatedBitmap;
+
+    }
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         //super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_TAKE_PHOTO_1) {
-            getCapturedPhoto("photoFile1.jpg",resultCode,ivFileUpload1);
+            getCapturedPhoto("photoFile1.jpg",photo1Bitmap,resultCode,ivFileUpload1);
         }
         else if (requestCode == REQUEST_CODE_TAKE_PHOTO_2) {
-            getCapturedPhoto("photoFile2.jpg",resultCode,ivFileUpload2);
+            getCapturedPhoto("photoFile2.jpg",photo2Bitmap,resultCode,ivFileUpload2);
         }
         else if (requestCode == REQUEST_CODE_TAKE_PHOTO_3) {
-            getCapturedPhoto("photoFile3.jpg",resultCode,ivFileUpload3);
+            getCapturedPhoto("photoFile3.jpg",photo3Bitmap, resultCode,ivFileUpload3);
         }
         else if (requestCode == REQUEST_CODE_UPLOAD_PHOTO_1 && resultCode == getActivity().RESULT_OK) {
-            getPickedFromGallery(data,ivFileUpload1);
+            getPickedFromGallery(data,photo1Bitmap,ivFileUpload1);
         }
         else if (requestCode == REQUEST_CODE_UPLOAD_PHOTO_2 && resultCode == getActivity().RESULT_OK) {
-            getPickedFromGallery(data,ivFileUpload2);
+            getPickedFromGallery(data,photo2Bitmap,ivFileUpload2);
         }
         else if (requestCode == REQUEST_CODE_UPLOAD_PHOTO_3 && resultCode == getActivity().RESULT_OK) {
-            getPickedFromGallery(data,ivFileUpload3);
+            getPickedFromGallery(data,photo3Bitmap,ivFileUpload3);
         }
 
     }
