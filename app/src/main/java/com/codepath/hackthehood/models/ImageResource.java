@@ -18,7 +18,7 @@ public class ImageResource extends NullForNothingParseObject {
     /*
         Exposed methods:
 
-            String getBitmapUrl
+            String getImageUrl
             void setBitmap(Bitmap, SaveCallback)
      */
 
@@ -66,7 +66,7 @@ public class ImageResource extends NullForNothingParseObject {
         };
         newtask.execute();
     }
-    public String getBitmapUrl() {
+    public String getImageUrl() {
         ParseFile file = (ParseFile)get(bitmapKey);
         return (file != null) ? file.getUrl() : null;
     }
