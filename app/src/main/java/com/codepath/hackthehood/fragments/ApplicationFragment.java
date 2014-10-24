@@ -15,7 +15,7 @@ import com.parse.ParseUser;
  * Created by ravi on 10/22/14.
  */
 public class ApplicationFragment extends Fragment implements BusinessFormFragment.BusinessFormListener,
-        AssetCollectionFragment.AssetFormListener,
+        WebsiteCollectionFragment.AssetFormListener,
         ConfirmationFragment.ConfirmationViewListener {
     public ApplicationFragment() {
         // Required empty public constructor
@@ -87,7 +87,7 @@ public class ApplicationFragment extends Fragment implements BusinessFormFragmen
     @Override
     public void startAssetCollection() {
         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-        AssetCollectionFragment assetCollectionFragment = new AssetCollectionFragment();
+        WebsiteCollectionFragment assetCollectionFragment = new WebsiteCollectionFragment();
         fragmentTransaction.replace(R.id.flApplicationFragmentContainer, assetCollectionFragment);
         fragmentTransaction.commit();
     }
