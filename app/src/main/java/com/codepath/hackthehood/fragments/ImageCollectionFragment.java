@@ -108,8 +108,6 @@ public abstract class ImageCollectionFragment extends NetworkFragment {
         }
     }
 
-    protected abstract void setBitmap(int index, Bitmap bitmap);
-
     // Returns the Uri for a photo stored on disk given the fileName
     public Uri getPhotoFileUri(int index) {
         // Get safe storage directory for photos
@@ -123,5 +121,36 @@ public abstract class ImageCollectionFragment extends NetworkFragment {
 
         // Return the file target for the photo based on filename
         return Uri.fromFile(new File(mediaStorageDir.getPath() + File.separator + "image" + index + ".jpg"));
+    }
+
+    protected abstract ImageView imageViewForIndex(int index);
+    protected abstract ImageResource imageResourceForIndex(int index);
+
+    protected void setBitmap(int index, Bitmap bitmap) {
+        ImageView imageView = imageViewForIndex(index);
+        imageView.setImageBitmap(BitmapScaler.scaleToFill(bitmap, imageView.getWidth(), imageView.getHeight()));
+        incrementNetworkActivityCount();
+
+        final ImageResource imageResource = imageResourceForIndex(index);
+        imageResource.setBitmap(bitmap, new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e != null) {
+                    didReceiveNetworkException(e);
+                    decrementNetworkActivityCount();
+                    return;
+                }
+
+                imageResource.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e != null) {
+                            didReceiveNetworkException(e);
+                        }
+                        decrementNetworkActivityCount();
+                    }
+                });
+            }
+        });
     }
 }

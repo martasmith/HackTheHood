@@ -1,6 +1,7 @@
 package com.codepath.hackthehood.fragments;
 
 import android.app.Activity;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import com.codepath.hackthehood.activities.NetworkFragmentContainer;
@@ -61,5 +62,11 @@ public abstract class NetworkFragment extends Fragment {
     }
 
     public void submit(SaveCallback saveCallback) {
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        fetch(true);
     }
 }

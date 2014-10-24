@@ -40,23 +40,16 @@ import java.util.List;
 
 public class WebsitePageCollectionFragment extends ImageCollectionFragment {
 
-    private final static int REQUEST_CODE_TAKE_PHOTO    = 20;
-    private final static int REQUEST_CODE_SELECT_PHOTO  = 30;
-    public final static String APP_TAG = "HTH_app";
-
     private EditText etPageText, etDesignerNotes;
     private List<ImageView> imageViews;
-    private PopupMenu popup;
     private WebsitePage page;
 
-    private final static String TICK_IMAGE_NAME = "tickImgName";
     private final static String TITLE = "title";
     private final static String PAGE_INDEX = "pageIndex";
-    public static WebsitePageCollectionFragment newInstance(String tickImgName, String title, int pageIndex) {
+    public static WebsitePageCollectionFragment newInstance(String title, int pageIndex) {
         WebsitePageCollectionFragment fragment = new WebsitePageCollectionFragment();
 
         Bundle args = new Bundle();
-        args.putString  (TICK_IMAGE_NAME, tickImgName);
         args.putString  (TITLE, title);
         args.putInt     (PAGE_INDEX, pageIndex);
         fragment.setArguments(args);
@@ -66,12 +59,6 @@ public class WebsitePageCollectionFragment extends ImageCollectionFragment {
 
     public WebsitePageCollectionFragment() {
         // Required empty public constructor
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        fetch(true);
     }
 
     @Override
@@ -184,7 +171,6 @@ public class WebsitePageCollectionFragment extends ImageCollectionFragment {
 
                         if (e != null) {
                             Intent data = new Intent();
-                            data.putExtra("tickImgName", getArguments().getString(TICK_IMAGE_NAME));
                             getActivity().setResult(getActivity().RESULT_OK, data);
                             getActivity().finish();
                         }
@@ -216,32 +202,12 @@ public class WebsitePageCollectionFragment extends ImageCollectionFragment {
     }
 
     @Override
-    protected void setBitmap(int index, Bitmap bitmap) {
-        ImageView imageView = imageViews.get(index);
-        imageView.setImageBitmap(BitmapScaler.scaleToFill(bitmap, imageView.getWidth(), imageView.getHeight()));
-        incrementNetworkActivityCount();
-
-        final ImageResource imageResource = page.getImageResources().get(index);
-        imageResource.setBitmap(bitmap, new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e != null) {
-                    didReceiveNetworkException(e);
-                    decrementNetworkActivityCount();
-                    return;
-                }
-
-                imageResource.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        if (e != null) {
-                            didReceiveNetworkException(e);
-                        }
-                        decrementNetworkActivityCount();
-                    }
-                });
-            }
-        });
+    protected ImageView imageViewForIndex(int index) {
+        return imageViews.get(index);
     }
 
+    @Override
+    protected ImageResource imageResourceForIndex(int index) {
+        return page.getImageResources().get(index);
+    }
 }
