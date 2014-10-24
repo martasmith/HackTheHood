@@ -19,6 +19,7 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.codepath.hackthehood.R;
+import com.codepath.hackthehood.models.ImageResource;
 import com.codepath.hackthehood.models.ParseHelper;
 import com.codepath.hackthehood.models.User;
 import com.codepath.hackthehood.models.WebsitePage;
@@ -27,6 +28,7 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,7 +45,6 @@ public class WebsitePageCollectionFragment extends NetworkFragment {
 
     private EditText etPageText, etDesignerNotes;
     private List<ImageView> imageViews;
-    private Button btnAddSite;
     private PopupMenu popup;
     private WebsitePage page;
 
@@ -128,14 +129,13 @@ public class WebsitePageCollectionFragment extends NetworkFragment {
 
         etPageText = (EditText) v.findViewById(R.id.etPageText);
         etDesignerNotes = (EditText) v.findViewById(R.id.etDesignerNotes);
-        btnAddSite = (Button) v.findViewById(R.id.btnAddSite);
 
         imageViews = new ArrayList<ImageView>();
         imageViews.add((ImageView)v.findViewById(R.id.imgFile1));
         imageViews.add((ImageView)v.findViewById(R.id.imgFile2));
         imageViews.add((ImageView)v.findViewById(R.id.imgFile3));
 
-        setupAddSiteListener();
+        setupAddSiteListener((Button)v.findViewById(R.id.btnAddSite));
         for(int c = 0; c < 3; c++)
             setupImgUploadListener(c);
 
@@ -144,18 +144,27 @@ public class WebsitePageCollectionFragment extends NetworkFragment {
     }
 
     private void populateView() {
+        List <ImageResource> imageResources = page.getImageResources();
+        for(int c = 0; c < 3; c++) {
+            Picasso.with(getActivity()).load(imageResources.get(c).getImageUrl()).into(imageViews.get(c));
+        }
 
+        etDesignerNotes.setText(page.getNotes());
+        etPageText.setText(page.getText());
     }
 
-    private void setupAddSiteListener() {
-        btnAddSite.setOnClickListener(new View.OnClickListener() {
+    private void setupAddSiteListener(final Button bntAddSite) {
+
+        bntAddSite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                bntAddSite.setEnabled(false);
                 submit(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
+                        bntAddSite.setEnabled(true);
 
-                        if(e != null) {
+                        if (e != null) {
                             Intent data = new Intent();
                             data.putExtra("tickImgName", getArguments().getString(TICK_IMAGE_NAME));
                             getActivity().setResult(getActivity().RESULT_OK, data);
