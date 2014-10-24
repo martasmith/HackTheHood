@@ -53,28 +53,33 @@ public class ConfirmationFragment extends NetworkFragment {
         btnShare = (Button) rootView.findViewById(R.id.btnShare);
         btnAddAssets = (Button) rootView.findViewById(R.id.btnToAssets);
 
-        adaptViewToCurrentStatus();
         setUpNextStepListener();
         setUpShareListener();
+
+        fetch(true);
         return rootView;
     }
 
-    private void adaptViewToCurrentStatus() {
-        //get current user
+    @Override
+    protected void doFetch(boolean onlyIfNeeded) {
+        super.doFetch(onlyIfNeeded);
         final User user = (User) ParseUser.getCurrentUser();
-        incrementNetworkActivityCount();
-        user.fetchInBackground(new GetCallback<ParseObject>() {
-            @Override
-            public void done(ParseObject parseObject, ParseException e) {
-                decrementNetworkActivityCount();
-                if (e != null) {
-                    didReceiveNetworkException(e);
-                    return;
-                }
 
-                pushUserToView();
-            }
-        });
+        GetCallback getCallback =
+            new GetCallback<ParseObject>() {
+                @Override
+                public void done(ParseObject parseObject, ParseException e) {
+                    if(e != null) didReceiveNetworkException(e);
+                    decrementNetworkActivityCount();
+                    pushUserToView();
+                }
+            };
+
+        incrementNetworkActivityCount();
+        if(onlyIfNeeded)
+            user.fetchIfNeededInBackground(getCallback);
+        else
+            user.fetchInBackground(getCallback);
     }
 
     private void pushUserToView() {
