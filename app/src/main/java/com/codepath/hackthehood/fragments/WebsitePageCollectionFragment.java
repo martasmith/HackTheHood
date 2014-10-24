@@ -277,7 +277,7 @@ public class WebsitePageCollectionFragment extends NetworkFragment {
     private void setBitmap(int index, Bitmap bitmap) {
         imageViews.get(index).setImageBitmap(bitmap);
         incrementNetworkActivityCount();
-        page.getImageResources().get(0).setBitmap(bitmap, new SaveCallback() {
+        page.getImageResources().get(index).setBitmap(bitmap, new SaveCallback() {
             @Override
             public void done(ParseException e) {
                 decrementNetworkActivityCount();
