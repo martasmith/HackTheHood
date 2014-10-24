@@ -8,7 +8,7 @@ import com.codepath.hackthehood.activities.NetworkFragmentContainer;
 /**
  * Created by thomasharte on 21/10/2014.
  */
-public class NetworkFragment extends Fragment {
+public abstract class NetworkFragment extends Fragment {
 
     private int localNetworkActivityCount = 0;
 
@@ -39,5 +39,9 @@ public class NetworkFragment extends Fragment {
         }
 
         super.onDestroy();
+    }
+
+    public void refresh() {
+
     }
 }

@@ -30,7 +30,7 @@ import java.io.File;
 import java.io.IOException;
 
 
-public class AssetCollectionFragment extends Fragment {
+public class WebsiteCollectionFragment extends NetworkFragment {
 
     private AssetFormListener mListener;
     private final int REQUEST_CODE_WEB_CONTENT = 10;
@@ -48,7 +48,7 @@ public class AssetCollectionFragment extends Fragment {
     private PopupMenu popup;
     private Bitmap headerBitmap, logoBitmap;
 
-    public AssetCollectionFragment() {
+    public WebsiteCollectionFragment() {
         // Required empty public constructor
     }
 
@@ -93,7 +93,7 @@ public class AssetCollectionFragment extends Fragment {
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), WebpageCollectionActivity.class);
                 title = btn.getText().toString();
-                i.putExtra("title",title);
+                i.putExtra("title", title);
                 i.putExtra("tickImgName",checkPage);
                 i.putExtra("pageIndex", pageIndex);
                 startActivityForResult(i, REQUEST_CODE_WEB_CONTENT);

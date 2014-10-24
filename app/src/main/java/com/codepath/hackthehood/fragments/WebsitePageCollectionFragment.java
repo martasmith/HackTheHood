@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -30,14 +29,14 @@ import java.io.IOException;
 import java.util.List;
 
 
-public class WebpageCollectionFragment extends Fragment {
+public class WebsitePageCollectionFragment extends NetworkFragment {
 
-    private final int REQUEST_CODE_TAKE_PHOTO_1 = 20;
-    private final int REQUEST_CODE_TAKE_PHOTO_2 = 21;
-    private final int REQUEST_CODE_TAKE_PHOTO_3 = 22;
-    private final int REQUEST_CODE_UPLOAD_PHOTO_1 = 30;
-    private final int REQUEST_CODE_UPLOAD_PHOTO_2 = 31;
-    private final int REQUEST_CODE_UPLOAD_PHOTO_3 = 32;
+    private final static int REQUEST_CODE_TAKE_PHOTO_1 = 20;
+    private final static int REQUEST_CODE_TAKE_PHOTO_2 = 21;
+    private final static int REQUEST_CODE_TAKE_PHOTO_3 = 22;
+    private final static int REQUEST_CODE_UPLOAD_PHOTO_1 = 30;
+    private final static int REQUEST_CODE_UPLOAD_PHOTO_2 = 31;
+    private final static int REQUEST_CODE_UPLOAD_PHOTO_3 = 32;
     public final String APP_TAG = "HTH_app";
 
     // TODO: Rename and change types of parameters
@@ -50,8 +49,8 @@ public class WebpageCollectionFragment extends Fragment {
     private WebsitePage page;
 
 
-    public static WebpageCollectionFragment newInstance(String tickImgName, String title, int pageIndex) {
-        WebpageCollectionFragment fragment = new WebpageCollectionFragment();
+    public static WebsitePageCollectionFragment newInstance(String tickImgName, String title, int pageIndex) {
+        WebsitePageCollectionFragment fragment = new WebsitePageCollectionFragment();
         Bundle args = new Bundle();
         args.putString("tickImgName", tickImgName);
         args.putString("title", title);
@@ -59,7 +58,7 @@ public class WebpageCollectionFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-    public WebpageCollectionFragment() {
+    public WebsitePageCollectionFragment() {
         // Required empty public constructor
     }
 

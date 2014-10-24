@@ -5,11 +5,11 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 
 import com.codepath.hackthehood.R;
-import com.codepath.hackthehood.fragments.WebpageCollectionFragment;
+import com.codepath.hackthehood.fragments.WebsitePageCollectionFragment;
 
 public class WebpageCollectionActivity extends FragmentActivity {
 
-    private WebpageCollectionFragment webpageCollectionFragment;
+    private WebsitePageCollectionFragment webpageCollectionFragment;
     private String title,tickImgName;
 
     @Override
@@ -24,7 +24,7 @@ public class WebpageCollectionActivity extends FragmentActivity {
         getActionBar().setTitle(title);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        webpageCollectionFragment = WebpageCollectionFragment.newInstance(tickImgName, title, pageIndex);
+        webpageCollectionFragment = WebsitePageCollectionFragment.newInstance(tickImgName, title, pageIndex);
         ft.replace(R.id.flWebpageCollection, webpageCollectionFragment);
         ft.commit();
     }
