@@ -19,11 +19,13 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.codepath.hackthehood.R;
+import com.codepath.hackthehood.models.BitmapHelper;
 import com.codepath.hackthehood.models.ImageResource;
 import com.codepath.hackthehood.models.PageResource;
 import com.codepath.hackthehood.models.ParseHelper;
 import com.codepath.hackthehood.models.User;
 import com.codepath.hackthehood.models.WebsitePage;
+import com.codepath.hackthehood.util.BitmapScaler;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -277,7 +279,7 @@ public class WebsitePageCollectionFragment extends NetworkFragment {
     private void onTakePhotoResult(int index, int resultCode, Intent data) {
         if (resultCode == getActivity().RESULT_OK) {
             //extract photo that was just taken by the camera
-            setBitmap(index, BitmapFactory.decodeFile(getPhotoFileUri(index).getPath()));
+            setBitmap(index, BitmapHelper.getNormalOrientationBitmap(getPhotoFileUri(index).getPath()));
         } else { // Result was a failure
             Toast.makeText(getActivity(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
         }
@@ -293,7 +295,8 @@ public class WebsitePageCollectionFragment extends NetworkFragment {
     }
 
     private void setBitmap(int index, Bitmap bitmap) {
-        imageViews.get(index).setImageBitmap(bitmap);
+        ImageView imageView = imageViews.get(index);
+        imageView.setImageBitmap(BitmapScaler.scaleToFill(bitmap, imageView.getWidth(), imageView.getHeight()));
         incrementNetworkActivityCount();
 
         final ImageResource imageResource = page.getImageResources().get(index);
