@@ -1,4 +1,4 @@
-package com.codepath.hackthehood.models;
+package com.codepath.hackthehood.controller;
 
 import com.parse.GetCallback;
 import com.parse.ParseException;

@@ -2,7 +2,6 @@ package com.codepath.hackthehood.fragments;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -19,10 +18,9 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.codepath.hackthehood.R;
-import com.codepath.hackthehood.models.BitmapHelper;
+import com.codepath.hackthehood.controller.BitmapHelper;
 import com.codepath.hackthehood.models.ImageResource;
-import com.codepath.hackthehood.models.PageResource;
-import com.codepath.hackthehood.models.ParseHelper;
+import com.codepath.hackthehood.controller.ParseHelper;
 import com.codepath.hackthehood.models.User;
 import com.codepath.hackthehood.models.WebsitePage;
 import com.codepath.hackthehood.util.BitmapScaler;
