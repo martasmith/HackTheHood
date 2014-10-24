@@ -9,22 +9,18 @@ import com.codepath.hackthehood.fragments.WebsitePageCollectionFragment;
 
 public class WebpageCollectionActivity extends FragmentActivity {
 
-    private WebsitePageCollectionFragment webpageCollectionFragment;
-    private String title,tickImgName;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_webpage_collection);
 
-        title = getIntent().getStringExtra("title");
-        tickImgName = getIntent().getStringExtra("tickImgName");
+        String title = getIntent().getStringExtra("title");
         int pageIndex = getIntent().getIntExtra("pageIndex", 0);
 
         getActionBar().setTitle(title);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        webpageCollectionFragment = WebsitePageCollectionFragment.newInstance(tickImgName, title, pageIndex);
+        WebsitePageCollectionFragment webpageCollectionFragment = WebsitePageCollectionFragment.newInstance(title, pageIndex);
         ft.replace(R.id.flWebpageCollection, webpageCollectionFragment);
         ft.commit();
     }
