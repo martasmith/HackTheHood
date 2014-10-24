@@ -146,7 +146,9 @@ public class WebsitePageCollectionFragment extends NetworkFragment {
     private void populateView() {
         List <ImageResource> imageResources = page.getImageResources();
         for(int c = 0; c < 3; c++) {
-            Picasso.with(getActivity()).load(imageResources.get(c).getImageUrl()).into(imageViews.get(c));
+            String imageUrl = imageResources.get(c).getImageUrl();
+            if(imageUrl != null)
+                Picasso.with(getActivity()).load(imageUrl).into(imageViews.get(c));
         }
 
         etDesignerNotes.setText(page.getNotes());
