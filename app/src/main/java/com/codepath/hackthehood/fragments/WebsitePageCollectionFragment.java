@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.models.ImageResource;
+import com.codepath.hackthehood.models.PageResource;
 import com.codepath.hackthehood.models.ParseHelper;
 import com.codepath.hackthehood.models.User;
 import com.codepath.hackthehood.models.WebsitePage;
@@ -108,16 +109,31 @@ public class WebsitePageCollectionFragment extends NetworkFragment {
                 }, new GetCallback() {
                     @Override
                     public void done(ParseObject parseObject, ParseException e) {
-                        setFetchIsFinished();
-                        decrementNetworkActivityCount();
-
                         if (e != null) {
+                            setFetchIsFinished();
+                            decrementNetworkActivityCount();
                             didReceiveNetworkException(e);
                             return;
                         }
 
                         page = user.getWebsite().getWebsitePages().get(pageIndex);
-                        populateView();
+                        List<ImageResource> imageResources = page.getImageResources();
+                        ParseHelper.fetchObjectsInBackgroundInParallel(
+                                true,
+                                imageResources.toArray(new ParseObject[imageResources.size()]),
+                                new GetCallback() {
+                            @Override
+                            public void done(ParseObject parseObject, ParseException e) {
+                                setFetchIsFinished();
+                                decrementNetworkActivityCount();
+
+                                if (e != null) {
+                                    didReceiveNetworkException(e);
+                                }
+
+                                populateView();
+                            }
+                        });
                     }
                 });
     }
@@ -279,13 +295,26 @@ public class WebsitePageCollectionFragment extends NetworkFragment {
     private void setBitmap(int index, Bitmap bitmap) {
         imageViews.get(index).setImageBitmap(bitmap);
         incrementNetworkActivityCount();
-        page.getImageResources().get(index).setBitmap(bitmap, new SaveCallback() {
+
+        final ImageResource imageResource = page.getImageResources().get(index);
+        imageResource.setBitmap(bitmap, new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                decrementNetworkActivityCount();
-                if(e != null) {
+                if (e != null) {
                     didReceiveNetworkException(e);
+                    decrementNetworkActivityCount();
+                    return;
                 }
+
+                imageResource.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e != null) {
+                            didReceiveNetworkException(e);
+                        }
+                        decrementNetworkActivityCount();
+                    }
+                });
             }
         });
     }
