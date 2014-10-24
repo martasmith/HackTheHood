@@ -51,7 +51,7 @@
                 android:layout_width="85dp"
                 android:layout_height="85dp"
                 android:layout_below="@+id/tvAssetCollection"
-                android:layout_marginTop="15dp"
+                android:layout_margin="15dp"
                 android:src="@drawable/upload_more" />
 
             <ImageView
@@ -60,7 +60,7 @@
                 android:layout_height="85dp"
                 android:layout_toRightOf="@+id/imgFile1"
                 android:layout_below="@+id/tvAssetCollection"
-                android:layout_marginTop="15dp"
+                android:layout_margin="15dp"
                 android:src="@drawable/upload_more" />
 
             <ImageView
@@ -69,7 +69,7 @@
                 android:layout_height="85dp"
                 android:layout_toRightOf="@+id/imgFile2"
                 android:layout_below="@+id/tvAssetCollection"
-                android:layout_marginTop="15dp"
+                android:layout_margin="15dp"
                 android:src="@drawable/upload_more" />
         </LinearLayout>
 
