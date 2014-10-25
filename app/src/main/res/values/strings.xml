@@ -74,5 +74,6 @@
     <string name="contact_phone_hint_text">Phone</string>
     <string name="submit_button_hint_text">Submit</string>
     <string name="contact_email_hint_text">Email Address</string>
+    <string name="pitch_deck_default_title">Youth learning tech by helping small businesses</string>
 
 </resources>

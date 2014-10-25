@@ -17,7 +17,7 @@
         android:id="@+id/tvTagLine"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Youth learning tech by helping small businesses"
+        android:text="@string/pitch_deck_default_title"
         android:gravity="center"
         android:textStyle="bold"
         android:paddingBottom="10dp"
