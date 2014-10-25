@@ -41,10 +41,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.WebpageCollectionActivity"
-            android:label="@string/title_activity_webpage_collection" >
-        </activity>
-        <activity
             android:name=".activities.LoginSignupActivity"
             android:label="@string/title_activity_login_signup"
             android:noHistory="true" >

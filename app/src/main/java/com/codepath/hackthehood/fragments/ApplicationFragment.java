@@ -1,8 +1,10 @@
 package com.codepath.hackthehood.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +13,19 @@ import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.models.User;
 import com.parse.ParseUser;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by ravi on 10/22/14.
  */
 public class ApplicationFragment extends Fragment implements BusinessFormFragment.BusinessFormListener,
-        WebsiteCollectionFragment.AssetFormListener,
-        ConfirmationFragment.ConfirmationViewListener {
+        WebsiteInfoFormFragment.WebsiteInfoListener,
+        ConfirmationFragment.ConfirmationViewListener,
+        WebsitePageCollectionFragment.WebpageFormListener {
+
+    private ArrayList<WebsitePageCollectionFragment> mWebpageCollectionFragments;
+    private WebsiteInfoFormFragment mWebsiteCollectionFragment;
     public ApplicationFragment() {
         // Required empty public constructor
     }
@@ -31,6 +40,7 @@ public class ApplicationFragment extends Fragment implements BusinessFormFragmen
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_application, container, false);
+        ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle("");
         return rootView;
     }
 
@@ -48,9 +58,10 @@ public class ApplicationFragment extends Fragment implements BusinessFormFragmen
         User user = (User) ParseUser.getCurrentUser();
         try {
             user.fetch();
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
 
-        switch(user.getApplicationStatus()) {
+        switch (user.getApplicationStatus()) {
             case User.APPSTATUS_STARTED:
                 BusinessFormFragment businessFormFragment = new BusinessFormFragment();
                 fragmentTransaction.replace(R.id.flApplicationFragmentContainer, businessFormFragment);
@@ -79,7 +90,23 @@ public class ApplicationFragment extends Fragment implements BusinessFormFragmen
     }
 
     @Override
-    public void onAssetFormSubmit() {
+    public void collectPageInfo(String title, int pageIndex) {
+        if (mWebpageCollectionFragments == null) {
+            mWebpageCollectionFragments = new ArrayList<WebsitePageCollectionFragment>();
+        }
+
+        FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+        if (pageIndex >= mWebpageCollectionFragments.size() || mWebpageCollectionFragments.size() == 0) {
+            WebsitePageCollectionFragment websitePageCollectionFragment = WebsitePageCollectionFragment.newInstance(title, pageIndex);
+            mWebpageCollectionFragments.add(pageIndex, websitePageCollectionFragment);
+        }
+
+        fragmentTransaction.replace(R.id.flApplicationFragmentContainer, mWebpageCollectionFragments.get(pageIndex));
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onWebsiteInfoFormSubmit() {
         setFragmentBasedOnState();
         getView().invalidate();
     }
@@ -87,8 +114,31 @@ public class ApplicationFragment extends Fragment implements BusinessFormFragmen
     @Override
     public void startAssetCollection() {
         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-        WebsiteCollectionFragment assetCollectionFragment = new WebsiteCollectionFragment();
-        fragmentTransaction.replace(R.id.flApplicationFragmentContainer, assetCollectionFragment);
+        if (mWebsiteCollectionFragment == null) {
+            mWebsiteCollectionFragment = new WebsiteInfoFormFragment();
+        }
+
+        fragmentTransaction.replace(R.id.flApplicationFragmentContainer, mWebsiteCollectionFragment);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onWebpageFormSubmit(int pageIndex) {
+        if (mWebsiteCollectionFragment != null) {
+            mWebsiteCollectionFragment.collectedInfoForPage(pageIndex);
+            startAssetCollection();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        List<Fragment> fragments = getChildFragmentManager().getFragments();
+        if (fragments != null) {
+            for (Fragment fragment : fragments) {
+                fragment.onActivityResult(requestCode, resultCode, data);
+            }
+        }
     }
 }
