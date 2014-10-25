@@ -1,5 +1,6 @@
 package com.codepath.hackthehood.fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -92,7 +93,7 @@ public abstract class ImageCollectionFragment extends NetworkFragment {
 
     private void onTakePhotoResult(int index, int resultCode, Intent data) {
         //extract photo that was just taken by the camera
-        if (resultCode == getActivity().RESULT_OK) {
+        if (resultCode == Activity.RESULT_OK) {
             try {
                 setBitmap(index, BitmapHelper.getNormalOrientationBitmap(getPhotoFileUri(index).getPath()));
             } catch (Exception e) {}
@@ -101,7 +102,7 @@ public abstract class ImageCollectionFragment extends NetworkFragment {
 
     private void onSelectPhotoResult(int index, int resultCode, Intent data) {
         //extract photo that was just picked from the gallery
-        if(resultCode == getActivity().RESULT_OK) {
+        if(resultCode == Activity.RESULT_OK) {
             try {
                 setBitmap(index, MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData()));
             } catch (Exception e) {}

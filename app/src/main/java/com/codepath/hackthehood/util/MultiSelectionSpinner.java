@@ -200,8 +200,8 @@ public class MultiSelectionSpinner extends Spinner implements
 
         for (int i = 0; i < _items.length; ++i) {
             boolean itemWasFound = false;
-            for(int j = 0; j < items.length; j++) {
-                if(items[j].equals(_items[i]))
+            for (String item : items) {
+                if (item.equals(_items[i]))
                     itemWasFound = true;
             }
 

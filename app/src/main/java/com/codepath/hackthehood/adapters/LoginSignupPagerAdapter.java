@@ -17,7 +17,6 @@ public class LoginSignupPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        Fragment fragment;
         switch(position) {
             default:    return new LoginFragment();
             case 1:     return new SignupFragment();

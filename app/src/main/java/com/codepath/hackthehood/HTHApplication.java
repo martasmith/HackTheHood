@@ -42,7 +42,7 @@ public class HTHApplication extends Application {
         ParsePush.subscribeInBackground("", new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                if (e != null) {
+                if (e == null) {
                     Log.d("com.parse.push", "Successfully subscribed to the broadcast channel.");
                 } else {
                     Log.e("com.parse.push", "Failed to subscribe for push", e);

@@ -20,18 +20,15 @@ import com.parse.ParseUser;
  */
 public class PitchDeckActivity extends FragmentActivity {
 
-    private ViewPager vpSlidePager;
-    private SlidePagerAdapter aSlideAdapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pitch_deck);
 
-        final View CTAContainer = (View) findViewById(R.id.llCTAContainer);
+        final View CTAContainer = findViewById(R.id.llCTAContainer);
         // Setup view pager, its adapter, and page transformer
-        vpSlidePager = (ViewPager) findViewById(R.id.vpSlidePager);
-        aSlideAdapter = new SlidePagerAdapter(getSupportFragmentManager());
+        ViewPager vpSlidePager = (ViewPager) findViewById(R.id.vpSlidePager);
+        SlidePagerAdapter aSlideAdapter = new SlidePagerAdapter(getSupportFragmentManager());
         vpSlidePager.setAdapter(aSlideAdapter);
         vpSlidePager.setPageTransformer(true, new SlidePageTransformer());
 //        vpSlidePager.setOnClickListener(new View.OnClickListener() {
@@ -84,25 +81,6 @@ public class PitchDeckActivity extends FragmentActivity {
             // Remove it from the stack
             finish();
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.pitch_deck, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     public void getStartedClicked(View view) {

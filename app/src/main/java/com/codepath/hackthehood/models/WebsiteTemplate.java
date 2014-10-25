@@ -44,7 +44,7 @@ public class WebsiteTemplate {
         // Could possibly fetch this from server
         InputStream is = context.getResources().openRawResource(R.raw.website_templates_data);
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
-        String readLine = null;
+        String readLine;
         ArrayList<WebsiteTemplate> websiteTemplates = new ArrayList<WebsiteTemplate>();
 
         try {
