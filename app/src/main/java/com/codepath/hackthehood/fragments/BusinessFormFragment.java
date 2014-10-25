@@ -112,13 +112,13 @@ public class BusinessFormFragment extends NetworkFragment {
                     return;
                 }
 
-                if (etContactEmail.getText().toString().isEmpty()) {
-                    showValidationError("Contact email is required");
+                if (etContactPhone.getText().toString().isEmpty()) {
+                    showValidationError("Contact phone is required");
                     return;
                 }
 
-                if (etContactPhone.getText().toString().isEmpty()) {
-                    showValidationError("Contact phone is required");
+                if (etContactEmail.getText().toString().isEmpty()) {
+                    showValidationError("Contact email is required");
                     return;
                 }
 
