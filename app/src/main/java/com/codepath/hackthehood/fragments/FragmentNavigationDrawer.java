@@ -3,7 +3,8 @@ package com.codepath.hackthehood.fragments;
 import android.app.ActionBar;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -26,6 +27,7 @@ public class FragmentNavigationDrawer extends DrawerLayout {
     private ListView lvDrawer;
     private ArrayAdapter<String> drawerAdapter;
     private ArrayList<FragmentNavItem> drawerNavItems;
+    private int mSelectedPosition;
     private int drawerContainerRes;
 
     public FragmentNavigationDrawer(Context context, AttributeSet attrs, int defStyle) {
@@ -59,7 +61,10 @@ public class FragmentNavigationDrawer extends DrawerLayout {
         // set a custom shadow that overlays the main content when the drawer
         // setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         // Setup action buttons
+        getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE);
         getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setDisplayShowHomeEnabled(false);
+        getActionBar().setDisplayShowTitleEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
     }
 
@@ -73,6 +78,7 @@ public class FragmentNavigationDrawer extends DrawerLayout {
     public void selectDrawerItem(int position) {
         // Create a new fragment and specify the planet to show based on
         // position
+
         FragmentNavItem navItem = drawerNavItems.get(position);
         Fragment fragment = null;
         try {
@@ -85,6 +91,7 @@ public class FragmentNavigationDrawer extends DrawerLayout {
             e.printStackTrace();
         }
 
+        mSelectedPosition = position;
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(drawerContainerRes, fragment).commit();
@@ -105,8 +112,8 @@ public class FragmentNavigationDrawer extends DrawerLayout {
         return (FragmentActivity) getContext();
     }
 
-    private ActionBar getActionBar() {
-        return getActivity().getActionBar();
+    private android.support.v7.app.ActionBar getActionBar() {
+        return ((ActionBarActivity)getActivity()).getSupportActionBar();
     }
 
     private void setTitle(CharSequence title) {
@@ -151,18 +158,21 @@ public class FragmentNavigationDrawer extends DrawerLayout {
     private ActionBarDrawerToggle setupDrawerToggle() {
         return new ActionBarDrawerToggle(getActivity(), /* host Activity */
                 this, /* DrawerLayout object */
-                R.drawable.ic_drawer, /* nav drawer image to replace 'Up' caret */
                 R.string.drawer_open, /* "open drawer" description for accessibility */
                 R.string.drawer_close /* "close drawer" description for accessibility */
-        ) {
+        )
+        {
+            String title = "";
             public void onDrawerClosed(View view) {
-                // setTitle(getCurrentTitle());
-                getActivity().invalidateOptionsMenu(); // call onPrepareOptionsMenu()
+//                setTitle(drawerNavItems.get(mSelectedPosition).getTitle());
+                setTitle(title);
+                getActivity().supportInvalidateOptionsMenu(); // call onPrepareOptionsMenu()
             }
 
             public void onDrawerOpened(View drawerView) {
-                // setTitle("Navigate");
-                getActivity().invalidateOptionsMenu(); // call onPrepareOptionsMenu()
+                title = getActionBar().getTitle().toString();
+                getActivity().supportInvalidateOptionsMenu(); // call onPrepareOptionsMenu()
+                setTitle("Hack the Hood");
             }
         };
     }

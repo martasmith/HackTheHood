@@ -3,7 +3,10 @@ package com.codepath.hackthehood.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -32,6 +35,7 @@ public class ConfirmationFragment extends NetworkFragment {
     private TextView tvSubText;
     private Button btnShare;
     private Button btnAddAssets;
+    private String mActionBarTitle;
 
     public ConfirmationFragment() {
         // Required empty public constructor
@@ -56,7 +60,9 @@ public class ConfirmationFragment extends NetworkFragment {
         setUpNextStepListener();
         setUpShareListener();
 
-        fetch(true);
+        if (savedInstanceState == null) {
+            fetch(true);
+        }
         return rootView;
     }
 
@@ -86,8 +92,8 @@ public class ConfirmationFragment extends NetworkFragment {
         final User user = (User) ParseUser.getCurrentUser();
         int imageResource = R.drawable.ic_success;
         int applicationStatus = user.getApplicationStatus();
-        
-        String actionBarTitle = "";
+
+        mActionBarTitle = "";
         String mainText = "";
         String subText = "";
         mShareMessage = "";
@@ -96,14 +102,14 @@ public class ConfirmationFragment extends NetworkFragment {
             case User.APPSTATUS_PENDING_REVIEW:
                 mainText = "Thank you for your interest!";
                 subText = "We will let you know once your application has been approved!";
-                actionBarTitle = "Application Submitted";
+                mActionBarTitle = "Application Submitted";
                 mShareMessage = "I just applied to get my website created by Hack the Hood!";
                 break;
 
             case User.APPSTATUS_ACCEPTED:
                 mainText = "Congratulations!";
                 subText = "We have accepted your application! Please submit assets for your website!";
-                actionBarTitle = "Application Accepted";
+                mActionBarTitle = "Application Accepted";
                 btnShare.setVisibility(View.GONE);
                 btnAddAssets.setVisibility(View.VISIBLE);
                 imageResource = R.drawable.ic_approved;
@@ -112,7 +118,7 @@ public class ConfirmationFragment extends NetworkFragment {
             case User.APPSTATUS_DECLINED:
                 mainText = "Sorry, you application was denied.";
                 subText = "We won't be able to build a website for you at this time! Please feel free to apply again in future.";
-                actionBarTitle = "Application Denied";
+                mActionBarTitle = "Application Denied";
                 btnShare.setVisibility(View.GONE);
                 btnAddAssets.setVisibility(View.GONE);
                 imageResource = R.drawable.ic_denied;
@@ -122,7 +128,7 @@ public class ConfirmationFragment extends NetworkFragment {
             case User.APPSTATUS_ASSETS_SUBMITTED:
                 mainText = "Thanks for submitting the assets!";
                 subText = "Our students will create your website in our upcoming bootcamp! If we have any questions, we will get in touch.";
-                actionBarTitle = "Assets Submitted";
+                mActionBarTitle = "Assets Submitted";
                 mShareMessage = "I just applied to get my website created by Hack the Hood!";
                 btnShare.setVisibility(View.VISIBLE);
                 btnAddAssets.setVisibility(View.GONE);
@@ -131,7 +137,7 @@ public class ConfirmationFragment extends NetworkFragment {
             case User.APPSTATUS_SITE_COMPLETED:
                 mainText = "Congratulations! Your website has been created!";
                 subText = "Thank you for your support! Our students have created a beautiful website for you! Check it out!";
-                actionBarTitle = "Website Created";
+                mActionBarTitle = "Website Created";
                 mShareMessage = "Hack the Hood students created a beautiful website for my business for free! Check it out!";
                 btnShare.setVisibility(View.VISIBLE);
                 btnAddAssets.setVisibility(View.GONE);
@@ -145,7 +151,7 @@ public class ConfirmationFragment extends NetworkFragment {
         tvMainText.setText(mainText);
         tvSubText.setText(subText);
         ivStatus.setImageResource(imageResource);
-        getActivity().getActionBar().setTitle(actionBarTitle);
+        ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle(mActionBarTitle);
 //      tvSubText.setText(Html.fromHtml("Please <a href=\"http://www.hackthehood.org/contact-us.html\">contact Hack the Hood</a> for more information."));
 //      tvSubText.setText(Html.fromHtml("While you're waiting for confirmation, read the <a href=\"http://www.hackthehood.org/blog\">Hack the Hood blog!</a>"));
 

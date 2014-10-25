@@ -2,7 +2,7 @@ package com.codepath.hackthehood.activities;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -11,7 +11,7 @@ import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.fragments.ApplicationFragment;
 import com.codepath.hackthehood.fragments.FragmentNavigationDrawer;
 
-public class MainNavigationActivity extends FragmentActivity {
+public class MainNavigationActivity extends ActionBarActivity {
     private FragmentNavigationDrawer navDrawer;
 
     @Override
