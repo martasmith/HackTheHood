@@ -24,7 +24,7 @@ public class WebsiteTemplatesListAdapter extends ArrayAdapter<WebsiteTemplate> {
     private static class ViewHolder {
         ImageView ivTemplateImage;
         TextView tvTemplateTitle;
-    };
+    }
 
     public WebsiteTemplatesListAdapter(Context context, List<WebsiteTemplate> objects) {
         super(context, R.layout.website_template, objects);

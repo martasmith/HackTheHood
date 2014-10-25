@@ -101,7 +101,7 @@ public class ParseHelper {
                     startNextFetch();
                 }
             }
-        };
+        }
         new SerialGetCallback().startNextFetch();
     }
 
