@@ -23,12 +23,6 @@ public class ImageSlideFragment extends Fragment {
     private static final String TITLE_TEXT = "titleText";
     private static final String TITLE_DESC = "titleDescription";
 
-    private ImageView ivBackgroundImage;
-    private TextView tvTitleTextView;
-    private TextView tvDescriptionTextView;
-
-    private String mImageSrc;
-    private String mTitleText;
     private String mDescriptionText;
 
     /**
@@ -56,8 +50,6 @@ public class ImageSlideFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mImageSrc = getArguments().getString(IMG_SRC);
-            mTitleText = getArguments().getString(TITLE_TEXT);
             mDescriptionText = getArguments().getString(TITLE_DESC);
         }
     }
@@ -67,10 +59,10 @@ public class ImageSlideFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_image_slide, container, false);
-        tvTitleTextView = (TextView)rootView.findViewById(R.id.tvTitle);
-        ivBackgroundImage = (ImageView)rootView.findViewById(R.id.ivBackgroundImage);
+        TextView tvTitleTextView = (TextView) rootView.findViewById(R.id.tvTitle);
+        ImageView ivBackgroundImage = (ImageView) rootView.findViewById(R.id.ivBackgroundImage);
         tvTitleTextView.setText(mDescriptionText);
-        tvDescriptionTextView = (TextView)rootView.findViewById(R.id.tvDescription);
+        TextView tvDescriptionTextView = (TextView) rootView.findViewById(R.id.tvDescription);
         // tvDescriptionTextView.setText(mDescriptionText);
         return rootView;
     }

@@ -22,12 +22,10 @@ import com.parse.SaveCallback;
  * Created by ravi on 10/13/14.
  */
 public class HTHApplication extends Application {
-    private static Context context;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        HTHApplication.context = this;
         Parse.initialize(this, "cYC431dctIjsXhzHUtXnkBciTCoywHuXFN1aOLyl", "LO7mpm3umhZbouNxl7Uz4eP0ERI3cEt70dMEzNOR");
         ParseInstallation.getCurrentInstallation().saveInBackground();
 

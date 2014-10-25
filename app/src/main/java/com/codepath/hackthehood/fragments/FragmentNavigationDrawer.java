@@ -27,7 +27,6 @@ public class FragmentNavigationDrawer extends DrawerLayout {
     private ListView lvDrawer;
     private ArrayAdapter<String> drawerAdapter;
     private ArrayList<FragmentNavItem> drawerNavItems;
-    private int mSelectedPosition;
     private int drawerContainerRes;
 
     public FragmentNavigationDrawer(Context context, AttributeSet attrs, int defStyle) {
@@ -91,7 +90,6 @@ public class FragmentNavigationDrawer extends DrawerLayout {
             e.printStackTrace();
         }
 
-        mSelectedPosition = position;
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(drawerContainerRes, fragment).commit();

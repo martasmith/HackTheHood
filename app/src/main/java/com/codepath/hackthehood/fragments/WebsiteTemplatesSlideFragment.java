@@ -22,10 +22,6 @@ import java.util.ArrayList;
  */
 public class WebsiteTemplatesSlideFragment extends Fragment {
 
-    private WebsiteTemplatesListAdapter websiteTemplatesListAdapter;
-    private ListView lvWebsiteTemplates;
-    private ArrayList<WebsiteTemplate> websiteTemplates;
-
     public static WebsiteTemplatesSlideFragment newInstance() {
         WebsiteTemplatesSlideFragment fragment = new WebsiteTemplatesSlideFragment();
         return fragment;
@@ -44,9 +40,9 @@ public class WebsiteTemplatesSlideFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_website_templates_slide, container, false);
-        lvWebsiteTemplates = (ListView) rootView.findViewById(R.id.lvWebsiteTemplates);
-        websiteTemplates = new ArrayList<WebsiteTemplate>(WebsiteTemplate.getInitialData(getActivity()));
-        websiteTemplatesListAdapter = new WebsiteTemplatesListAdapter(getActivity(), websiteTemplates);
+        ListView lvWebsiteTemplates = (ListView) rootView.findViewById(R.id.lvWebsiteTemplates);
+        ArrayList<WebsiteTemplate> websiteTemplates = new ArrayList<WebsiteTemplate>(WebsiteTemplate.getInitialData(getActivity()));
+        WebsiteTemplatesListAdapter websiteTemplatesListAdapter = new WebsiteTemplatesListAdapter(getActivity(), websiteTemplates);
         lvWebsiteTemplates.setAdapter(websiteTemplatesListAdapter);
         return rootView;
     }

@@ -35,7 +35,6 @@ public class WebsiteInfoFormFragment extends ImageCollectionFragment implements 
     private Spinner sprBusinessType;
     private ImageView ivHeader, ivLogo;
     private List<ImageView> checkPages;
-    private List<Button> btnPages;
     private Button btnSubmit;
 
     public WebsiteInfoFormFragment() {
@@ -123,7 +122,7 @@ public class WebsiteInfoFormFragment extends ImageCollectionFragment implements 
         ivLogo = (ImageView) v.findViewById(R.id.imgLogo);
         ivHeader = (ImageView) v.findViewById(R.id.imgHeader);
 
-        btnPages = new ArrayList<Button>();
+        List<Button> btnPages = new ArrayList<Button>();
         btnPages.add((Button) v.findViewById(R.id.btnPage1));
         btnPages.add((Button) v.findViewById(R.id.btnPage2));
         btnPages.add((Button) v.findViewById(R.id.btnPage3));
