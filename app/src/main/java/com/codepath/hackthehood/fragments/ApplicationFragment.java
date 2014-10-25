@@ -1,5 +1,6 @@
 package com.codepath.hackthehood.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -13,6 +14,7 @@ import com.codepath.hackthehood.models.User;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ravi on 10/22/14.
@@ -125,6 +127,18 @@ public class ApplicationFragment extends Fragment implements BusinessFormFragmen
         if (mWebsiteCollectionFragment != null) {
             mWebsiteCollectionFragment.collectedInfoForPage(pageIndex);
             startAssetCollection();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        List<Fragment> fragments = getChildFragmentManager().getFragments();
+        if (fragments != null) {
+            for (Fragment fragment : fragments) {
+                fragment.onActivityResult(requestCode, resultCode, data);
+            }
         }
     }
 }

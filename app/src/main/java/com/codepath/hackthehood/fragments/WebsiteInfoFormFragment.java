@@ -138,6 +138,8 @@ public class WebsiteInfoFormFragment extends ImageCollectionFragment implements 
         if (btnSubmit == null) {
             btnSubmit = (Button) v.findViewById(R.id.btnSubmit);
         }
+
+        // TODO - Need to disable this and investigate why the checkmarks are not showing up
         btnSubmit.setEnabled(true);
         btnSubmit.setOnClickListener(this);
 

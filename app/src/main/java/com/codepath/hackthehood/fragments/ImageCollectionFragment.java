@@ -80,14 +80,14 @@ public abstract class ImageCollectionFragment extends NetworkFragment {
         // create Intent to take a picture and return control to the calling application
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, getPhotoFileUri(index)); // set the image file name
-        startActivityForResult(intent, REQUEST_CODE_TAKE_PHOTO + index);
+        getParentFragment().startActivityForResult(intent, REQUEST_CODE_TAKE_PHOTO + index);
     }
 
     private void pickFromGallery(int index) {
         // Create intent for picking a photo from the gallery
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         // Bring up gallery to select a photo
-        startActivityForResult(intent, REQUEST_CODE_SELECT_PHOTO + index);
+        getParentFragment().startActivityForResult(intent, REQUEST_CODE_SELECT_PHOTO + index);
     }
 
     private void onTakePhotoResult(int index, int resultCode, Intent data) {
@@ -127,11 +127,17 @@ public abstract class ImageCollectionFragment extends NetworkFragment {
     protected abstract ImageResource imageResourceForIndex(int index);
 
     protected void setBitmap(int index, Bitmap bitmap) {
+
         ImageView imageView = imageViewForIndex(index);
         imageView.setImageBitmap(BitmapScaler.scaleToFill(bitmap, imageView.getWidth(), imageView.getHeight()));
         incrementNetworkActivityCount();
 
         final ImageResource imageResource = imageResourceForIndex(index);
+        // TODO: Fix this - For whatever reason, this is always null
+        if (imageResource == null) {
+            Toast.makeText(getActivity(), "ImageResource is not set", Toast.LENGTH_SHORT).show();
+            return;
+        }
         imageResource.setBitmap(bitmap, new SaveCallback() {
             @Override
             public void done(ParseException e) {
