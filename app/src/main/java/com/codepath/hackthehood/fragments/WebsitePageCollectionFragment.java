@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -40,18 +41,21 @@ import java.util.List;
 
 public class WebsitePageCollectionFragment extends ImageCollectionFragment {
 
+    private WebpageFormListener mListener;
+
     private EditText etPageText, etDesignerNotes;
     private List<ImageView> imageViews;
     private WebsitePage page;
 
     private final static String TITLE = "title";
     private final static String PAGE_INDEX = "pageIndex";
+
     public static WebsitePageCollectionFragment newInstance(String title, int pageIndex) {
         WebsitePageCollectionFragment fragment = new WebsitePageCollectionFragment();
 
         Bundle args = new Bundle();
-        args.putString  (TITLE, title);
-        args.putInt     (PAGE_INDEX, pageIndex);
+        args.putString(TITLE, title);
+        args.putInt(PAGE_INDEX, pageIndex);
         fragment.setArguments(args);
 
         return fragment;
@@ -126,6 +130,14 @@ public class WebsitePageCollectionFragment extends ImageCollectionFragment {
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState == null) {
+            onAttachFragment(getParentFragment());
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_webpage_collection,container,false);
@@ -144,6 +156,15 @@ public class WebsitePageCollectionFragment extends ImageCollectionFragment {
 
         fetch(true);
         return v;
+    }
+
+    private void onAttachFragment(Fragment fragment) {
+        try {
+            mListener = (WebpageFormListener)fragment;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(fragment.toString()
+                    + " must implement WebpageFormListener");
+        }
     }
 
     private void populateView() {
@@ -169,12 +190,9 @@ public class WebsitePageCollectionFragment extends ImageCollectionFragment {
                     public void done(ParseException e) {
                         bntAddSite.setEnabled(true);
 
-                        if (e != null) {
-                            Intent data = new Intent();
-                            getActivity().setResult(getActivity().RESULT_OK, data);
-                            getActivity().finish();
+                        if (e == null && mListener != null) {
+                            mListener.onWebpageFormSubmit(getArguments().getInt(PAGE_INDEX));
                         }
-
                     }
                 });
             }
@@ -209,5 +227,9 @@ public class WebsitePageCollectionFragment extends ImageCollectionFragment {
     @Override
     protected ImageResource imageResourceForIndex(int index) {
         return page.getImageResources().get(index);
+    }
+
+    public interface WebpageFormListener {
+        public void onWebpageFormSubmit(int pageIndex);
     }
 }
