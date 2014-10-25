@@ -272,7 +272,6 @@ public class WebsiteInfoFormFragment extends ImageCollectionFragment implements 
             mListener.onWebsiteInfoFormSubmit();
         }
 
-        return;
 //        switch (view.getId()) {
 //            case R.id.btnSubmit:
 //                User user = (User) ParseUser.getCurrentUser();

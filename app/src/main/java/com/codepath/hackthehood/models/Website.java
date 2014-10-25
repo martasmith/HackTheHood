@@ -42,7 +42,6 @@ public class Website extends NullForNothingParseObject {
                         public void done(ParseException e) {
                         if (e != null) {
                            callback.done(e);
-                           return;
                         } else {
                             newPage.saveInBackground(callback);
                         }
