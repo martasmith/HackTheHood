@@ -28,10 +28,9 @@ import java.util.Iterator;
 import java.util.List;
 
 
-public class WebsiteCollectionFragment extends ImageCollectionFragment implements View.OnClickListener {
+public class WebsiteInfoFormFragment extends ImageCollectionFragment implements View.OnClickListener {
 
     private WebsiteInfoListener mListener;
-    private final int REQUEST_CODE_WEB_CONTENT = 10;
 
     private EditText etFacebookLink, etYelpLink, etTwitterLink, etInstagramLink;
     private Spinner sprBusinessType;
@@ -40,7 +39,7 @@ public class WebsiteCollectionFragment extends ImageCollectionFragment implement
     private List<Button> btnPages;
     private Button btnSubmit;
 
-    public WebsiteCollectionFragment() {
+    public WebsiteInfoFormFragment() {
         // Required empty public constructor
     }
 

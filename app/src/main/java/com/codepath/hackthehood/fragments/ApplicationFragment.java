@@ -18,12 +18,12 @@ import java.util.ArrayList;
  * Created by ravi on 10/22/14.
  */
 public class ApplicationFragment extends Fragment implements BusinessFormFragment.BusinessFormListener,
-        WebsiteCollectionFragment.WebsiteInfoListener,
+        WebsiteInfoFormFragment.WebsiteInfoListener,
         ConfirmationFragment.ConfirmationViewListener,
         WebsitePageCollectionFragment.WebpageFormListener {
 
     private ArrayList<WebsitePageCollectionFragment> mWebpageCollectionFragments;
-    private WebsiteCollectionFragment mWebsiteCollectionFragment;
+    private WebsiteInfoFormFragment mWebsiteCollectionFragment;
     public ApplicationFragment() {
         // Required empty public constructor
     }
@@ -113,7 +113,7 @@ public class ApplicationFragment extends Fragment implements BusinessFormFragmen
     public void startAssetCollection() {
         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
         if (mWebsiteCollectionFragment == null) {
-            mWebsiteCollectionFragment = new WebsiteCollectionFragment();
+            mWebsiteCollectionFragment = new WebsiteInfoFormFragment();
         }
 
         fragmentTransaction.replace(R.id.flApplicationFragmentContainer, mWebsiteCollectionFragment);
