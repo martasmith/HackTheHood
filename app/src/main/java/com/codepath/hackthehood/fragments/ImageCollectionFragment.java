@@ -91,20 +91,20 @@ public abstract class ImageCollectionFragment extends NetworkFragment {
     }
 
     private void onTakePhotoResult(int index, int resultCode, Intent data) {
+        //extract photo that was just taken by the camera
         if (resultCode == getActivity().RESULT_OK) {
-            //extract photo that was just taken by the camera
-            setBitmap(index, BitmapHelper.getNormalOrientationBitmap(getPhotoFileUri(index).getPath()));
-        } else { // Result was a failure
-            Toast.makeText(getActivity(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
+            try {
+                setBitmap(index, BitmapHelper.getNormalOrientationBitmap(getPhotoFileUri(index).getPath()));
+            } catch (Exception e) {}
         }
     }
 
     private void onSelectPhotoResult(int index, int resultCode, Intent data) {
         //extract photo that was just picked from the gallery
-        try {
-            setBitmap(index, MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData()));
-        } catch (IOException e) {
-            Toast.makeText(getActivity(), "No photo was selected", Toast.LENGTH_SHORT).show();
+        if(resultCode == getActivity().RESULT_OK) {
+            try {
+                setBitmap(index, MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData()));
+            } catch (Exception e) {}
         }
     }
 
