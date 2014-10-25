@@ -9,7 +9,7 @@ import android.view.View;
  * https://stuff.mit.edu/afs/sipb/project/android/docs/training/animation/screen-slide.html#depth-page
  */
 public class SlidePageTransformer implements ViewPager.PageTransformer {
-    private static float MIN_SCALE = 0.75f;
+    private static final float MIN_SCALE = 0.75f;
 
     public void transformPage(View view, float position) {
         int pageWidth = view.getWidth();

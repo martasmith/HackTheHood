@@ -12,7 +12,7 @@ import com.codepath.hackthehood.fragments.WebsiteTemplatesSlideFragment;
  */
 public class SlidePagerAdapter extends FragmentPagerAdapter {
 
-    private static int NUM_PAGES = 3;
+    private static final int NUM_PAGES = 3;
 
     public SlidePagerAdapter(FragmentManager fm) {
         super(fm);

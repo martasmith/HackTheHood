@@ -59,15 +59,16 @@ public class WebsiteInfoFormFragment extends ImageCollectionFragment implements 
 
                     @Override
                     public boolean hasNext() {
-                        return index != 2;
+                        return index != 3;
                     }
 
                     @Override
                     public ParseObject next() {
+                        index ++;
                         switch (index) {
                             default:
                                 return user;
-                            case 1:
+                            case 2:
                                 return user.getWebsite();
                         }
                     }

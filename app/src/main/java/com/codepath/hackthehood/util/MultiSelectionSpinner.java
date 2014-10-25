@@ -18,7 +18,7 @@ public class MultiSelectionSpinner extends Spinner implements
     String[] _items = null;
     boolean[] mSelection = null;
 
-    ArrayAdapter<String> simple_adapter;
+    final ArrayAdapter<String> simple_adapter;
 
     public MultiSelectionSpinner(Context context) {
         super(context);

@@ -126,9 +126,9 @@ public class FragmentNavigationDrawer extends DrawerLayout {
     }
 
     private class FragmentNavItem {
-        private Class<? extends Fragment> fragmentClass;
-        private String title;
-        private Bundle fragmentArgs;
+        private final Class<? extends Fragment> fragmentClass;
+        private final String title;
+        private final Bundle fragmentArgs;
 
         public FragmentNavItem(String title, Class<? extends Fragment> fragmentClass) {
             this(title, fragmentClass, null);
