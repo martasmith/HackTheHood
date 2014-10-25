@@ -12,8 +12,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.codepath.hackthehood.R;
-import com.codepath.hackthehood.models.Address;
 import com.codepath.hackthehood.controller.ParseHelper;
+import com.codepath.hackthehood.models.Address;
 import com.codepath.hackthehood.models.User;
 import com.codepath.hackthehood.models.Website;
 import com.codepath.hackthehood.util.MultiSelectionSpinner;

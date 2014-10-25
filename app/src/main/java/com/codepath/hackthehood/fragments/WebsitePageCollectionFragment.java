@@ -1,30 +1,19 @@
 package com.codepath.hackthehood.fragments;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
-import android.widget.Toast;
 
 import com.codepath.hackthehood.R;
-import com.codepath.hackthehood.controller.BitmapHelper;
-import com.codepath.hackthehood.models.ImageResource;
 import com.codepath.hackthehood.controller.ParseHelper;
+import com.codepath.hackthehood.models.ImageResource;
 import com.codepath.hackthehood.models.User;
 import com.codepath.hackthehood.models.WebsitePage;
-import com.codepath.hackthehood.util.BitmapScaler;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -32,8 +21,6 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.squareup.picasso.Picasso;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
