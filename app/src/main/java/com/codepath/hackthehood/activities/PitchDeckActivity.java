@@ -81,6 +81,8 @@ public class PitchDeckActivity extends FragmentActivity {
         User user = (User) ParseUser.getCurrentUser();
         if(user != null) {
             startActivity(new Intent(this, MainNavigationActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            // Remove it from the stack
+            finish();
         }
     }
 
