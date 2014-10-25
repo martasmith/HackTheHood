@@ -23,8 +23,7 @@ import java.util.ArrayList;
 public class WebsiteTemplatesSlideFragment extends Fragment {
 
     public static WebsiteTemplatesSlideFragment newInstance() {
-        WebsiteTemplatesSlideFragment fragment = new WebsiteTemplatesSlideFragment();
-        return fragment;
+        return new WebsiteTemplatesSlideFragment();
     }
     public WebsiteTemplatesSlideFragment() {
         // Required empty public constructor
