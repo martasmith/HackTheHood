@@ -34,7 +34,7 @@ public class ParseHelper {
             }
         };
 
-        if(onlyIfNeeded == true) {
+        if(onlyIfNeeded) {
             for(ParseObject object : objects)
                 object.fetchIfNeededInBackground(parallelCallback);
         } else {
@@ -86,7 +86,7 @@ public class ParseHelper {
                     return;
                 }
 
-                if(onlyIfNeeded == true)
+                if(onlyIfNeeded)
                     nextObject.fetchIfNeededInBackground(this);
                 else
                     nextObject.fetchInBackground(this);
