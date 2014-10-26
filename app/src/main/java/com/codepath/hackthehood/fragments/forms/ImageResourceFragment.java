@@ -131,16 +131,10 @@ public abstract class ImageResourceFragment extends NetworkFragment {
 
         ImageView imageView = imageViewForIndex(index);
         imageView.setImageBitmap(BitmapScaler.scaleToFill(bitmap, imageView.getWidth(), imageView.getHeight()));
-        incrementNetworkActivityCount();
 
         final ImageResource imageResource = imageResourceForIndex(index);
-        // TODO: Fix this - For whatever reason, this is always null
-        // Tom's note: except on my machine, seemingly, where it is never null. Please
-        // provide steps to reproduce.
-        if (imageResource == null) {
-            Toast.makeText(getActivity(), "ImageResource is not set", Toast.LENGTH_SHORT).show();
-            return;
-        }
+
+        incrementNetworkActivityCount();
         imageResource.setBitmap(bitmap, new SaveCallback() {
             @Override
             public void done(ParseException e) {
