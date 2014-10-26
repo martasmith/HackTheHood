@@ -1,4 +1,4 @@
-package com.codepath.hackthehood.fragments;
+package com.codepath.hackthehood.fragments.forms;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,10 +11,10 @@ import android.widget.ImageView;
 
 import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.controller.ParseHelper;
+import com.codepath.hackthehood.fragments.ImageCollectionFragment;
 import com.codepath.hackthehood.models.ImageResource;
 import com.codepath.hackthehood.models.PageResource;
 import com.codepath.hackthehood.models.User;
-import com.codepath.hackthehood.models.WebsitePage;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -27,20 +27,20 @@ import java.util.Iterator;
 import java.util.List;
 
 
-public class WebsitePageCollectionFragment extends ImageCollectionFragment {
+public class WebsitePageFragment extends ImageCollectionFragment {
 
     private WebpageFormListener mListener;
 
     private EditText etPageText, etDesignerNotes;
     private List<ImageView> imageViews;
     private List<ImageResource> imageResources;
-    private WebsitePage page;
+    private com.codepath.hackthehood.models.WebsitePage page;
 
     private final static String TITLE = "title";
     private final static String PAGE_INDEX = "pageIndex";
 
-    public static WebsitePageCollectionFragment newInstance(String title, int pageIndex) {
-        WebsitePageCollectionFragment fragment = new WebsitePageCollectionFragment();
+    public static WebsitePageFragment newInstance(String title, int pageIndex) {
+        WebsitePageFragment fragment = new WebsitePageFragment();
 
         Bundle args = new Bundle();
         args.putString(TITLE, title);
@@ -50,7 +50,7 @@ public class WebsitePageCollectionFragment extends ImageCollectionFragment {
         return fragment;
     }
 
-    public WebsitePageCollectionFragment() {
+    public WebsitePageFragment() {
         // Required empty public constructor
     }
 

@@ -1,4 +1,4 @@
-package com.codepath.hackthehood.fragments;
+package com.codepath.hackthehood.fragments.forms;
 
 
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.controller.ParseHelper;
+import com.codepath.hackthehood.fragments.NetworkFragment;
 import com.codepath.hackthehood.models.Address;
 import com.codepath.hackthehood.models.User;
 import com.codepath.hackthehood.models.Website;
@@ -26,7 +27,7 @@ import com.parse.SaveCallback;
 import java.util.Iterator;
 
 
-public class BusinessFormFragment extends NetworkFragment {
+public class UserFragment extends NetworkFragment {
 
     private BusinessFormListener mListener;
 
@@ -34,7 +35,7 @@ public class BusinessFormFragment extends NetworkFragment {
                      etBusinessPhone,   etContactName,      etContactPhone,     etContactEmail;
     private MultiSelectionSpinner sprOnlinePresence;
 
-    public BusinessFormFragment() {
+    public UserFragment() {
         // Required empty public constructor
     }
 

@@ -11,26 +11,27 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.codepath.hackthehood.R;
+import com.codepath.hackthehood.fragments.forms.UserFragment;
+import com.codepath.hackthehood.fragments.forms.WebsiteFragment;
+import com.codepath.hackthehood.fragments.forms.WebsitePageFragment;
 import com.codepath.hackthehood.models.User;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
  * Created by ravi on 10/22/14.
  */
-public class ApplicationFragment extends NetworkFragment implements BusinessFormFragment.BusinessFormListener,
-        WebsiteCollectionFragment.WebsiteInfoListener,
+public class ApplicationFragment extends NetworkFragment implements UserFragment.BusinessFormListener,
+        WebsiteFragment.WebsiteInfoListener,
         ConfirmationFragment.ConfirmationViewListener,
-        WebsitePageCollectionFragment.WebpageFormListener {
+        WebsitePageFragment.WebpageFormListener {
 
-    private SparseArray<WebsitePageCollectionFragment> mWebpageCollectionFragments;
-    private WebsiteCollectionFragment mWebsiteCollectionFragment;
+    private SparseArray<WebsitePageFragment> mWebpageCollectionFragments;
+    private WebsiteFragment mWebsiteCollectionFragment;
     public ApplicationFragment() {
         // Required empty public constructor
     }
@@ -65,7 +66,7 @@ public class ApplicationFragment extends NetworkFragment implements BusinessForm
                 FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
                 switch (user.getApplicationStatus()) {
                     case User.APPSTATUS_STARTED:
-                        BusinessFormFragment businessFormFragment = new BusinessFormFragment();
+                        UserFragment businessFormFragment = new UserFragment();
                         fragmentTransaction.replace(R.id.flApplicationFragmentContainer, businessFormFragment);
                         break;
 
@@ -96,13 +97,13 @@ public class ApplicationFragment extends NetworkFragment implements BusinessForm
     @Override
     public void collectPageInfo(String title, int pageIndex) {
         if (mWebpageCollectionFragments == null) {
-            mWebpageCollectionFragments = new SparseArray<WebsitePageCollectionFragment>();
+            mWebpageCollectionFragments = new SparseArray<WebsitePageFragment>();
         }
 
         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-        WebsitePageCollectionFragment websitePageCollectionFragment = mWebpageCollectionFragments.get(pageIndex);
+        WebsitePageFragment websitePageCollectionFragment = mWebpageCollectionFragments.get(pageIndex);
         if(websitePageCollectionFragment == null) {
-            websitePageCollectionFragment = WebsitePageCollectionFragment.newInstance(title, pageIndex);
+            websitePageCollectionFragment = WebsitePageFragment.newInstance(title, pageIndex);
             mWebpageCollectionFragments.put(pageIndex, websitePageCollectionFragment);
         }
 
@@ -120,7 +121,7 @@ public class ApplicationFragment extends NetworkFragment implements BusinessForm
     public void startAssetCollection() {
         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
         if (mWebsiteCollectionFragment == null) {
-            mWebsiteCollectionFragment = new WebsiteCollectionFragment();
+            mWebsiteCollectionFragment = new WebsiteFragment();
         }
 
         fragmentTransaction.replace(R.id.flApplicationFragmentContainer, mWebsiteCollectionFragment);

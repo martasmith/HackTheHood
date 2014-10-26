@@ -1,4 +1,4 @@
-package com.codepath.hackthehood.fragments;
+package com.codepath.hackthehood.fragments.forms;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +12,7 @@ import android.widget.Spinner;
 
 import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.controller.ParseHelper;
+import com.codepath.hackthehood.fragments.ImageCollectionFragment;
 import com.codepath.hackthehood.models.ImageResource;
 import com.codepath.hackthehood.models.User;
 import com.codepath.hackthehood.models.Website;
@@ -27,7 +28,7 @@ import java.util.Iterator;
 import java.util.List;
 
 
-public class WebsiteCollectionFragment extends ImageCollectionFragment implements View.OnClickListener {
+public class WebsiteFragment extends ImageCollectionFragment implements View.OnClickListener {
 
     private WebsiteInfoListener mListener;
 
@@ -37,7 +38,7 @@ public class WebsiteCollectionFragment extends ImageCollectionFragment implement
     private List<ImageView> checkPages;
     private Button btnSubmit;
 
-    public WebsiteCollectionFragment() {
+    public WebsiteFragment() {
         // Required empty public constructor
     }
 

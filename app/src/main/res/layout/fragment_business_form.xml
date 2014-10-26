@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp"
-        tools:context="com.codepath.hackthehood.fragments.BusinessFormFragment">
+        tools:context="com.codepath.hackthehood.fragments.forms.UserFragment">
 
         <TextView
             android:layout_width="wrap_content"
