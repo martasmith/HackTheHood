@@ -74,5 +74,7 @@
     <string name="contact_email_hint_text">Email Address</string>
     <string name="pitch_deck_default_title">Youth learning tech by helping small businesses</string>
     <string name="drawer_list_item_text">My Application</string>
+    <string name="default_email">ravirani@gmail.com</string>
+    <string name="logout_image_description">Log out</string>
 
 </resources>
