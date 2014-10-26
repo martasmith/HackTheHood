@@ -59,7 +59,7 @@ public class WebsiteCollectionFragment extends ImageCollectionFragment implement
 
                     @Override
                     public boolean hasNext() {
-                        return index != 3;
+                        return index != 2
                     }
 
                     @Override
