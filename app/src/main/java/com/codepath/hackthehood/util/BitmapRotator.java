@@ -1,4 +1,4 @@
-package com.codepath.hackthehood.controller;
+package com.codepath.hackthehood.util;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Created by thomasharte on 23/10/2014.
  */
-public class BitmapHelper {
+public class BitmapRotator {
     public static Bitmap getNormalOrientationBitmap(String photoFilePath) {
         // Create and configure BitmapFactory
         BitmapFactory.Options bounds = new BitmapFactory.Options();

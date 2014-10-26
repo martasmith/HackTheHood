@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.codepath.hackthehood.R;
-import com.codepath.hackthehood.controller.ParseHelper;
+import com.codepath.hackthehood.util.ParseGroupOperator;
 import com.codepath.hackthehood.models.ImageResource;
 import com.codepath.hackthehood.models.PageResource;
 import com.codepath.hackthehood.models.User;
@@ -60,7 +60,7 @@ public class WebsitePageFragment extends ImageResourceFragment {
         final int pageIndex = getArguments().getInt(PAGE_INDEX);
         final User user = (User) ParseUser.getCurrentUser();
         incrementNetworkActivityCount();
-        ParseHelper.fetchObjectsInBackgroundInSerial(true,
+        ParseGroupOperator.fetchObjectsInBackgroundInSerial(true,
                 new Iterator<ParseObject>() {
                     private int index = 0;
 
@@ -97,7 +97,7 @@ public class WebsitePageFragment extends ImageResourceFragment {
 
                         page = user.getWebsite().getWebsitePages().get(pageIndex);
                         final List<PageResource> pageResources = page.getPageResources();
-                        ParseHelper.fetchObjectsInBackgroundInParallel(
+                        ParseGroupOperator.fetchObjectsInBackgroundInParallel(
                                 true,
                                 pageResources.toArray(new ParseObject[pageResources.size()]),
                                 new GetCallback() {
@@ -111,13 +111,13 @@ public class WebsitePageFragment extends ImageResourceFragment {
                                         }
 
                                         imageResources = new ArrayList<ImageResource>();
-                                        for(PageResource pageResource : pageResources) {
+                                        for (PageResource pageResource : pageResources) {
                                             ImageResource imageResource = pageResource.getImageResource();
-                                            if(imageResource != null)
+                                            if (imageResource != null)
                                                 imageResources.add(imageResource);
                                         }
 
-                                        ParseHelper.fetchObjectsInBackgroundInParallel(
+                                        ParseGroupOperator.fetchObjectsInBackgroundInParallel(
                                                 true,
                                                 imageResources.toArray(new ParseObject[imageResources.size()]),
                                                 new GetCallback() {
@@ -127,7 +127,7 @@ public class WebsitePageFragment extends ImageResourceFragment {
                                                         decrementNetworkActivityCount();
                                                         didReceiveNetworkException(e);
 
-                                                        if(e == null)
+                                                        if (e == null)
                                                             populateView();
                                                     }
                                                 });

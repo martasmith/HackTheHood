@@ -57,6 +57,10 @@ public class User extends ParseUser {
         });
     }
 
+    public void prefetchAllFields() {
+
+    }
+
     private final String fullNameKey = "fullName";
     public void setFullName(String fullName) {
         put(fullNameKey, fullName);
