@@ -11,10 +11,10 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.codepath.hackthehood.R;
-import com.codepath.hackthehood.util.ParseGroupOperator;
 import com.codepath.hackthehood.models.ImageResource;
 import com.codepath.hackthehood.models.User;
 import com.codepath.hackthehood.models.Website;
+import com.codepath.hackthehood.util.ParseGroupOperator;
 import com.codepath.hackthehood.util.ParseIterator;
 import com.parse.GetCallback;
 import com.parse.ParseException;

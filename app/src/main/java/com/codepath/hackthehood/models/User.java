@@ -2,7 +2,6 @@ package com.codepath.hackthehood.models;
 
 import com.codepath.hackthehood.util.ParseGroupOperator;
 import com.codepath.hackthehood.util.ParseIterator;
-import com.parse.GetCallback;
 import com.parse.ParseClassName;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -10,7 +9,6 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by thomasharte on 12/10/2014.
