@@ -1,9 +1,16 @@
 package com.codepath.hackthehood.models;
 
+import com.codepath.hackthehood.util.ParseGroupOperator;
+import com.codepath.hackthehood.util.ParseIterator;
+import com.parse.GetCallback;
 import com.parse.ParseClassName;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by thomasharte on 12/10/2014.
@@ -58,6 +65,56 @@ public class User extends ParseUser {
     }
 
     public void prefetchAllFields() {
+        ParseGroupOperator.fetchObjectGroupsInBackground(true,
+                new ParseIterator() {
+                    private ArrayList<ParseObject> websiteChildren = null;
+                    private ArrayList<ParseObject> pageResources = null;
+                    private ArrayList<ParseObject> pageResourceChildren = null;
+
+                    @Override
+                    protected void findNextObject() {
+
+                        if (considerNextObject(User.this)) return;
+
+                        Website website = User.this.getWebsite();
+                        if (considerNextObject(website)) return;
+
+                        if(websiteChildren == null) {
+                            websiteChildren = new ArrayList<ParseObject>();
+                            websiteChildren.add(website.getAddress());
+                            websiteChildren.add(website.getHeader());
+                            websiteChildren.add(website.getLogo());
+
+                            for(WebsitePage page : website.getWebsitePages())
+                                websiteChildren.add(page);
+                        }
+                        if(considerNextObjects(websiteChildren)) return;
+
+                        if(pageResources == null) {
+                            pageResources = new ArrayList<ParseObject>();
+                            for(WebsitePage page : website.getWebsitePages()) {
+                                for(PageResource resource : page.getPageResources())
+                                    pageResources.add(resource);
+                            }
+                        }
+                        if(considerNextObjects(pageResources)) return;
+
+                        if (pageResourceChildren == null) {
+                            pageResourceChildren = new ArrayList<ParseObject>();
+                            for(int c = 0; c < pageResources.size(); c++) {
+                                PageResource pageResource = (PageResource)pageResources.get(c);
+
+                                ImageResource imageResource = pageResource.getImageResource();
+                                if (imageResource != null) pageResourceChildren.add(imageResource);
+
+                                StringResource stringResource = pageResource.getStringResource();
+                                if (stringResource != null) pageResourceChildren.add(stringResource);
+                            }
+                        }
+                        considerNextObjects(pageResourceChildren);
+                    }
+
+                }, null);
 
     }
 

@@ -76,13 +76,13 @@ public class ParseGroupOperator {
 
             public void startNextFetch() {
                 if(!objects.hasNext()) {
-                    getCallback.done(null, null);
+                    if(getCallback != null) getCallback.done(null, null);
                     return;
                 }
 
                 ParseObject[] nextObject = objects.next();
                 if(nextObject == null) {
-                    getCallback.done(null, null);
+                    if(getCallback != null) getCallback.done(null, null);
                     return;
                 }
 
@@ -108,7 +108,7 @@ public class ParseGroupOperator {
             public void done(ParseObject parseObject, ParseException e) {
 
                 if(e != null) {
-                    getCallback.done(parseObject, e);
+                    if(getCallback != null) getCallback.done(parseObject, e);
                 } else {
                     startNextFetch();
                 }

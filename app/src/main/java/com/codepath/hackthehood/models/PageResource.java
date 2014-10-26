@@ -43,10 +43,10 @@ public class PageResource extends NullForNothingParseObject {
     }
 
     private final String textKey = "text";
-    public void setText(StringResource text) {
+    public void setStringResource(StringResource text) {
         put(textKey, text);
     }
-    public StringResource getText() {
+    public StringResource getStringResource() {
         return (StringResource)get(textKey);
     }
 

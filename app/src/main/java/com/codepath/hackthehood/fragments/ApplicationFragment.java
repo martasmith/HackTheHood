@@ -62,6 +62,7 @@ public class ApplicationFragment extends NetworkFragment implements UserFragment
             public void done(ParseObject parseObject, ParseException e) {
                 decrementNetworkActivityCount();
                 didReceiveNetworkException(e);
+                user.prefetchAllFields();   // make an attempt to warm the cache
 
                 FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
                 switch (user.getApplicationStatus()) {

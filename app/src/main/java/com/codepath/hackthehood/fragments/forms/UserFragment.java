@@ -181,8 +181,7 @@ public class UserFragment extends NetworkFragment {
                 Website website = user.getWebsite();
                 if (considerNextObject(website)) return;
 
-                Address address = website.getAddress();
-                if (considerNextObject(address)) return;
+                considerNextObject(website.getAddress());
             }
 
         }, new GetCallback() {

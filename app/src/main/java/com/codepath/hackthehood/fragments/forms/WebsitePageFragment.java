@@ -87,7 +87,7 @@ public class WebsitePageFragment extends ImageResourceFragment {
                                     imageResources.add(imageResource);
                             }
                         }
-                        if(considerNextObjects(imageResources.toArray(new ParseObject[imageResources.size()]))) return;
+                        considerNextObjects(imageResources.toArray(new ParseObject[imageResources.size()]));
                     }
 
                 }, new GetCallback() {
