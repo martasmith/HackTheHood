@@ -31,7 +31,7 @@ public abstract class ImageResourceFragment extends NetworkFragment {
 
     private final static int REQUEST_CODE_TAKE_PHOTO    = 20;
     private final static int REQUEST_CODE_SELECT_PHOTO  = 30;
-    public final static String APP_TAG = "HTH_app";
+    private final static String APP_TAG = "HTH_app";
 
     protected void setupImageUploadListener(final ImageView imageView, final int index) {
 
