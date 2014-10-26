@@ -89,10 +89,10 @@ public class WebsitePageCollectionFragment extends ImageCollectionFragment {
                 }, new GetCallback() {
                     @Override
                     public void done(ParseObject parseObject, ParseException e) {
+                        didReceiveNetworkException(e);
                         if (e != null) {
                             setFetchIsFinished();
                             decrementNetworkActivityCount();
-                            didReceiveNetworkException(e);
                             return;
                         }
 
@@ -104,10 +104,10 @@ public class WebsitePageCollectionFragment extends ImageCollectionFragment {
                                 new GetCallback() {
                                     @Override
                                     public void done(ParseObject parseObject, ParseException e) {
+                                        didReceiveNetworkException(e);
                                         if (e != null) {
                                             setFetchIsFinished();
                                             decrementNetworkActivityCount();
-                                            didReceiveNetworkException(e);
                                             return;
                                         }
 
@@ -126,12 +126,10 @@ public class WebsitePageCollectionFragment extends ImageCollectionFragment {
                                                     public void done(ParseObject parseObject, ParseException e) {
                                                         setFetchIsFinished();
                                                         decrementNetworkActivityCount();
+                                                        didReceiveNetworkException(e);
 
-                                                        if (e != null) {
-                                                            didReceiveNetworkException(e);
-                                                        }
-
-                                                        populateView();
+                                                        if(e == null)
+                                                            populateView();
                                                     }
                                                 });
                                     }
@@ -221,9 +219,7 @@ public class WebsitePageCollectionFragment extends ImageCollectionFragment {
             @Override
             public void done(ParseException e) {
                 decrementNetworkActivityCount();
-                if (e != null) {
-                    didReceiveNetworkException(e);
-                }
+                didReceiveNetworkException(e);
                 saveCallback.done(e);
             }
         });

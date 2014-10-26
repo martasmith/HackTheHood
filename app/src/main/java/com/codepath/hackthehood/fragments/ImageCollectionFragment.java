@@ -142,8 +142,8 @@ public abstract class ImageCollectionFragment extends NetworkFragment {
         imageResource.setBitmap(bitmap, new SaveCallback() {
             @Override
             public void done(ParseException e) {
+                didReceiveNetworkException(e);
                 if (e != null) {
-                    didReceiveNetworkException(e);
                     decrementNetworkActivityCount();
                     return;
                 }
@@ -151,9 +151,7 @@ public abstract class ImageCollectionFragment extends NetworkFragment {
                 imageResource.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
-                        if (e != null) {
-                            didReceiveNetworkException(e);
-                        }
+                        didReceiveNetworkException(e);
                         decrementNetworkActivityCount();
                     }
                 });

@@ -134,14 +134,11 @@ public class BusinessFormFragment extends NetworkFragment {
                         @Override
                         public void done(ParseException e) {
                             v.setEnabled(true);
-                            if(e != null) {
-                                didReceiveNetworkException(e);
-                                decrementNetworkActivityCount();
-                            } else {
-                                if (mListener != null) {
-                                    mListener.onBusinessFormSubmit();
-                                }
-                            }
+                            didReceiveNetworkException(e);
+                            decrementNetworkActivityCount();
+
+                            if(e == null && mListener != null)
+                                mListener.onBusinessFormSubmit();
                         }
                     });
             }
@@ -204,16 +201,14 @@ public class BusinessFormFragment extends NetworkFragment {
             @Override
             public void done(ParseObject parseObject, ParseException e) {
                 decrementNetworkActivityCount();
-                if (e != null) {
-                    didReceiveNetworkException(e);
-                    return;
-                }
-
-                Website website = user.getWebsite();
-                if (website == null) {
-                    scaffoldUser();
-                } else {
-                    populateForm();
+                didReceiveNetworkException(e);
+                if (e == null) {
+                    Website website = user.getWebsite();
+                    if (website == null) {
+                        scaffoldUser();
+                    } else {
+                        populateForm();
+                    }
                 }
             }
         });
@@ -226,11 +221,10 @@ public class BusinessFormFragment extends NetworkFragment {
             @Override
             public void done(ParseException e) {
                 decrementNetworkActivityCount();
-                if (e != null) {
-                    didReceiveNetworkException(e);
-                    return;
-                }
-                populateForm();
+                didReceiveNetworkException(e);
+
+                if(e == null)
+                    populateForm();
             }
         });
     }

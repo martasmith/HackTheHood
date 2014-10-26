@@ -15,6 +15,7 @@ public abstract class NetworkFragment extends Fragment {
     private int localNetworkActivityCount = 0;
 
     protected void didReceiveNetworkException(com.parse.ParseException e) {
+        if(e == null) return;
         Activity activity = getActivity();
         if(activity instanceof NetworkFragmentContainer)
             ((NetworkFragmentContainer) activity).didReceiveException(e);

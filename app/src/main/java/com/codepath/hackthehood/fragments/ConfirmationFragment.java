@@ -72,9 +72,11 @@ public class ConfirmationFragment extends NetworkFragment {
             new GetCallback<ParseObject>() {
                 @Override
                 public void done(ParseObject parseObject, ParseException e) {
-                    if(e != null) didReceiveNetworkException(e);
+                    didReceiveNetworkException(e);
                     decrementNetworkActivityCount();
-                    pushUserToView();
+
+                    if(e == null)
+                        pushUserToView();
                 }
             };
 

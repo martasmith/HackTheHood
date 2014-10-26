@@ -81,10 +81,10 @@ public class WebsiteCollectionFragment extends ImageCollectionFragment implement
                 new GetCallback() {
                     @Override
                     public void done(ParseObject parseObject, ParseException e) {
+                        didReceiveNetworkException(e);
                         if (e != null) {
                             setFetchIsFinished();
                             decrementNetworkActivityCount();
-                            didReceiveNetworkException(e);
                             return;
                         }
 
@@ -98,12 +98,10 @@ public class WebsiteCollectionFragment extends ImageCollectionFragment implement
                                     public void done(ParseObject parseObject, ParseException e) {
                                         setFetchIsFinished();
                                         decrementNetworkActivityCount();
+                                        didReceiveNetworkException(e);
 
-                                        if (e != null) {
-                                            didReceiveNetworkException(e);
-                                        }
-
-                                        populateView();
+                                        if(e == null)
+                                            populateView();
                                     }
                                 });
                     }
@@ -219,9 +217,7 @@ public class WebsiteCollectionFragment extends ImageCollectionFragment implement
                     @Override
                     public void done(ParseException e) {
                         decrementNetworkActivityCount();
-                        if (e != null) {
-                            didReceiveNetworkException(e);
-                        }
+                        didReceiveNetworkException(e);
                         saveCallback.done(e);
                     }
                 });
@@ -261,34 +257,20 @@ public class WebsiteCollectionFragment extends ImageCollectionFragment implement
     @Override
     public void onClick(View view) {
 
-        if (mListener != null) {
-            User user = (User) ParseUser.getCurrentUser();
-            user.setApplicationStatus(User.APPSTATUS_ASSETS_SUBMITTED);
-            user.saveInBackground(new SaveCallback() {
-                @Override
-                public void done(ParseException e) {
+        User user = (User) ParseUser.getCurrentUser();
 
-                }
-            });
-            mListener.onWebsiteInfoFormSubmit();
-        }
+        incrementNetworkActivityCount();
+        user.setApplicationStatus(User.APPSTATUS_ASSETS_SUBMITTED);
+        user.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                decrementNetworkActivityCount();
+                didReceiveNetworkException(e);
 
-//        switch (view.getId()) {
-//            case R.id.btnSubmit:
-//                User user = (User) ParseUser.getCurrentUser();
-//                user.setApplicationStatus(User.APPSTATUS_ASSETS_SUBMITTED);
-//
-//                btnSubmit.setEnabled(false);
-//                submit(new SaveCallback() {
-//                    @Override
-//                    public void done(ParseException e) {
-//                        if (mListener != null && e == null) {
-//                            mListener.onWebsiteInfoFormSubmit();
-//                        }
-//                        }
-//                });
-//                break;
-//        }
+                if (e == null && mListener != null)
+                    mListener.onWebsiteInfoFormSubmit();
+            }
+        });
     }
 
     public interface WebsiteInfoListener {
