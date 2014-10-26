@@ -1,7 +1,6 @@
 package com.codepath.hackthehood;
 
 import android.app.Application;
-import android.content.Context;
 import android.util.Log;
 
 import com.codepath.hackthehood.models.Address;

@@ -1,4 +1,4 @@
-package com.codepath.hackthehood.controller;
+package com.codepath.hackthehood.util;
 
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -10,7 +10,7 @@ import java.util.Iterator;
 /**
  * Created by thomasharte on 20/10/2014.
  */
-public class ParseHelper {
+public class ParseGroupOperator {
 
     static public void fetchObjectsInBackgroundInParallel(final boolean onlyIfNeeded, final ParseObject[] objects, final GetCallback getCallback) {
         GetCallback parallelCallback = new GetCallback() {
