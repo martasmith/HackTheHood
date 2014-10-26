@@ -60,6 +60,8 @@ public class ImageSlideFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_image_slide, container, false);
         TextView tvTitleTextView = (TextView) rootView.findViewById(R.id.tvTitle);
+        tvTitleTextView.setAlpha(0.0f);
+        tvTitleTextView.animate().alpha(1.0f).setDuration(2000);
         ImageView ivBackgroundImage = (ImageView) rootView.findViewById(R.id.ivBackgroundImage);
         tvTitleTextView.setText(mDescriptionText);
         TextView tvDescriptionTextView = (TextView) rootView.findViewById(R.id.tvDescription);
