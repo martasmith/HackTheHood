@@ -61,13 +61,13 @@ public class NavDrawerListAdapter extends BaseAdapter {
                     TextView tvEmail = (TextView) convertView.findViewById(R.id.tvEmail);
                     tvEmail.setText(ParseUser.getCurrentUser().getEmail());
                     ImageView ivLogout = (ImageView) convertView.findViewById(R.id.ivLogout);
-                    ivLogout.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            ParseUser.logOut();
-                            mContext.startActivity(new Intent(mContext, PitchDeckActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                        }
-                    });
+//                    ivLogout.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View view) {
+//                            ParseUser.logOut();
+//                            mContext.startActivity(new Intent(mContext, PitchDeckActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+//                        }
+//                    });
                     break;
 
                 default:

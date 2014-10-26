@@ -2,6 +2,7 @@ package com.codepath.hackthehood.fragments;
 
 import android.app.ActionBar;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -15,8 +16,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.codepath.hackthehood.R;
+import com.codepath.hackthehood.activities.PitchDeckActivity;
 import com.codepath.hackthehood.adapters.NavDrawerListAdapter;
 import com.codepath.hackthehood.models.NavDrawerItem;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 
@@ -78,6 +81,12 @@ public class FragmentNavigationDrawer extends DrawerLayout {
 
     /** Swaps fragments in the main content view */
     public void selectDrawerItem(int position) {
+        if(position < 0) {
+            ParseUser.logOut();
+            getActivity().startActivity(new Intent(getActivity(), PitchDeckActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            return;
+        }
+
         // Create a new fragment and specify the planet to show based on
         // position
 
