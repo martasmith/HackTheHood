@@ -18,8 +18,12 @@ public class BitmapRotator {
         BitmapFactory.decodeFile(photoFilePath, bounds);
         BitmapFactory.Options opts = new BitmapFactory.Options();
         Bitmap bm = BitmapFactory.decodeFile(photoFilePath, opts);
-        // Read EXIF Data
+        return getRotatedBitmap(photoFilePath,bm,bounds);
+    }
 
+    public static Bitmap getRotatedBitmap(String photoFilePath, Bitmap bm, BitmapFactory.Options bounds) {
+
+        // Read EXIF Data
         ExifInterface exif;
         String orientString = "";
 
@@ -40,6 +44,11 @@ public class BitmapRotator {
         Matrix matrix = new Matrix();
         matrix.setRotate(rotationAngle, (float) bm.getWidth() / 2, (float) bm.getHeight() / 2);
         // Return result
-        return Bitmap.createBitmap(bm, 0, 0, bounds.outWidth, bounds.outHeight, matrix, true);
+        if (bounds == null) {
+            return Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), matrix, true);
+        } else {
+            return Bitmap.createBitmap(bm, 0, 0, bounds.outWidth, bounds.outHeight, matrix, true);
+        }
+
     }
 }

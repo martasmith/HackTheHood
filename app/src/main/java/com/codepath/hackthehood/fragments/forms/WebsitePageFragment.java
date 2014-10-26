@@ -10,12 +10,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.codepath.hackthehood.R;
-import com.codepath.hackthehood.models.Website;
-import com.codepath.hackthehood.models.WebsitePage;
-import com.codepath.hackthehood.util.ParseGroupOperator;
 import com.codepath.hackthehood.models.ImageResource;
 import com.codepath.hackthehood.models.PageResource;
 import com.codepath.hackthehood.models.User;
+import com.codepath.hackthehood.models.Website;
+import com.codepath.hackthehood.util.ParseGroupOperator;
 import com.codepath.hackthehood.util.ParseIterator;
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -25,7 +24,6 @@ import com.parse.SaveCallback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 
@@ -115,7 +113,6 @@ public class WebsitePageFragment extends ImageResourceFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_webpage_collection,container,false);
-
         etPageText = (EditText) v.findViewById(R.id.etPageText);
         etDesignerNotes = (EditText) v.findViewById(R.id.etDesignerNotes);
 

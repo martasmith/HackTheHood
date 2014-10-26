@@ -103,7 +103,9 @@ public abstract class ImageResourceFragment extends NetworkFragment {
         //extract photo that was just picked from the gallery
         if(resultCode == Activity. RESULT_OK) {
             try {
-                setBitmap(index, MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData()));
+                Uri photoUri = data.getData();
+                Bitmap bm = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), photoUri);
+                setBitmap(index, BitmapRotator.getRotatedBitmap(photoUri.toString(),bm,null));
             } catch (Exception e) {}
         }
     }
