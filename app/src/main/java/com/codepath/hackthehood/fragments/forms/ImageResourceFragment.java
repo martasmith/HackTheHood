@@ -22,7 +22,6 @@ import com.parse.ParseException;
 import com.parse.SaveCallback;
 
 import java.io.File;
-import java.io.IOException;
 
 /**
  * Created by thomasharte on 23/10/2014.
