@@ -67,7 +67,7 @@ public class LoginFragment extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View view) {
                 String emailAddress = etEmail.getText().toString();
-                ParseUser.requestPasswordResetInBackground(emailAddress);
+//                ParseUser.requestPasswordResetInBackground(emailAddress);
                 Toast.makeText(getActivity(), "A password reset email has been sent to " + emailAddress, Toast.LENGTH_SHORT).show();
             }
         });

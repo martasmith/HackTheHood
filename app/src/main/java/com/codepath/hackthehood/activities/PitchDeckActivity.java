@@ -12,6 +12,7 @@ import com.codepath.hackthehood.adapters.SlidePagerAdapter;
 import com.codepath.hackthehood.models.User;
 import com.codepath.hackthehood.util.SlidePageTransformer;
 import com.parse.ParseUser;
+import com.parse.ui.ParseLoginBuilder;
 
 /**
  * Created by ravi on 10/06/14.
@@ -29,14 +30,6 @@ public class PitchDeckActivity extends FragmentActivity {
         SlidePagerAdapter aSlideAdapter = new SlidePagerAdapter(getSupportFragmentManager());
         vpSlidePager.setAdapter(aSlideAdapter);
         vpSlidePager.setPageTransformer(true, new SlidePageTransformer());
-//        vpSlidePager.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (vpSlidePager.getCurrentItem() < vpSlidePager.getAdapter().getCount() - 1) {
-//                    vpSlidePager.setCurrentItem(vpSlidePager.getCurrentItem() + 1, true);
-//                }
-//            }
-//        });
         vpSlidePager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -83,7 +76,18 @@ public class PitchDeckActivity extends FragmentActivity {
 
     public void getStartedClicked(View view) {
         // Open Login/Signup activity
-        Intent i = new Intent(PitchDeckActivity.this, LoginSignupActivity.class);
-        startActivity(i);
+//        Intent i = new Intent(PitchDeckActivity.this, LoginSignupActivity.class);
+//        startActivity(i);
+        ParseLoginBuilder builder = new ParseLoginBuilder(this);
+        startActivityForResult(builder.build(), 0);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        User user = (User)ParseUser.getCurrentUser();
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
 }
