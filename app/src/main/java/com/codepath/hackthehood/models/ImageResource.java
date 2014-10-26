@@ -43,7 +43,7 @@ public class ImageResource extends NullForNothingParseObject {
                 // if the size is significantly greater than 2 megapixels then scale down
                 // to that sort of amount
                 int sizeInMegapixels = bitmap.getWidth()*bitmap.getHeight();
-                float idealDivisor = (float)sizeInMegapixels / 2000000.0f;
+                float idealDivisor = (float)Math.sqrt((float)sizeInMegapixels / 2000000.0f);
                 if(idealDivisor > 1.2f) {
                     uploadBitmap = Bitmap.createScaledBitmap(
                             bitmap,
