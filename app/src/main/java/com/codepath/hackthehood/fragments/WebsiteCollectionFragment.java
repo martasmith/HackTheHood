@@ -27,7 +27,7 @@ import java.util.Iterator;
 import java.util.List;
 
 
-public class WebsiteInfoFormFragment extends ImageCollectionFragment implements View.OnClickListener {
+public class WebsiteCollectionFragment extends ImageCollectionFragment implements View.OnClickListener {
 
     private WebsiteInfoListener mListener;
 
@@ -37,7 +37,7 @@ public class WebsiteInfoFormFragment extends ImageCollectionFragment implements 
     private List<ImageView> checkPages;
     private Button btnSubmit;
 
-    public WebsiteInfoFormFragment() {
+    public WebsiteCollectionFragment() {
         // Required empty public constructor
     }
 
