@@ -14,6 +14,7 @@ import com.codepath.hackthehood.models.User;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -24,7 +25,7 @@ public class ApplicationFragment extends Fragment implements BusinessFormFragmen
         ConfirmationFragment.ConfirmationViewListener,
         WebsitePageCollectionFragment.WebpageFormListener {
 
-    private ArrayList<WebsitePageCollectionFragment> mWebpageCollectionFragments;
+    private HashMap<Integer, WebsitePageCollectionFragment> mWebpageCollectionFragments;
     private WebsiteCollectionFragment mWebsiteCollectionFragment;
     public ApplicationFragment() {
         // Required empty public constructor
@@ -92,16 +93,17 @@ public class ApplicationFragment extends Fragment implements BusinessFormFragmen
     @Override
     public void collectPageInfo(String title, int pageIndex) {
         if (mWebpageCollectionFragments == null) {
-            mWebpageCollectionFragments = new ArrayList<WebsitePageCollectionFragment>();
+            mWebpageCollectionFragments = new HashMap<Integer, WebsitePageCollectionFragment>();
         }
 
         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-        if (pageIndex >= mWebpageCollectionFragments.size() || mWebpageCollectionFragments.size() == 0) {
-            WebsitePageCollectionFragment websitePageCollectionFragment = WebsitePageCollectionFragment.newInstance(title, pageIndex);
-            mWebpageCollectionFragments.add(pageIndex, websitePageCollectionFragment);
+        WebsitePageCollectionFragment websitePageCollectionFragment = mWebpageCollectionFragments.get(pageIndex);
+        if(websitePageCollectionFragment == null) {
+            websitePageCollectionFragment = WebsitePageCollectionFragment.newInstance(title, pageIndex);
+            mWebpageCollectionFragments.put(pageIndex, websitePageCollectionFragment);
         }
 
-        fragmentTransaction.replace(R.id.flApplicationFragmentContainer, mWebpageCollectionFragments.get(pageIndex));
+        fragmentTransaction.replace(R.id.flApplicationFragmentContainer, websitePageCollectionFragment);
         fragmentTransaction.commit();
     }
 
