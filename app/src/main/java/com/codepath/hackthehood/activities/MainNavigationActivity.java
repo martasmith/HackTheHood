@@ -23,6 +23,7 @@ public class MainNavigationActivity extends ActionBarActivity implements Network
         setContentView(R.layout.activity_main_navigation);
 
         pbLoading = (ProgressBar)findViewById(R.id.pbLoading);
+        if(activityCount > 0) pbLoading.setVisibility(View.VISIBLE);
 
         // Find our drawer view
         navDrawer = (FragmentNavigationDrawer) findViewById(R.id.drawer_layout);
@@ -59,7 +60,7 @@ public class MainNavigationActivity extends ActionBarActivity implements Network
     private int activityCount = 0;
     @Override
     public void incrementActivityCount() {
-        if(activityCount == 0) {
+        if(activityCount == 0 && (pbLoading != null)) {
             pbLoading.setVisibility(View.VISIBLE);
         }
         activityCount++;
@@ -68,7 +69,7 @@ public class MainNavigationActivity extends ActionBarActivity implements Network
     @Override
     public void decrementActivityCount() {
         activityCount--;
-        if(activityCount == 0) {
+        if(activityCount == 0 && (pbLoading != null)) {
             pbLoading.setVisibility(View.INVISIBLE);
         }
     }
