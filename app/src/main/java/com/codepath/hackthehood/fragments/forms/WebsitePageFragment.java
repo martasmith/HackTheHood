@@ -73,7 +73,7 @@ public class WebsitePageFragment extends ImageResourceFragment {
                         Website website = user.getWebsite();
                         if(considerNextObject(website)) return;
 
-                        WebsitePage page = website.getWebsitePages().get(pageIndex);
+                        page = website.getWebsitePages().get(pageIndex);
                         if(considerNextObject(page)) return;
 
                         List<PageResource> pageResources = page.getPageResources();

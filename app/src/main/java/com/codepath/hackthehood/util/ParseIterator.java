@@ -11,7 +11,7 @@ import java.util.List;
  */
 public abstract class ParseIterator implements Iterator<ParseObject[]> {
     private ParseObject[] nextObject;
-    protected void setNextObject(ParseObject object) {
+    private void setNextObject(ParseObject object) {
         ParseObject[] array = {object};
         nextObject = array;
     }

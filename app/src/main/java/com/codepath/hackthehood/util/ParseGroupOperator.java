@@ -89,14 +89,14 @@ public class ParseGroupOperator {
                 switch(nextObject.length) {
                     case 0:
                         done(null, null);
-                        break;
+                    break;
 
                     case 1:
                         if (onlyIfNeeded)
                             nextObject[0].fetchIfNeededInBackground(this);
                         else
                             nextObject[0].fetchInBackground(this);
-                        break;
+                    break;
 
                     default:
                         ParseGroupOperator.fetchObjectsInBackgroundInParallel(onlyIfNeeded, nextObject, this);
