@@ -38,7 +38,21 @@ public class ImageResource extends NullForNothingParseObject {
             @Override
             protected ByteArrayOutputStream doInBackground(Void... voids) {
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                Bitmap uploadBitmap = bitmap;
+
+                // if the size is significantly greater than 2 megapixels then scale down
+                // to that sort of amount
+                int sizeInMegapixels = bitmap.getWidth()*bitmap.getHeight();
+                float idealDivisor = (float)sizeInMegapixels / 2000000.0f;
+                if(idealDivisor > 1.2f) {
+                    uploadBitmap = Bitmap.createScaledBitmap(
+                            bitmap,
+                            (int)((float)bitmap.getWidth() / idealDivisor),
+                            (int)((float)bitmap.getHeight() / idealDivisor),
+                            false);
+                }
+
+                uploadBitmap.compress(Bitmap.CompressFormat.JPEG, 85, stream);
                 return stream;
             }
 
