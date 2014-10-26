@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fa9936"
+    android:paddingLeft="20dp"
+    android:paddingStart="20dp"
+    android:paddingRight="10dp"
+    android:paddingEnd="10dp"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp"
+    android:gravity="center_vertical"
+    android:weightSum="1">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/default_email"
+        android:textColor="#FFF"
+        android:fontFamily="san-serif-light"
+        android:id="@+id/tvEmail"
+        android:layout_weight="1" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_logout"
+        android:id="@+id/ivLogout"
+        android:contentDescription="@string/logout_image_description" />
+
+</LinearLayout>
