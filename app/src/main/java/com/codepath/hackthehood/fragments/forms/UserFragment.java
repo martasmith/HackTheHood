@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.codepath.hackthehood.R;
-import com.codepath.hackthehood.controller.ParseHelper;
+import com.codepath.hackthehood.util.ParseGroupOperator;
 import com.codepath.hackthehood.fragments.NetworkFragment;
 import com.codepath.hackthehood.models.Address;
 import com.codepath.hackthehood.models.User;
@@ -131,17 +131,17 @@ public class UserFragment extends NetworkFragment {
                 ParseObject[] objectsToSave = {user, user.getWebsite(), user.getWebsite().getAddress()};
                 incrementNetworkActivityCount();
                 v.setEnabled(false);
-                ParseHelper.saveObjectsInBackgroundInParallel(objectsToSave, new SaveCallback() {
-                        @Override
-                        public void done(ParseException e) {
-                            v.setEnabled(true);
-                            didReceiveNetworkException(e);
-                            decrementNetworkActivityCount();
+                ParseGroupOperator.saveObjectsInBackgroundInParallel(objectsToSave, new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        v.setEnabled(true);
+                        didReceiveNetworkException(e);
+                        decrementNetworkActivityCount();
 
-                            if(e == null && mListener != null)
-                                mListener.onBusinessFormSubmit();
-                        }
-                    });
+                        if (e == null && mListener != null)
+                            mListener.onBusinessFormSubmit();
+                    }
+                });
             }
          });
     }
@@ -174,7 +174,7 @@ public class UserFragment extends NetworkFragment {
 
         incrementNetworkActivityCount();
         final User user = (User) ParseUser.getCurrentUser();
-        ParseHelper.fetchObjectsInBackgroundInSerial(true, new Iterator<ParseObject>() {
+        ParseGroupOperator.fetchObjectsInBackgroundInSerial(true, new Iterator<ParseObject>() {
             private int index = 0;
 
             @Override

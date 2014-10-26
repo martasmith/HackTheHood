@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.codepath.hackthehood.R;
-import com.codepath.hackthehood.controller.ParseHelper;
+import com.codepath.hackthehood.util.ParseGroupOperator;
 import com.codepath.hackthehood.models.ImageResource;
 import com.codepath.hackthehood.models.User;
 import com.codepath.hackthehood.models.Website;
@@ -53,7 +53,7 @@ public class WebsiteFragment extends ImageResourceFragment implements View.OnCli
 
         final User user = (User) ParseUser.getCurrentUser();
         incrementNetworkActivityCount();
-        ParseHelper.fetchObjectsInBackgroundInSerial(true,
+        ParseGroupOperator.fetchObjectsInBackgroundInSerial(true,
                 new Iterator<ParseObject>() {
                     private int index = 0;
 
@@ -64,7 +64,7 @@ public class WebsiteFragment extends ImageResourceFragment implements View.OnCli
 
                     @Override
                     public ParseObject next() {
-                        index ++;
+                        index++;
                         switch (index) {
                             default:
                                 return user;
@@ -90,7 +90,7 @@ public class WebsiteFragment extends ImageResourceFragment implements View.OnCli
 
                         Website website = user.getWebsite();
                         ImageResource imageResources[] = {website.getLogo(), website.getHeader()};
-                        ParseHelper.fetchObjectsInBackgroundInParallel(
+                        ParseGroupOperator.fetchObjectsInBackgroundInParallel(
                                 true,
                                 imageResources,
                                 new GetCallback() {
@@ -100,7 +100,7 @@ public class WebsiteFragment extends ImageResourceFragment implements View.OnCli
                                         decrementNetworkActivityCount();
                                         didReceiveNetworkException(e);
 
-                                        if(e == null)
+                                        if (e == null)
                                             populateView();
                                     }
                                 });
@@ -212,7 +212,7 @@ public class WebsiteFragment extends ImageResourceFragment implements View.OnCli
 
         ParseObject objectsToSave[] = {user, website};
         incrementNetworkActivityCount();
-        ParseHelper.saveObjectsInBackgroundInParallel(objectsToSave,
+        ParseGroupOperator.saveObjectsInBackgroundInParallel(objectsToSave,
                 new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
