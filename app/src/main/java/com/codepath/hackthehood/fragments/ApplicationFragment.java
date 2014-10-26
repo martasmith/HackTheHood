@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 
 import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.models.User;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
@@ -21,7 +24,7 @@ import java.util.List;
 /**
  * Created by ravi on 10/22/14.
  */
-public class ApplicationFragment extends Fragment implements BusinessFormFragment.BusinessFormListener,
+public class ApplicationFragment extends NetworkFragment implements BusinessFormFragment.BusinessFormListener,
         WebsiteCollectionFragment.WebsiteInfoListener,
         ConfirmationFragment.ConfirmationViewListener,
         WebsitePageCollectionFragment.WebpageFormListener {
@@ -30,11 +33,6 @@ public class ApplicationFragment extends Fragment implements BusinessFormFragmen
     private WebsiteCollectionFragment mWebsiteCollectionFragment;
     public ApplicationFragment() {
         // Required empty public constructor
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -54,35 +52,39 @@ public class ApplicationFragment extends Fragment implements BusinessFormFragmen
     }
 
     private void setFragmentBasedOnState() {
-        FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
 
         // check whether we should be skipping ahead
-        User user = (User) ParseUser.getCurrentUser();
-        try {
-            user.fetch();
-        } catch (Exception e) {
-        }
+        final User user = (User) ParseUser.getCurrentUser();
+        incrementNetworkActivityCount();
+        user.fetchInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject parseObject, ParseException e) {
+                decrementNetworkActivityCount();
+                didReceiveNetworkException(e);
 
-        switch (user.getApplicationStatus()) {
-            case User.APPSTATUS_STARTED:
-                BusinessFormFragment businessFormFragment = new BusinessFormFragment();
-                fragmentTransaction.replace(R.id.flApplicationFragmentContainer, businessFormFragment);
-                break;
+                FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+                switch (user.getApplicationStatus()) {
+                    case User.APPSTATUS_STARTED:
+                        BusinessFormFragment businessFormFragment = new BusinessFormFragment();
+                        fragmentTransaction.replace(R.id.flApplicationFragmentContainer, businessFormFragment);
+                        break;
 
-            case User.APPSTATUS_ACCEPTED:
-            case User.APPSTATUS_PENDING_REVIEW:
-            case User.APPSTATUS_ASSETS_SUBMITTED:
-            case User.APPSTATUS_DECLINED:
-            case User.APPSTATUS_SITE_COMPLETED:
-                ConfirmationFragment confirmationFragment = new ConfirmationFragment();
-                fragmentTransaction.replace(R.id.flApplicationFragmentContainer, confirmationFragment);
-                break;
+                    case User.APPSTATUS_ACCEPTED:
+                    case User.APPSTATUS_PENDING_REVIEW:
+                    case User.APPSTATUS_ASSETS_SUBMITTED:
+                    case User.APPSTATUS_DECLINED:
+                    case User.APPSTATUS_SITE_COMPLETED:
+                        ConfirmationFragment confirmationFragment = new ConfirmationFragment();
+                        fragmentTransaction.replace(R.id.flApplicationFragmentContainer, confirmationFragment);
+                        break;
 
-            default:
-                break;
-        }
+                    default:
+                        break;
+                }
 
-        fragmentTransaction.commit();
+                fragmentTransaction.commit();
+            }
+        });
     }
 
     @Override
