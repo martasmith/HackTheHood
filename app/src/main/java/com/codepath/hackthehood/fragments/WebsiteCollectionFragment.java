@@ -191,11 +191,11 @@ public class WebsiteCollectionFragment extends ImageCollectionFragment implement
 
         String headerImageUrl = website.getHeader().getImageUrl();
         if (headerImageUrl != null)
-            Picasso.with(getActivity()).load(headerImageUrl).into(ivHeader);
+            Picasso.with(getActivity()).load(headerImageUrl).fit().into(ivHeader);
 
         String logoImageUrl = website.getLogo().getImageUrl();
         if (logoImageUrl != null)
-            Picasso.with(getActivity()).load(logoImageUrl).into(ivLogo);
+            Picasso.with(getActivity()).load(logoImageUrl).fit().into(ivLogo);
     }
 
     @Override

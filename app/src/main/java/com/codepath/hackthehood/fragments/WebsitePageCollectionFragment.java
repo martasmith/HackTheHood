@@ -180,7 +180,7 @@ public class WebsitePageCollectionFragment extends ImageCollectionFragment {
         for(int c = 0; c < 3; c++) {
             String imageUrl = imageResources.get(c).getImageUrl();
             if(imageUrl != null)
-                Picasso.with(getActivity()).load(imageUrl).into(imageViews.get(c));
+                Picasso.with(getActivity()).load(imageUrl).fit().into(imageViews.get(c));
         }
 
         etDesignerNotes.setText(page.getNotes());

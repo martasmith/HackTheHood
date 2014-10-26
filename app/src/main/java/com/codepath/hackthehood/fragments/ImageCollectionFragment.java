@@ -135,6 +135,8 @@ public abstract class ImageCollectionFragment extends NetworkFragment {
 
         final ImageResource imageResource = imageResourceForIndex(index);
         // TODO: Fix this - For whatever reason, this is always null
+        // Tom's note: except on my machine, seemingly, where it is never null. Please
+        // provide steps to reproduce.
         if (imageResource == null) {
             Toast.makeText(getActivity(), "ImageResource is not set", Toast.LENGTH_SHORT).show();
             return;
