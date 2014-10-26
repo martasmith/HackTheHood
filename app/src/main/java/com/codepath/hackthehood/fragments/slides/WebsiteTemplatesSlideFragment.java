@@ -1,4 +1,4 @@
-package com.codepath.hackthehood.fragments;
+package com.codepath.hackthehood.fragments.slides;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

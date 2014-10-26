@@ -4,9 +4,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.codepath.hackthehood.fragments.GetBusinessOnlineSlideFragment;
-import com.codepath.hackthehood.fragments.ImageSlideFragment;
-import com.codepath.hackthehood.fragments.WebsiteTemplatesSlideFragment;
+import com.codepath.hackthehood.fragments.slides.GetBusinessOnlineSlideFragment;
+import com.codepath.hackthehood.fragments.slides.ImageSlideFragment;
+import com.codepath.hackthehood.fragments.slides.WebsiteTemplatesSlideFragment;
 
 /**
  * Created by ravi on 10/12/14.
