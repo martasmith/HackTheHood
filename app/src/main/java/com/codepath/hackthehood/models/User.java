@@ -101,14 +101,15 @@ public class User extends ParseUser {
 
                         if (pageResourceChildren == null) {
                             pageResourceChildren = new ArrayList<ParseObject>();
-                            for(int c = 0; c < pageResources.size(); c++) {
-                                PageResource pageResource = (PageResource)pageResources.get(c);
+                            for (ParseObject parseObject : pageResources) {
+                                PageResource pageResource = (PageResource) parseObject;
 
                                 ImageResource imageResource = pageResource.getImageResource();
                                 if (imageResource != null) pageResourceChildren.add(imageResource);
 
                                 StringResource stringResource = pageResource.getStringResource();
-                                if (stringResource != null) pageResourceChildren.add(stringResource);
+                                if (stringResource != null)
+                                    pageResourceChildren.add(stringResource);
                             }
                         }
                         considerNextObjects(pageResourceChildren);
