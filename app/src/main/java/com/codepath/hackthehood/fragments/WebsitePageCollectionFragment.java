@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.controller.ParseHelper;
 import com.codepath.hackthehood.models.ImageResource;
+import com.codepath.hackthehood.models.PageResource;
 import com.codepath.hackthehood.models.User;
 import com.codepath.hackthehood.models.WebsitePage;
 import com.parse.GetCallback;
@@ -32,6 +33,7 @@ public class WebsitePageCollectionFragment extends ImageCollectionFragment {
 
     private EditText etPageText, etDesignerNotes;
     private List<ImageView> imageViews;
+    private List<ImageResource> imageResources;
     private WebsitePage page;
 
     private final static String TITLE = "title";
@@ -95,23 +97,45 @@ public class WebsitePageCollectionFragment extends ImageCollectionFragment {
                         }
 
                         page = user.getWebsite().getWebsitePages().get(pageIndex);
-                        List<ImageResource> imageResources = page.getImageResources();
+                        final List<PageResource> pageResources = page.getPageResources();
                         ParseHelper.fetchObjectsInBackgroundInParallel(
                                 true,
-                                imageResources.toArray(new ParseObject[imageResources.size()]),
+                                pageResources.toArray(new ParseObject[pageResources.size()]),
                                 new GetCallback() {
-                            @Override
-                            public void done(ParseObject parseObject, ParseException e) {
-                                setFetchIsFinished();
-                                decrementNetworkActivityCount();
+                                    @Override
+                                    public void done(ParseObject parseObject, ParseException e) {
+                                        if (e != null) {
+                                            setFetchIsFinished();
+                                            decrementNetworkActivityCount();
+                                            didReceiveNetworkException(e);
+                                            return;
+                                        }
 
-                                if (e != null) {
-                                    didReceiveNetworkException(e);
-                                }
+                                        imageResources = new ArrayList<ImageResource>();
+                                        for(PageResource pageResource : pageResources) {
+                                            ImageResource imageResource = pageResource.getImageResource();
+                                            if(imageResource != null)
+                                                imageResources.add(imageResource);
+                                        }
 
-                                populateView();
-                            }
-                        });
+                                        ParseHelper.fetchObjectsInBackgroundInParallel(
+                                                true,
+                                                imageResources.toArray(new ParseObject[imageResources.size()]),
+                                                new GetCallback() {
+                                                    @Override
+                                                    public void done(ParseObject parseObject, ParseException e) {
+                                                        setFetchIsFinished();
+                                                        decrementNetworkActivityCount();
+
+                                                        if (e != null) {
+                                                            didReceiveNetworkException(e);
+                                                        }
+
+                                                        populateView();
+                                                    }
+                                                });
+                                    }
+                                });
                     }
                 });
     }
@@ -155,7 +179,6 @@ public class WebsitePageCollectionFragment extends ImageCollectionFragment {
     }
 
     private void populateView() {
-        List <ImageResource> imageResources = page.getImageResources();
         for(int c = 0; c < 3; c++) {
             String imageUrl = imageResources.get(c).getImageUrl();
             if(imageUrl != null)
@@ -213,7 +236,7 @@ public class WebsitePageCollectionFragment extends ImageCollectionFragment {
 
     @Override
     protected ImageResource imageResourceForIndex(int index) {
-        return page.getImageResources().get(index);
+        return imageResources.get(index);
     }
 
     public interface WebpageFormListener {

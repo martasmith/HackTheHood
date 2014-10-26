@@ -102,7 +102,7 @@ public abstract class ImageCollectionFragment extends NetworkFragment {
 
     private void onSelectPhotoResult(int index, int resultCode, Intent data) {
         //extract photo that was just picked from the gallery
-        if(resultCode == Activity.RESULT_OK) {
+        if(resultCode == Activity. RESULT_OK) {
             try {
                 setBitmap(index, MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData()));
             } catch (Exception e) {}
