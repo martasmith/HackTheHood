@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.codepath.hackthehood.fragments.GetBusinessOnlineSlideFragment;
 import com.codepath.hackthehood.fragments.ImageSlideFragment;
 import com.codepath.hackthehood.fragments.WebsiteTemplatesSlideFragment;
 
@@ -31,10 +32,10 @@ public class SlidePagerAdapter extends FragmentPagerAdapter {
                 return ImageSlideFragment.newInstance("", "Support local youth development", "Hack the Hood introduces low-income youth of color to tech careers by hiring and training them as web consultants who build and promote sites for small local businesses.");
 
             case 1:
-                return ImageSlideFragment.newInstance("", "", "Get your business online for free");
+                return WebsiteTemplatesSlideFragment.newInstance();
 
             case 2:
-                return WebsiteTemplatesSlideFragment.newInstance();
+                return new GetBusinessOnlineSlideFragment();
 
             default:
                 return null;

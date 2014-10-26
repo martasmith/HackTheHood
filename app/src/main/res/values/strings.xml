@@ -76,5 +76,12 @@
     <string name="drawer_list_item_text">My Application</string>
     <string name="default_email">ravirani@gmail.com</string>
     <string name="logout_image_description">Log out</string>
+    <string name="website_template_slide_tagline">See sample sites our students have built</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="get_business_online_slide_tagline">Support local youth development</string>
+    <string name="get_business_online_title_text">Get your business online for free in 3 steps:</string>
+    <string name="application_step1_text">1. Apply for a website</string>
+    <string name="application_step2_text">2. Send us content for your website</string>
+    <string name="application_step3_text">3. Youth Consultant build your website</string>
 
 </resources>

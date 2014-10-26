@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     android:paddingTop="35dp"
     tools:context=".PitchDeckActivity">
 
@@ -13,20 +14,11 @@
         android:id="@+id/ivLogo"
         android:src="@drawable/ic_logo" />
 
-    <TextView
-        android:id="@+id/tvTagLine"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/pitch_deck_default_title"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:paddingBottom="10dp"
-        android:layout_below="@+id/ivLogo"
-        />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vpSlidePager"
-        android:layout_below="@+id/tvTagLine"
+        android:layout_below="@+id/ivLogo"
+        android:background="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </android.support.v4.view.ViewPager>

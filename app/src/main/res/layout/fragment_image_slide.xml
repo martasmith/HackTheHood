@@ -4,10 +4,20 @@
     android:layout_height="match_parent"
     tools:context="com.codepath.hackthehood.fragments.ImageSlideFragment">
 
+    <TextView
+        android:id="@+id/tvTagLine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/pitch_deck_default_title"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:paddingBottom="10dp"
+        android:layout_alignParentTop="true" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/tvTagLine"
         android:scaleType="center"
         android:src="@drawable/hth_blurred"
         android:id="@+id/ivBackgroundImage" />
@@ -15,6 +25,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignTop="@+id/ivBackgroundImage"
         android:background="#66000000"
         />
 
