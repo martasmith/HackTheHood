@@ -150,7 +150,7 @@ public class WebsiteCollectionFragment extends ImageCollectionFragment implement
         setupImageUploadListener(ivHeader, 0);
         setupImageUploadListener(ivLogo, 1);
 
-        doFetch(true);
+        fetch(true);
         return v;
     }
 
