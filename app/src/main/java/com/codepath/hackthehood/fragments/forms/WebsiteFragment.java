@@ -12,7 +12,6 @@ import android.widget.Spinner;
 
 import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.controller.ParseHelper;
-import com.codepath.hackthehood.fragments.ImageCollectionFragment;
 import com.codepath.hackthehood.models.ImageResource;
 import com.codepath.hackthehood.models.User;
 import com.codepath.hackthehood.models.Website;
@@ -28,7 +27,7 @@ import java.util.Iterator;
 import java.util.List;
 
 
-public class WebsiteFragment extends ImageCollectionFragment implements View.OnClickListener {
+public class WebsiteFragment extends ImageResourceFragment implements View.OnClickListener {
 
     private WebsiteInfoListener mListener;
 

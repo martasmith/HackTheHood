@@ -11,7 +11,6 @@ import android.widget.ImageView;
 
 import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.controller.ParseHelper;
-import com.codepath.hackthehood.fragments.ImageCollectionFragment;
 import com.codepath.hackthehood.models.ImageResource;
 import com.codepath.hackthehood.models.PageResource;
 import com.codepath.hackthehood.models.User;
@@ -27,7 +26,7 @@ import java.util.Iterator;
 import java.util.List;
 
 
-public class WebsitePageFragment extends ImageCollectionFragment {
+public class WebsitePageFragment extends ImageResourceFragment {
 
     private WebpageFormListener mListener;
 

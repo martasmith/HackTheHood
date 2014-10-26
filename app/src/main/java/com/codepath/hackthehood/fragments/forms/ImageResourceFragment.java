@@ -1,4 +1,4 @@
-package com.codepath.hackthehood.fragments;
+package com.codepath.hackthehood.fragments.forms;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.controller.BitmapHelper;
+import com.codepath.hackthehood.fragments.NetworkFragment;
 import com.codepath.hackthehood.models.ImageResource;
 import com.codepath.hackthehood.util.BitmapScaler;
 import com.parse.ParseException;
@@ -26,7 +27,7 @@ import java.io.IOException;
 /**
  * Created by thomasharte on 23/10/2014.
  */
-public abstract class ImageCollectionFragment extends NetworkFragment {
+public abstract class ImageResourceFragment extends NetworkFragment {
 
     private final static int REQUEST_CODE_TAKE_PHOTO    = 20;
     private final static int REQUEST_CODE_SELECT_PHOTO  = 30;
