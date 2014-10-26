@@ -1,6 +1,7 @@
 package com.codepath.hackthehood.fragments.slides;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,12 +52,16 @@ public class ImageSlideFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_image_slide, container, false);
-        TextView tvTitleTextView = (TextView) rootView.findViewById(R.id.tvSlideText);
-        tvTitleTextView.setAlpha(0.0f);
-        tvTitleTextView.animate().alpha(1.0f).setDuration(2000);
-        tvTitleTextView.setText(mSlideText);
-        return rootView;
+        return inflater.inflate(R.layout.fragment_image_slide, container, false);
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        TextView tvTitleTextView = (TextView) view.findViewById(R.id.tvSlideText);
+        tvTitleTextView.setAlpha(0.0f);
+        tvTitleTextView.animate().alpha(1.0f).setDuration(1000);
+        tvTitleTextView.setText(mSlideText);
+    }
 }
