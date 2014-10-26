@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.activities.PitchDeckActivity;
 import com.codepath.hackthehood.models.NavDrawerItem;
-import com.parse.Parse;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
@@ -73,7 +72,7 @@ public class NavDrawerListAdapter extends BaseAdapter {
 
                 default:
                     convertView = mInflater.inflate(R.layout.drawer_nav_item, null);
-                    TextView txtTitle = (TextView) convertView.findViewById(R.id.tvTitle);
+                    TextView txtTitle = (TextView) convertView.findViewById(R.id.tvSlideText);
                     txtTitle.setText(navDrawerItems.get(position - 1).getTitle());
                     break;
 

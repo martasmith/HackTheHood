@@ -28,8 +28,7 @@ public class SlidePagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                // Support local youth development
-                return ImageSlideFragment.newInstance("", "Support local youth development", "Hack the Hood introduces low-income youth of color to tech careers by hiring and training them as web consultants who build and promote sites for small local businesses.");
+                return ImageSlideFragment.newInstance("Hack the Hood introduces low-income youth of color to tech careers by hiring and training them as web consultants who build and promote sites for small local businesses.");
 
             case 1:
                 return WebsiteTemplatesSlideFragment.newInstance();

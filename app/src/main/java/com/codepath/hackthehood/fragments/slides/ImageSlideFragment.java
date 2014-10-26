@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codepath.hackthehood.R;
@@ -19,26 +18,20 @@ import com.codepath.hackthehood.R;
  * Created by ravi on 10/12/14.
  */
 public class ImageSlideFragment extends Fragment {
-    private static final String IMG_SRC = "imageSrc";
-    private static final String TITLE_TEXT = "titleText";
-    private static final String TITLE_DESC = "titleDescription";
+    private static final String SLIDE_TEXT = "slideText";
 
-    private String mDescriptionText;
+    private String mSlideText;
 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param imageSrc Source of the image to be used
-     * @param titleText Title text to show
      * @return A new instance of fragment ImageSlideFragment.
      */
-    public static ImageSlideFragment newInstance(String imageSrc, String titleText, String titleDescription) {
+    public static ImageSlideFragment newInstance(String slideText) {
         ImageSlideFragment fragment = new ImageSlideFragment();
         Bundle args = new Bundle();
-        args.putString(IMG_SRC, imageSrc);
-        args.putString(TITLE_TEXT, titleText);
-        args.putString(TITLE_DESC, titleDescription);
+        args.putString(SLIDE_TEXT, slideText);
         fragment.setArguments(args);
         return fragment;
     }
@@ -50,7 +43,7 @@ public class ImageSlideFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mDescriptionText = getArguments().getString(TITLE_DESC);
+            mSlideText = getArguments().getString(SLIDE_TEXT);
         }
     }
 
@@ -59,13 +52,10 @@ public class ImageSlideFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_image_slide, container, false);
-        TextView tvTitleTextView = (TextView) rootView.findViewById(R.id.tvTitle);
+        TextView tvTitleTextView = (TextView) rootView.findViewById(R.id.tvSlideText);
         tvTitleTextView.setAlpha(0.0f);
         tvTitleTextView.animate().alpha(1.0f).setDuration(2000);
-        ImageView ivBackgroundImage = (ImageView) rootView.findViewById(R.id.ivBackgroundImage);
-        tvTitleTextView.setText(mDescriptionText);
-        TextView tvDescriptionTextView = (TextView) rootView.findViewById(R.id.tvDescription);
-        // tvDescriptionTextView.setText(mDescriptionText);
+        tvTitleTextView.setText(mSlideText);
         return rootView;
     }
 
