@@ -11,12 +11,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
-import android.widget.Toast;
 
 import com.codepath.hackthehood.R;
-import com.codepath.hackthehood.controller.BitmapHelper;
 import com.codepath.hackthehood.fragments.NetworkFragment;
 import com.codepath.hackthehood.models.ImageResource;
+import com.codepath.hackthehood.util.BitmapRotator;
 import com.codepath.hackthehood.util.BitmapScaler;
 import com.parse.ParseException;
 import com.parse.SaveCallback;
@@ -95,7 +94,7 @@ public abstract class ImageResourceFragment extends NetworkFragment {
         //extract photo that was just taken by the camera
         if (resultCode == Activity.RESULT_OK) {
             try {
-                setBitmap(index, BitmapHelper.getNormalOrientationBitmap(getPhotoFileUri(index).getPath()));
+                setBitmap(index, BitmapRotator.getNormalOrientationBitmap(getPhotoFileUri(index).getPath()));
             } catch (Exception e) {}
         }
     }

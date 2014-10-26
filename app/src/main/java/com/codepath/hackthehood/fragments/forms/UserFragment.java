@@ -18,13 +18,12 @@ import com.codepath.hackthehood.models.Address;
 import com.codepath.hackthehood.models.User;
 import com.codepath.hackthehood.models.Website;
 import com.codepath.hackthehood.util.MultiSelectionSpinner;
+import com.codepath.hackthehood.util.ParseIterator;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
-
-import java.util.Iterator;
 
 
 public class UserFragment extends NetworkFragment {
@@ -174,28 +173,16 @@ public class UserFragment extends NetworkFragment {
 
         incrementNetworkActivityCount();
         final User user = (User) ParseUser.getCurrentUser();
-        ParseGroupOperator.fetchObjectsInBackgroundInSerial(true, new Iterator<ParseObject>() {
-            private int index = 0;
+        ParseGroupOperator.fetchObjectGroupsInBackground(true, new ParseIterator() {
 
-            @Override
-            public boolean hasNext() {
-                return index != 3;
-            }
+            protected void findNextObject() {
+                if (considerNextObject(user)) return;
 
-            @Override
-            public ParseObject next() {
-                switch (index++) {
-                    default:
-                        return user;
-                    case 1:
-                        return user.getWebsite();
-                    case 2:
-                        return user.getWebsite().getAddress();
-                }
-            }
+                Website website = user.getWebsite();
+                if (considerNextObject(website)) return;
 
-            @Override
-            public void remove() {
+                Address address = website.getAddress();
+                if (considerNextObject(address)) return;
             }
 
         }, new GetCallback() {

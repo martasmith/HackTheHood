@@ -15,6 +15,7 @@ import com.codepath.hackthehood.util.ParseGroupOperator;
 import com.codepath.hackthehood.models.ImageResource;
 import com.codepath.hackthehood.models.User;
 import com.codepath.hackthehood.models.Website;
+import com.codepath.hackthehood.util.ParseIterator;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -23,7 +24,6 @@ import com.parse.SaveCallback;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 
@@ -53,57 +53,29 @@ public class WebsiteFragment extends ImageResourceFragment implements View.OnCli
 
         final User user = (User) ParseUser.getCurrentUser();
         incrementNetworkActivityCount();
-        ParseGroupOperator.fetchObjectsInBackgroundInSerial(true,
-                new Iterator<ParseObject>() {
-                    private int index = 0;
-
+        ParseGroupOperator.fetchObjectGroupsInBackground(true,
+                new ParseIterator() {
                     @Override
-                    public boolean hasNext() {
-                        return index != 2;
+                    protected void findNextObject() {
+                        if (considerNextObject(user)) return;
+
+                        Website website = user.getWebsite();
+                        if (considerNextObject(website)) return;
+
+                        ImageResource imageResources[] = {website.getLogo(), website.getHeader()};
+                        considerNextObjects(imageResources);
                     }
 
-                    @Override
-                    public ParseObject next() {
-                        index++;
-                        switch (index) {
-                            default:
-                                return user;
-                            case 2:
-                                return user.getWebsite();
-                        }
-                    }
-
-                    @Override
-                    public void remove() {
-
-                    }
                 },
                 new GetCallback() {
                     @Override
                     public void done(ParseObject parseObject, ParseException e) {
+                        setFetchIsFinished();
+                        decrementNetworkActivityCount();
                         didReceiveNetworkException(e);
-                        if (e != null) {
-                            setFetchIsFinished();
-                            decrementNetworkActivityCount();
-                            return;
-                        }
 
-                        Website website = user.getWebsite();
-                        ImageResource imageResources[] = {website.getLogo(), website.getHeader()};
-                        ParseGroupOperator.fetchObjectsInBackgroundInParallel(
-                                true,
-                                imageResources,
-                                new GetCallback() {
-                                    @Override
-                                    public void done(ParseObject parseObject, ParseException e) {
-                                        setFetchIsFinished();
-                                        decrementNetworkActivityCount();
-                                        didReceiveNetworkException(e);
-
-                                        if (e == null)
-                                            populateView();
-                                    }
-                                });
+                        if (e == null)
+                            populateView();
                     }
                 });
     }

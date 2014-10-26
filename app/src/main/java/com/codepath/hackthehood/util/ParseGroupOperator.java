@@ -12,7 +12,7 @@ import java.util.Iterator;
  */
 public class ParseGroupOperator {
 
-    static public void fetchObjectsInBackgroundInParallel(final boolean onlyIfNeeded, final ParseObject[] objects, final GetCallback getCallback) {
+    static private void fetchObjectsInBackgroundInParallel(final boolean onlyIfNeeded, final ParseObject[] objects, final GetCallback getCallback) {
         GetCallback parallelCallback = new GetCallback() {
 
             private int numberOfObjectsRemaining = objects.length;
@@ -69,7 +69,7 @@ public class ParseGroupOperator {
             object.saveInBackground(parallelCallback);
     }
 
-    static public void fetchObjectsInBackgroundInSerial(final boolean onlyIfNeeded, final Iterator<ParseObject> objects, final GetCallback getCallback) {
+    static public void fetchObjectGroupsInBackground(final boolean onlyIfNeeded, final Iterator<ParseObject[]> objects, final GetCallback getCallback) {
         class SerialGetCallback extends GetCallback {
 
             private int listIndex = 0;
@@ -80,16 +80,28 @@ public class ParseGroupOperator {
                     return;
                 }
 
-                ParseObject nextObject = objects.next();
+                ParseObject[] nextObject = objects.next();
                 if(nextObject == null) {
                     getCallback.done(null, null);
                     return;
                 }
 
-                if(onlyIfNeeded)
-                    nextObject.fetchIfNeededInBackground(this);
-                else
-                    nextObject.fetchInBackground(this);
+                switch(nextObject.length) {
+                    case 0:
+                        done(null, null);
+                        break;
+
+                    case 1:
+                        if (onlyIfNeeded)
+                            nextObject[0].fetchIfNeededInBackground(this);
+                        else
+                            nextObject[0].fetchInBackground(this);
+                        break;
+
+                    default:
+                        ParseGroupOperator.fetchObjectsInBackgroundInParallel(onlyIfNeeded, nextObject, this);
+                    break;
+                }
             }
 
             @Override
