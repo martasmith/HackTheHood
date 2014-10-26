@@ -12,10 +12,11 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.codepath.hackthehood.R;
+import com.codepath.hackthehood.adapters.NavDrawerListAdapter;
+import com.codepath.hackthehood.models.NavDrawerItem;
 
 import java.util.ArrayList;
 
@@ -25,7 +26,8 @@ import java.util.ArrayList;
 public class FragmentNavigationDrawer extends DrawerLayout {
     private ActionBarDrawerToggle drawerToggle;
     private ListView lvDrawer;
-    private ArrayAdapter<String> drawerAdapter;
+    private NavDrawerListAdapter drawerAdapter;
+    private ArrayList<NavDrawerItem> navDrawerItems;
     private ArrayList<FragmentNavItem> drawerNavItems;
     private int drawerContainerRes;
 
@@ -45,8 +47,9 @@ public class FragmentNavigationDrawer extends DrawerLayout {
     public void setupDrawerConfiguration(ListView drawerListView, int drawerItemRes, int drawerContainerRes) {
         // Setup navigation items array
         drawerNavItems = new ArrayList<FragmentNavigationDrawer.FragmentNavItem>();
+        navDrawerItems = new ArrayList<NavDrawerItem>();
+        drawerAdapter = new NavDrawerListAdapter(getActivity(), navDrawerItems);
         // Set the adapter for the list view
-        drawerAdapter = new ArrayAdapter<String>(getActivity(), drawerItemRes, new ArrayList<String>());
         this.drawerContainerRes = drawerContainerRes;
         // Setup drawer list view and related adapter
         lvDrawer = drawerListView;
@@ -69,7 +72,7 @@ public class FragmentNavigationDrawer extends DrawerLayout {
 
     // addNavItem("First", "First Fragment", FirstFragment.class)
     public void addNavItem(String navTitle, String windowTitle, Class<? extends Fragment> fragmentClass) {
-        drawerAdapter.add(navTitle);
+        navDrawerItems.add(new NavDrawerItem(navTitle));
         drawerNavItems.add(new FragmentNavItem(windowTitle, fragmentClass));
     }
 
