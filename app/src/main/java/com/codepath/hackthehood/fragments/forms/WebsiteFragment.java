@@ -74,7 +74,7 @@ public class WebsiteFragment extends ImageResourceFragment implements View.OnCli
                         decrementNetworkActivityCount();
                         didReceiveNetworkException(e);
 
-                        if (e == null)
+                        if (e == null && etFacebookLink != null)
                             populateView();
                     }
                 });

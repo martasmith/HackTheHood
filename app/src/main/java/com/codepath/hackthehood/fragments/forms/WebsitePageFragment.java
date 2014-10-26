@@ -97,7 +97,7 @@ public class WebsitePageFragment extends ImageResourceFragment {
                         decrementNetworkActivityCount();
                         didReceiveNetworkException(e);
 
-                        if (e == null)
+                        if (e == null && etPageText != null)
                             populateView();
                     }
                 });
