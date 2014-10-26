@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.fragments.ApplicationFragment;
 import com.codepath.hackthehood.fragments.FragmentNavigationDrawer;
+import com.codepath.hackthehood.fragments.info.WebviewFragment;
 
 public class MainNavigationActivity extends ActionBarActivity implements NetworkFragmentContainer {
     private FragmentNavigationDrawer navDrawer;
@@ -29,7 +30,12 @@ public class MainNavigationActivity extends ActionBarActivity implements Network
         navDrawer.setupDrawerConfiguration((ListView) findViewById(R.id.lvDrawer),
                 R.layout.drawer_nav_item, R.id.flContent);
         // Add nav items
-        navDrawer.addNavItem("My Application", "Application Fragment", ApplicationFragment.class);
+        navDrawer.addNavItem("My Application", "Application Fragment", ApplicationFragment.class, null);
+
+        Bundle webViewFragmentArguments = new Bundle();
+        webViewFragmentArguments.putString(WebviewFragment.PAGE_TITLE, "About Hack the Hood");
+        webViewFragmentArguments.putString(WebviewFragment.PAGE_URL, "http://www.hackthehood.org/what-we-do.html");
+        navDrawer.addNavItem("About", "About", WebviewFragment.class, webViewFragmentArguments);
         // Select default
         if (savedInstanceState == null) {
             navDrawer.selectDrawerItem(0);

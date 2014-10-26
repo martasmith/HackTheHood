@@ -20,7 +20,6 @@ import com.codepath.hackthehood.R;
  */
 public class ImageSlideFragment extends Fragment {
     private static final String SLIDE_TEXT = "slideText";
-
     private String mSlideText;
 
     /**

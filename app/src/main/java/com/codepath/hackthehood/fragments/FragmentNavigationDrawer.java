@@ -70,10 +70,10 @@ public class FragmentNavigationDrawer extends DrawerLayout {
         getActionBar().setHomeButtonEnabled(true);
     }
 
-    // addNavItem("First", "First Fragment", FirstFragment.class)
-    public void addNavItem(String navTitle, String windowTitle, Class<? extends Fragment> fragmentClass) {
+    // addNavItem("First", "First Fragment", FirstFragment.class, arguments)
+    public void addNavItem(String navTitle, String windowTitle, Class<? extends Fragment> fragmentClass, Bundle bundleArgs) {
         navDrawerItems.add(new NavDrawerItem(navTitle));
-        drawerNavItems.add(new FragmentNavItem(windowTitle, fragmentClass));
+        drawerNavItems.add(new FragmentNavItem(windowTitle, fragmentClass, bundleArgs));
     }
 
     /** Swaps fragments in the main content view */
@@ -124,7 +124,7 @@ public class FragmentNavigationDrawer extends DrawerLayout {
     private class FragmentDrawerItemListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            selectDrawerItem(position);
+            selectDrawerItem(position - 1);
         }
     }
 
@@ -165,7 +165,6 @@ public class FragmentNavigationDrawer extends DrawerLayout {
         {
             String title = "";
             public void onDrawerClosed(View view) {
-//                setTitle(drawerNavItems.get(mSelectedPosition).getTitle());
                 setTitle(title);
                 getActivity().supportInvalidateOptionsMenu(); // call onPrepareOptionsMenu()
             }
