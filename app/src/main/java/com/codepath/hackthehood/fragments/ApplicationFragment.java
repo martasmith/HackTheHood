@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,7 @@ public class ApplicationFragment extends Fragment implements BusinessFormFragmen
         ConfirmationFragment.ConfirmationViewListener,
         WebsitePageCollectionFragment.WebpageFormListener {
 
-    private HashMap<Integer, WebsitePageCollectionFragment> mWebpageCollectionFragments;
+    private SparseArray<WebsitePageCollectionFragment> mWebpageCollectionFragments;
     private WebsiteCollectionFragment mWebsiteCollectionFragment;
     public ApplicationFragment() {
         // Required empty public constructor
@@ -93,7 +94,7 @@ public class ApplicationFragment extends Fragment implements BusinessFormFragmen
     @Override
     public void collectPageInfo(String title, int pageIndex) {
         if (mWebpageCollectionFragments == null) {
-            mWebpageCollectionFragments = new HashMap<Integer, WebsitePageCollectionFragment>();
+            mWebpageCollectionFragments = new SparseArray<WebsitePageCollectionFragment>();
         }
 
         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
