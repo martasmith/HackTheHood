@@ -16,7 +16,7 @@ public abstract class ParseIterator implements Iterator<ParseObject[]> {
         nextObject = array;
     }
     protected boolean considerNextObject(ParseObject object) {
-        if(!object.isDataAvailable()) {
+        if((object != null) && !object.isDataAvailable()) {
             setNextObject(object);
             return true;
         }

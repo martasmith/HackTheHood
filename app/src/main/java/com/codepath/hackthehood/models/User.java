@@ -75,6 +75,7 @@ public class User extends ParseUser {
                         if (considerNextObject(User.this)) return;
 
                         Website website = User.this.getWebsite();
+                        if (website == null) return;
                         if (considerNextObject(website)) return;
 
                         if(websiteChildren == null) {

@@ -179,7 +179,7 @@ public class UserFragment extends NetworkFragment {
                 if (considerNextObject(user)) return;
 
                 Website website = user.getWebsite();
-                if (considerNextObject(website)) return;
+                if ((website == null) || considerNextObject(website)) return;
 
                 considerNextObject(website.getAddress());
             }
