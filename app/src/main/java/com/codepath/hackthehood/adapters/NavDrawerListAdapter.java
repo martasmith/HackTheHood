@@ -22,9 +22,9 @@ import java.util.ArrayList;
  */
 public class NavDrawerListAdapter extends BaseAdapter {
 
-    private ArrayList<NavDrawerItem> navDrawerItems;
-    private LayoutInflater mInflater;
-    private Context mContext;
+    private final ArrayList<NavDrawerItem> navDrawerItems;
+    private final LayoutInflater mInflater;
+    private final Context mContext;
 
 
     public NavDrawerListAdapter(Context context, ArrayList<NavDrawerItem> navDrawerItems){
