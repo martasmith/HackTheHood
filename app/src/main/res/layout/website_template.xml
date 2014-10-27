@@ -1,27 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:paddingBottom="20dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:paddingTop="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp"
+    android:paddingBottom="0dp"
+    android:background="#EEE"
+    android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher"
-        android:id="@+id/ivTemplateImage" />
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:layout_alignBottom="@+id/ivTemplateImage"
-        android:background="#AA000000"
-        android:textColor="@android:color/white"
-        android:fontFamily="san-serif-light"
-        android:textSize="14sp"
-        android:text="@string/website_template_title_default_text"
-        android:id="@+id/tvTemplateTitle" />
+        android:background="@drawable/rectangle"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/ivTemplateImage"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_example_site" />
+
+        <LinearLayout
+            android:background="#33BEBEBE"
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
+
+        <TextView
+            android:id="@+id/tvTemplateTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingTop="10dp"
+            android:text="@string/website_template_title_default_text"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+    </LinearLayout>
 
 </RelativeLayout>
