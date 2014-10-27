@@ -1,154 +1,270 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <ScrollView
+        android:id="@+id/svAssetForm"
+        android:layout_above="@+id/btnSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp"
+            tools:context="com.codepath.hackthehood.fragments.forms.WebsiteFragment">
+
+            <LinearLayout
+                android:id="@+id/llTypeOfBusiness"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/type_of_business_section_title"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="#444"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/sprBusinessType"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/businessType"
+                    android:spinnerMode="dialog" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="@string/social_media_section_title"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#444"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/etFacebookLink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/facebook_link_textfield_hint"
+                android:inputType="textUri" />
+
+            <EditText
+                android:id="@+id/etYelpLink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/yelp_link_textfield_hint"
+                android:inputType="textUri" />
+
+            <EditText
+                android:id="@+id/etTwitterLink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/twitter_link_textfield_hint"
+                android:inputType="textUri" />
+
+            <EditText
+                android:id="@+id/etInstagramLink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/instagram_link_textfield_hint"
+                android:inputType="textUri" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="@string/graphics_section_title"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#444"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/llImgUpload"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_horizontal"
+                        android:text="@string/add_logo_section_title"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="#444"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/imgLogo"
+                        android:layout_width="85dp"
+                        android:layout_height="85dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_add_image" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_horizontal"
+                        android:text="@string/add_header_image_section_title"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="#444"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/imgHeader"
+                        android:layout_width="85dp"
+                        android:layout_height="85dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_add_image" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="@string/add_website_content_section_title"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#444"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#99BEBEBE" />
+
+            <LinearLayout
+                android:id="@+id/llPage1Btn"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="1.0">
+
+                <Button
+                    android:id="@+id/btnPage1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.9"
+                    android:background="#00000000"
+                    android:gravity="center_vertical"
+                    android:text="@string/btnPage1" />
+
+                <ImageView
+                    android:id="@+id/checkPage1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".10"
+                    android:src="@drawable/ic_green_tick"
+                    android:visibility="invisible" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#99BEBEBE" />
+
+            <LinearLayout
+                android:id="@+id/llPage2Btn"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:weightSum="1.0">
+
+                <Button
+                    android:id="@+id/btnPage2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.9"
+                    android:background="#00000000"
+                    android:gravity="center_vertical"
+                    android:text="@string/btnPage2" />
+
+                <ImageView
+                    android:id="@+id/checkPage2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".10"
+                    android:src="@drawable/ic_green_tick"
+                    android:visibility="invisible" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#99BEBEBE" />
+
+            <LinearLayout
+                android:id="@+id/llPage3Btn"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:weightSum="1.0">
+
+                <Button
+                    android:id="@+id/btnPage3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.9"
+                    android:background="#00000000"
+                    android:gravity="center_vertical"
+                    android:text="@string/btnPage3" />
+
+                <ImageView
+                    android:id="@+id/checkPage3"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".10"
+                    android:src="@drawable/ic_green_tick"
+                    android:visibility="invisible" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#99BEBEBE" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btnSubmit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:context="com.codepath.hackthehood.fragments.forms.WebsiteFragment">
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:background="@android:color/holo_blue_light"
+        android:fontFamily="san-serif-light"
+        android:text="@string/btnSubmit"
+        android:textColor="@android:color/white" />
 
+</RelativeLayout>
 
-        <Spinner
-            android:id="@+id/sprBusinessType"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:entries="@array/businessType"
-            android:paddingRight="2dp"
-            android:spinnerMode="dialog" />
-
-        <EditText
-            android:id="@+id/etFacebookLink"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Facebook Link"
-            android:inputType="textPostalAddress" />
-
-        <EditText
-            android:id="@+id/etYelpLink"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Yelp Link"
-            android:inputType="textPostalAddress" />
-
-        <EditText
-            android:id="@+id/etTwitterLink"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Twitter Link"
-            android:inputType="textPostalAddress" />
-
-        <EditText
-            android:id="@+id/etInstagramLink"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Instagram Link"
-            android:inputType="textPostalAddress" />
-
-        <LinearLayout
-            android:id="@+id/llImgUpload"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/imgLogo"
-                android:layout_width="85dp"
-                android:layout_height="85dp"
-                android:layout_margin="15dp"
-                android:src="@drawable/upload_logo" />
-
-            <ImageView
-                android:id="@+id/imgHeader"
-                android:layout_width="85dp"
-                android:layout_height="85dp"
-                android:layout_margin="15dp"
-                android:src="@drawable/upload_header" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/llPage1Btn"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal"
-            android:weightSum="1.0">
-
-            <Button
-                android:id="@+id/btnPage1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".90"
-                android:text="@string/btnPage1" />
-
-            <ImageView
-                android:id="@+id/checkPage1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight=".10"
-                android:src="@drawable/ic_green_tick"
-                android:visibility="invisible" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/llPage2Btn"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal"
-            android:weightSum="1.0">
-
-            <Button
-                android:id="@+id/btnPage2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".90"
-                android:text="@string/btnPage2" />
-
-            <ImageView
-                android:id="@+id/checkPage2"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight=".10"
-                android:src="@drawable/ic_green_tick"
-                android:visibility="invisible" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/llPage3Btn"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal"
-            android:weightSum="1.0">
-
-            <Button
-                android:id="@+id/btnPage3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight=".90"
-                android:text="@string/btnPage3" />
-
-            <ImageView
-                android:id="@+id/checkPage3"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight=".10"
-                android:src="@drawable/ic_green_tick"
-                android:visibility="invisible" />
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/btnSubmit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:text="@string/btnSubmit" />
-
-    </LinearLayout>
-</ScrollView>

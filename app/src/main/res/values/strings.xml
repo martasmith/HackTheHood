@@ -32,7 +32,7 @@
         <item>Other</item>
     </string-array>
     <string-array name="businessType">
-        <item>Select your business type</item>
+        <item>Select</item>
         <item>Retail</item>
         <item>Salon/Beauty</item>
         <item>Restaurant</item>
@@ -43,9 +43,9 @@
     </string-array>
 
     <string name="title_activity_asset_collection">Send Us Website Content</string>
-    <string name="btnPage1">Page 1: Enter Homepage Info</string>
-    <string name="btnPage2">Page 2: Enter  Content Page Info</string>
-    <string name="btnPage3">Page 3: Enter Contact Page Info</string>
+    <string name="btnPage1">Page 1: Homepage Info</string>
+    <string name="btnPage2">Page 2: Content Page Info</string>
+    <string name="btnPage3">Page 3: Contact Page Info</string>
     <string name="btnSubmit">Submit</string>
     <string name="title_activity_webpage_collection">WebpageCollectionActivity</string>
     <string name="pitch_deck_title">HackTheHood</string>
@@ -83,5 +83,15 @@
     <string name="application_step1_text">1. Apply for a website</string>
     <string name="application_step2_text">2. Send us content for your website</string>
     <string name="application_step3_text">3. Youth Consultant build your website</string>
+    <string name="facebook_link_textfield_hint">Link to Facebook page</string>
+    <string name="yelp_link_textfield_hint">Link to Yelp page</string>
+    <string name="twitter_link_textfield_hint">Link to Twitter account</string>
+    <string name="instagram_link_textfield_hint">Link to Instagram</string>
+    <string name="social_media_section_title">Social Media Links for your business:</string>
+    <string name="graphics_section_title">Graphics:</string>
+    <string name="add_logo_section_title">Add Logo</string>
+    <string name="add_header_image_section_title">Add Header</string>
+    <string name="add_website_content_section_title">Add Website Content:</string>
+    <string name="type_of_business_section_title">Type of Business:</string>
 
 </resources>
