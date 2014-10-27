@@ -84,6 +84,7 @@ public class FragmentNavigationDrawer extends DrawerLayout {
         if(position < 0) {
             ParseUser.logOut();
             getActivity().startActivity(new Intent(getActivity(), PitchDeckActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            getActivity().finish();
             return;
         }
 
