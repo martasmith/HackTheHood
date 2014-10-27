@@ -125,8 +125,8 @@ public class ConfirmationFragment extends NetworkFragment {
                 break;
 
             case User.APPSTATUS_ASSETS_SUBMITTED:
-                mainText = "Thanks for submitting the assets!";
-                subText = "Our students will create your website in our upcoming bootcamp! If we have any questions, we will get in touch.";
+                mainText = "Thanks you!";
+                subText = "Thank you for the opportunity to work on your site. Not only do you get a free website out of this process, but a young person is gaining valuable work experience and new skills by helping you with it! Our students will create your website in our upcoming bootcamp! If we have any questions, we will get in touch.";
                 actionBarTitle = "Assets Submitted";
                 mShareMessage = "I just applied to get my website created by Hack the Hood!";
                 btnShare.setVisibility(View.VISIBLE);
