@@ -2,6 +2,7 @@ package com.codepath.hackthehood.fragments.forms;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -126,6 +127,7 @@ public class WebsitePageFragment extends ImageResourceFragment {
             setupImageUploadListener(imageViews.get(c), c);
 
         fetch(true);
+        ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle("Add " + getArguments().getString(TITLE) + " Page Info");
         return v;
     }
 

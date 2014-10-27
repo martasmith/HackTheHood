@@ -77,7 +77,7 @@ public class UserFragment extends NetworkFragment {
         etContactEmail      = (EditText) v.findViewById(R.id.etContactEmail);
         Button btnSubmitBusinessForm = (Button) v.findViewById(R.id.btnSubmit);
 
-        String [] spinnerContentArr = {"Website", "Online Store", "Facebook Page","Twitter Account","Google Listing", "Yelp","Other"};
+        String[] spinnerContentArr = {"Website", "Online Store", "Facebook Page","Twitter Account","Google Listing", "Yelp","Other"};
         sprOnlinePresence.setItems(spinnerContentArr);
 
         setupSubmitListener(btnSubmitBusinessForm);

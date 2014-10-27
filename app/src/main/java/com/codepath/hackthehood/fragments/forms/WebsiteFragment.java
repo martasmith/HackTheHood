@@ -2,6 +2,7 @@ package com.codepath.hackthehood.fragments.forms;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,7 @@ public class WebsiteFragment extends ImageResourceFragment implements View.OnCli
     private ImageView ivHeader, ivLogo;
     private List<ImageView> checkPages;
     private Button btnSubmit;
+    private ArrayList<String> mPageTitles;
 
     public WebsiteFragment() {
         // Required empty public constructor
@@ -45,6 +47,10 @@ public class WebsiteFragment extends ImageResourceFragment implements View.OnCli
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         onAttachFragment(getParentFragment());
+        mPageTitles = new ArrayList<String>();
+        mPageTitles.add("Home");
+        mPageTitles.add("Content");
+        mPageTitles.add("Contact");
     }
 
     @Override
@@ -121,6 +127,7 @@ public class WebsiteFragment extends ImageResourceFragment implements View.OnCli
         setupImageUploadListener(ivLogo, 1);
 
         fetch(true);
+        ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle("Add Website Info");
         return v;
     }
 
@@ -142,7 +149,7 @@ public class WebsiteFragment extends ImageResourceFragment implements View.OnCli
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
-                    mListener.collectPageInfo(btn.getText().toString(), pageIndex);
+                    mListener.collectPageInfo(mPageTitles.get(pageIndex), pageIndex);
                 }
             }
         });
