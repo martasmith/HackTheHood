@@ -1,6 +1,5 @@
 package com.codepath.hackthehood.fragments;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -33,6 +32,7 @@ public class FragmentNavigationDrawer extends DrawerLayout {
     private ArrayList<NavDrawerItem> navDrawerItems;
     private ArrayList<FragmentNavItem> drawerNavItems;
     private int drawerContainerRes;
+    private CharSequence mSelectedItemTitle;
 
     public FragmentNavigationDrawer(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -66,11 +66,7 @@ public class FragmentNavigationDrawer extends DrawerLayout {
         // set a custom shadow that overlays the main content when the drawer
         // setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         // Setup action buttons
-        getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE);
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setDisplayShowHomeEnabled(false);
-        getActionBar().setDisplayShowTitleEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
     }
 
     // addNavItem("First", "First Fragment", FirstFragment.class, arguments)
@@ -173,16 +169,15 @@ public class FragmentNavigationDrawer extends DrawerLayout {
                 R.string.drawer_close /* "close drawer" description for accessibility */
         )
         {
-            String title = "";
             public void onDrawerClosed(View view) {
-                setTitle(title);
+                setmSelectedItemTitle(mSelectedItemTitle);
                 getActivity().supportInvalidateOptionsMenu(); // call onPrepareOptionsMenu()
             }
 
             public void onDrawerOpened(View drawerView) {
-                title = getActionBar().getTitle().toString();
+                mSelectedItemTitle = getActionBar().getTitle().toString();
                 getActivity().supportInvalidateOptionsMenu(); // call onPrepareOptionsMenu()
-                setTitle("Hack the Hood");
+                setmSelectedItemTitle("Hack the Hood");
             }
         };
     }
