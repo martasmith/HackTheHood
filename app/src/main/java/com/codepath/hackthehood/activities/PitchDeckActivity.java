@@ -53,6 +53,7 @@ public class PitchDeckActivity extends FragmentActivity {
                         CTAContainer.setAlpha(positionOffset);
                         break;
                     case 2:
+                    default:
                         // Display on final position
                         CTAContainer.setTranslationY(0);
                         CTAContainer.setAlpha(1);

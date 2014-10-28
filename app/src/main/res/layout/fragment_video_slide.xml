@@ -1,0 +1,28 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/black"
+                tools:context="com.codepath.hackthehood.fragments.slides.VideoSlideFragment">
+
+    <TextView
+        android:id="@+id/tvTagLine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:background="@android:color/white"
+        android:paddingBottom="10dp"
+        android:text="@string/website_template_slide_tagline"
+        android:textStyle="bold"/>
+
+
+    <FrameLayout
+        android:id="@+id/flVideoPlayer"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_below="@+id/tvTagLine">
+
+    </FrameLayout>
+
+</RelativeLayout>

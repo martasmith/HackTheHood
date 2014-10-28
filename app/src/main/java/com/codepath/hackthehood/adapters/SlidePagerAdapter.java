@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.codepath.hackthehood.fragments.slides.GetBusinessOnlineSlideFragment;
 import com.codepath.hackthehood.fragments.slides.ImageSlideFragment;
+import com.codepath.hackthehood.fragments.slides.VideoSlideFragment;
 import com.codepath.hackthehood.fragments.slides.WebsiteTemplatesSlideFragment;
 
 /**
@@ -13,7 +14,7 @@ import com.codepath.hackthehood.fragments.slides.WebsiteTemplatesSlideFragment;
  */
 public class SlidePagerAdapter extends FragmentPagerAdapter {
 
-    private static final int NUM_PAGES = 3;
+    private static final int NUM_PAGES = 4;
 
     public SlidePagerAdapter(FragmentManager fm) {
         super(fm);
@@ -35,6 +36,9 @@ public class SlidePagerAdapter extends FragmentPagerAdapter {
 
             case 2:
                 return new GetBusinessOnlineSlideFragment();
+
+            case 3:
+                return new VideoSlideFragment();
 
             default:
                 return null;
