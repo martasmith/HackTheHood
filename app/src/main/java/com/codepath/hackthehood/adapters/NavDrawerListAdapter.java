@@ -22,9 +22,10 @@ public class NavDrawerListAdapter extends BaseAdapter {
     private final ArrayList<NavDrawerItem> navDrawerItems;
     private final LayoutInflater mInflater;
     private final Context mContext;
+    private View.OnClickListener mLogoutClickedListener;
 
 
-    public NavDrawerListAdapter(Context context, ArrayList<NavDrawerItem> navDrawerItems){
+    public NavDrawerListAdapter(Context context, ArrayList<NavDrawerItem> navDrawerItems) {
         mContext = context;
         this.navDrawerItems = navDrawerItems;
         mInflater = LayoutInflater.from(context);
@@ -41,8 +42,11 @@ public class NavDrawerListAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
-        return navDrawerItems.get(position);
+    public NavDrawerItem getItem(int position) {
+        if (position == 0) {
+            return null;
+        }
+        return navDrawerItems.get(position - 1);
     }
 
     @Override
@@ -52,31 +56,30 @@ public class NavDrawerListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
-            switch (position) {
-                case 0:
-                    convertView = mInflater.inflate(R.layout.drawer_user_item, null);
-                    TextView tvEmail = (TextView) convertView.findViewById(R.id.tvEmail);
-                    tvEmail.setText(ParseUser.getCurrentUser().getEmail());
-                    ImageView ivLogout = (ImageView) convertView.findViewById(R.id.ivLogout);
-//                    ivLogout.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view) {
-//                            ParseUser.logOut();
-//                            mContext.startActivity(new Intent(mContext, PitchDeckActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-//                        }
-//                    });
-                    break;
+        switch (position) {
+            case 0:
+                if (convertView == null) {
+                    convertView = mInflater.inflate(R.layout.drawer_user_item, parent, false);
+                }
+                TextView tvEmail = (TextView) convertView.findViewById(R.id.tvEmail);
+                tvEmail.setText(ParseUser.getCurrentUser().getEmail());
+                ImageView ivLogout = (ImageView) convertView.findViewById(R.id.ivLogout);
+                ivLogout.setOnClickListener(mLogoutClickedListener);
+                break;
 
-                default:
-                    convertView = mInflater.inflate(R.layout.drawer_nav_item, null);
-                    TextView txtTitle = (TextView) convertView.findViewById(R.id.tvSlideText);
-                    txtTitle.setText(navDrawerItems.get(position - 1).getTitle());
-                    break;
+            default:
+                if (convertView == null) {
+                    convertView = mInflater.inflate(R.layout.drawer_nav_item, parent, false);
+                }
+                TextView txtTitle = (TextView) convertView.findViewById(R.id.tvSlideText);
+                txtTitle.setText(navDrawerItems.get(position - 1).getTitle());
+                break;
 
-            }
         }
         return convertView;
     }
 
+    public void setLogoutClickedListener(View.OnClickListener logoutClickedListener) {
+        mLogoutClickedListener = logoutClickedListener;
+    }
 }

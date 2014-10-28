@@ -30,7 +30,6 @@ public class FragmentNavigationDrawer extends DrawerLayout {
     private ListView lvDrawer;
     private NavDrawerListAdapter drawerAdapter;
     private ArrayList<NavDrawerItem> navDrawerItems;
-    private ArrayList<FragmentNavItem> drawerNavItems;
     private int drawerContainerRes;
     private CharSequence mSelectedItemTitle;
 
@@ -49,14 +48,23 @@ public class FragmentNavigationDrawer extends DrawerLayout {
     // setupDrawerConfiguration((ListView) findViewById(R.id.lvDrawer), R.layout.drawer_list_item, R.id.flContent);
     public void setupDrawerConfiguration(ListView drawerListView, int drawerItemRes, int drawerContainerRes) {
         // Setup navigation items array
-        drawerNavItems = new ArrayList<FragmentNavigationDrawer.FragmentNavItem>();
         navDrawerItems = new ArrayList<NavDrawerItem>();
         drawerAdapter = new NavDrawerListAdapter(getActivity(), navDrawerItems);
+        drawerAdapter.setLogoutClickedListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ParseUser.logOut();
+                getActivity().startActivity(new Intent(getActivity(), PitchDeckActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                getActivity().finish();
+            }
+        });
+
         // Set the adapter for the list view
         this.drawerContainerRes = drawerContainerRes;
         // Setup drawer list view and related adapter
         lvDrawer = drawerListView;
         lvDrawer.setAdapter(drawerAdapter);
+
         // Setup item listener
         lvDrawer.setOnItemClickListener(new FragmentDrawerItemListener());
         // ActionBarDrawerToggle ties together the the proper interactions
@@ -70,24 +78,29 @@ public class FragmentNavigationDrawer extends DrawerLayout {
     }
 
     // addNavItem("First", "First Fragment", FirstFragment.class, arguments)
-    public void addNavItem(String navTitle, String windowTitle, Class<? extends Fragment> fragmentClass, Bundle bundleArgs) {
-        navDrawerItems.add(new NavDrawerItem(navTitle));
-        drawerNavItems.add(new FragmentNavItem(windowTitle, fragmentClass, bundleArgs));
+    public void addNavItem(String navTitle, Class<? extends Fragment> fragmentClass, Bundle bundleArgs) {
+        navDrawerItems.add(new NavDrawerItem(navTitle, fragmentClass, bundleArgs));
     }
 
     /** Swaps fragments in the main content view */
     public void selectDrawerItem(int position) {
-        if(position < 0) {
-            ParseUser.logOut();
-            getActivity().startActivity(new Intent(getActivity(), PitchDeckActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-            getActivity().finish();
-            return;
-        }
+//        if(position < 0) {
+//            ParseUser.logOut();
+//            getActivity().startActivity(new Intent(getActivity(), PitchDeckActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+//            getActivity().finish();
+//            return;
+//        }
+        NavDrawerItem navItem = navDrawerItems.get(position);
+        selectNavDrawerItem(navItem);
+    }
 
+    private void selectNavDrawerItem(NavDrawerItem navItem) {
         // Create a new fragment and specify the planet to show based on
         // position
 
-        FragmentNavItem navItem = drawerNavItems.get(position);
+        if (navItem == null) {
+            return;
+        }
         Fragment fragment = null;
         try {
             fragment = navItem.getFragmentClass().newInstance();
@@ -104,8 +117,8 @@ public class FragmentNavigationDrawer extends DrawerLayout {
         fragmentManager.beginTransaction().replace(drawerContainerRes, fragment).commit();
 
         // Highlight the selected item, update the title, and close the drawer
-        lvDrawer.setItemChecked(position, true);
-        setTitle(navItem.getTitle());
+        mSelectedItemTitle = navItem.getTitle();
+        setTitle(mSelectedItemTitle);
         closeDrawer(lvDrawer);
     }
 
@@ -113,7 +126,6 @@ public class FragmentNavigationDrawer extends DrawerLayout {
     public ActionBarDrawerToggle getDrawerToggle() {
         return drawerToggle;
     }
-
 
     private FragmentActivity getActivity() {
         return (FragmentActivity) getContext();
@@ -130,35 +142,8 @@ public class FragmentNavigationDrawer extends DrawerLayout {
     private class FragmentDrawerItemListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            selectDrawerItem(position - 1);
-        }
-    }
-
-    private class FragmentNavItem {
-        private final Class<? extends Fragment> fragmentClass;
-        private final String title;
-        private final Bundle fragmentArgs;
-
-        public FragmentNavItem(String title, Class<? extends Fragment> fragmentClass) {
-            this(title, fragmentClass, null);
-        }
-
-        public FragmentNavItem(String title, Class<? extends Fragment> fragmentClass, Bundle args) {
-            this.fragmentClass = fragmentClass;
-            this.fragmentArgs = args;
-            this.title = title;
-        }
-
-        public Class<? extends Fragment> getFragmentClass() {
-            return fragmentClass;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public Bundle getFragmentArgs() {
-            return fragmentArgs;
+            selectNavDrawerItem((NavDrawerItem) parent.getItemAtPosition(position));
+            lvDrawer.setItemChecked(position, true);
         }
     }
 
@@ -170,14 +155,14 @@ public class FragmentNavigationDrawer extends DrawerLayout {
         )
         {
             public void onDrawerClosed(View view) {
-                setmSelectedItemTitle(mSelectedItemTitle);
+                setTitle(mSelectedItemTitle);
                 getActivity().supportInvalidateOptionsMenu(); // call onPrepareOptionsMenu()
             }
 
             public void onDrawerOpened(View drawerView) {
                 mSelectedItemTitle = getActionBar().getTitle().toString();
                 getActivity().supportInvalidateOptionsMenu(); // call onPrepareOptionsMenu()
-                setmSelectedItemTitle("Hack the Hood");
+                setTitle("Hack the Hood");
             }
         };
     }
