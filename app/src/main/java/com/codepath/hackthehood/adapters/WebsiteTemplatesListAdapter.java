@@ -2,6 +2,8 @@ package com.codepath.hackthehood.adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,35 +14,64 @@ import android.widget.TextView;
 
 import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.models.WebsiteTemplate;
+import com.codepath.hackthehood.util.BlurBitmap;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.util.List;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 /**
  * Created by ravi on 10/12/14.
  */
 public class WebsiteTemplatesListAdapter extends ArrayAdapter<WebsiteTemplate> {
 
-    private static class ViewHolder {
-        ImageView ivTemplateImage;
-        TextView tvTemplateTitle;
+    public static class ViewHolder {
+        @InjectView(R.id.ivTemplateImage) ImageView ivTemplateImage;
+        @InjectView(R.id.ivTemplateBlurredImage) ImageView ivTemplateBlurredImage;
+        @InjectView(R.id.tvTemplateTitle) TextView tvTemplateTitle;
+
+        Target target;
+        public ViewHolder(View view) {
+            ButterKnife.inject(this, view);
+        }
     }
 
     public WebsiteTemplatesListAdapter(Context context, List<WebsiteTemplate> objects) {
         super(context, R.layout.website_template, objects);
     }
 
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         WebsiteTemplate websiteTemplate = getItem(position);
-        ViewHolder viewHolder;
+        final ViewHolder viewHolder;
 
         if (convertView == null) {
-            viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.website_template, parent, false);
-            viewHolder.ivTemplateImage = (ImageView) convertView.findViewById(R.id.ivTemplateImage);
-            viewHolder.tvTemplateTitle = (TextView) convertView.findViewById(R.id.tvTemplateTitle);
+            viewHolder = new ViewHolder(convertView);
+            viewHolder.target = new Target() {
+                @Override
+                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom loadedFrom) {
+                    // viewHolder.ivTemplateImage.setImageBitmap(bitmap);
+                    // Bitmap blurredBitmap = Bitmap.createBitmap(bitmap);
+                    viewHolder.ivTemplateImage.setImageBitmap(bitmap);
+                    // viewHolder.ivTemplateBlurredImage.setImageBitmap(BlurBitmap.getBlurredBitmap(bitmap, getContext()));
+                }
+
+                @Override
+                public void onBitmapFailed(Drawable drawable) {
+
+                }
+
+                @Override
+                public void onPrepareLoad(Drawable drawable) {
+
+                }
+            };
             convertView.setTag(viewHolder);
         }
         else {
@@ -63,7 +94,9 @@ public class WebsiteTemplatesListAdapter extends ArrayAdapter<WebsiteTemplate> {
         // Reset height and image source
         viewHolder.ivTemplateImage.getLayoutParams().height = height;
         viewHolder.ivTemplateImage.setImageResource(0);
-        Picasso.with(getContext()).load(websiteTemplate.getImageURL()).resize(width, height).into(viewHolder.ivTemplateImage);
+
+
+        Picasso.with(getContext()).load(websiteTemplate.getImageURL()).resize(width, height).into(viewHolder.target);
         return convertView;
     }
 }
