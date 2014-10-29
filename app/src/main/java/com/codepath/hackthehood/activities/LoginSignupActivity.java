@@ -48,4 +48,10 @@ public class LoginSignupActivity extends ActionBarActivity {
         Crouton.cancelAllCroutons();
         super.onDestroy();
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition (R.anim.open_left, R.anim.close_right);
+    }
 }

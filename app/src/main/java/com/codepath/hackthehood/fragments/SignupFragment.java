@@ -3,7 +3,6 @@ package com.codepath.hackthehood.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,6 +91,7 @@ public class SignupFragment extends android.support.v4.app.Fragment {
                             showException(e);
                         } else {
                             startActivity(new Intent(getActivity(), MainNavigationActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                            getActivity().overridePendingTransition (R.anim.open_right, R.anim.close_left);
                         }
                     }
                 });

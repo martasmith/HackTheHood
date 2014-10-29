@@ -86,5 +86,6 @@ public class PitchDeckActivity extends FragmentActivity {
         // Open Login/Signup activity
         Intent i = new Intent(PitchDeckActivity.this, LoginSignupActivity.class);
         startActivity(i);
+        overridePendingTransition (R.anim.open_right, R.anim.close_left);
     }
 }

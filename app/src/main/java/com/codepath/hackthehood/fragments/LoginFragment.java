@@ -68,6 +68,7 @@ public class LoginFragment extends android.support.v4.app.Fragment {
                     public void done(ParseUser parseUser, ParseException e) {
                         if(e == null) {
                             startActivity(new Intent(getActivity(), MainNavigationActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                            getActivity().overridePendingTransition(R.anim.open_right, R.anim.close_left);
                         } else {
                             Toast.makeText(getActivity(), e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                             btnLogin.setEnabled(true);
@@ -90,7 +91,7 @@ public class LoginFragment extends android.support.v4.app.Fragment {
                     Crouton.showText(getActivity(), "Email address cannot be empty", Style.ALERT);
                     return;
                 }
-                
+
                 ParseUser.requestPasswordResetInBackground(emailAddress);
                 Toast.makeText(getActivity(), "A password reset email has been sent to " + emailAddress, Toast.LENGTH_SHORT).show();
             }
