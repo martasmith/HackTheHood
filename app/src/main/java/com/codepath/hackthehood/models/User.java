@@ -12,12 +12,12 @@ import java.util.ArrayList;
 
 /**
  * Created by thomasharte on 12/10/2014.
+ *
+ * History! This used to be a subclass of ParseUser, claiming the table _User.
+ * This created issues with ParseLoginUI. Which maybe we don't care about. Who knows?
  */
-@ParseClassName("_User")
-public class User extends ParseUser {
+public class User {
 
-    public User () {
-    }
     /*
         Exposed properties:
 
@@ -29,9 +29,8 @@ public class User extends ParseUser {
             String email
      */
 
-    public void addDefaultWebsite(final SaveCallback saveCallback) {
+    static public void addDefaultWebsite(final SaveCallback saveCallback) {
         final Website newWebsite = new Website();
-        final User thisUser = this;
 
         newWebsite.addStandardPagesAndFields(new SaveCallback() {
             @Override
@@ -48,8 +47,8 @@ public class User extends ParseUser {
                         @Override
                         public void done(ParseException e) {
                             if (e == null) {
-                                thisUser.setWebsite(newWebsite);
-                                thisUser.setApplicationStatus(User.APPSTATUS_STARTED);
+                                User.setWebsite(newWebsite);
+                                User.setApplicationStatus(User.APPSTATUS_STARTED);
                             }
 
                             if (saveCallback != null)
@@ -62,7 +61,7 @@ public class User extends ParseUser {
         });
     }
 
-    public void prefetchAllFields() {
+    public static void prefetchAllFields() {
         ParseGroupOperator.fetchObjectGroupsInBackground(true,
                 new ParseIterator() {
                     private ArrayList<ParseObject> websiteChildren = null;
@@ -72,9 +71,9 @@ public class User extends ParseUser {
                     @Override
                     protected void findNextObject() {
 
-                        if (considerNextObject(User.this)) return;
+                        if (considerNextObject(ParseUser.getCurrentUser())) return;
 
-                        Website website = User.this.getWebsite();
+                        Website website = User.getWebsite();
                         if (website == null) return;
                         if (considerNextObject(website)) return;
 
@@ -118,28 +117,28 @@ public class User extends ParseUser {
 
     }
 
-    private final String fullNameKey = "fullName";
-    public void setFullName(String fullName) {
-        put(fullNameKey, fullName);
+    private final static String fullNameKey = "fullName";
+    public static void setFullName(String fullName) {
+        ParseUser.getCurrentUser().put(fullNameKey, fullName);
     }
-    public String getFullName() {
-        return getString(fullNameKey);
-    }
-
-    private final String phoneNumberKey = "phoneNumber";
-    public void setPhoneNumber(String phoneNumber) {
-        put(phoneNumberKey, phoneNumber);
-    }
-    public String getPhoneNumber() {
-        return getString(phoneNumberKey);
+    public static String getFullName() {
+        return ParseUser.getCurrentUser().getString(fullNameKey);
     }
 
-    private final String websiteKey = "website";
-    public void setWebsite(Website website) {
-        put(websiteKey, website);
+    private final static String phoneNumberKey = "phoneNumber";
+    public static void setPhoneNumber(String phoneNumber) {
+        ParseUser.getCurrentUser().put(phoneNumberKey, phoneNumber);
     }
-    public Website getWebsite() {
-        return (Website)this.get(websiteKey);
+    public static String getPhoneNumber() {
+        return ParseUser.getCurrentUser().getString(phoneNumberKey);
+    }
+
+    private static final String websiteKey = "website";
+    public static void setWebsite(Website website) {
+        ParseUser.getCurrentUser().put(websiteKey, website);
+    }
+    public static Website getWebsite() {
+        return (Website)ParseUser.getCurrentUser().get(websiteKey);
     }
 
     public final static int APPSTATUS_STARTED = 0;  // leave this as 0; this means users default to
@@ -151,12 +150,12 @@ public class User extends ParseUser {
     public final static int APPSTATUS_DECLINED = 3;
     public final static int APPSTATUS_ASSETS_SUBMITTED = 4;
     public final static int APPSTATUS_SITE_COMPLETED = 5;
-    private final String applicationStatusKey = "applicationStatus";
-    public void setApplicationStatus(int applicationStatus) {
-        put(applicationStatusKey, applicationStatus);
+    private final static String applicationStatusKey = "applicationStatus";
+    public static void setApplicationStatus(int applicationStatus) {
+        ParseUser.getCurrentUser().put(applicationStatusKey, applicationStatus);
     }
-    public int getApplicationStatus() {
-        int status = getInt(applicationStatusKey);
+    public static int getApplicationStatus() {
+        int status = ParseUser.getCurrentUser().getInt(applicationStatusKey);
         return (status >= APPSTATUS_STARTED && status <= APPSTATUS_SITE_COMPLETED) ? status : APPSTATUS_ACCEPTED;
     }
 }

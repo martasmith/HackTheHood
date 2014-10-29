@@ -51,15 +51,14 @@ public class WebsiteFragment extends ImageResourceFragment implements View.OnCli
     public void doFetch(boolean onlyIfNeeded) {
         super.doFetch(onlyIfNeeded);
 
-        final User user = (User) ParseUser.getCurrentUser();
         incrementNetworkActivityCount();
         ParseGroupOperator.fetchObjectGroupsInBackground(true,
                 new ParseIterator() {
                     @Override
                     protected void findNextObject() {
-                        if (considerNextObject(user)) return;
+                        if (considerNextObject(ParseUser.getCurrentUser())) return;
 
-                        Website website = user.getWebsite();
+                        Website website = User.getWebsite();
                         if (considerNextObject(website)) return;
 
                         ImageResource imageResources[] = {website.getLogo(), website.getHeader()};
@@ -131,8 +130,7 @@ public class WebsiteFragment extends ImageResourceFragment implements View.OnCli
 
     @Override
     protected ImageResource imageResourceForIndex(int index) {
-        User user = (User) ParseUser.getCurrentUser();
-        Website website = user.getWebsite();
+        Website website = User.getWebsite();
         return (index == 1) ? website.getLogo() : website.getHeader();
     }
 
@@ -149,8 +147,7 @@ public class WebsiteFragment extends ImageResourceFragment implements View.OnCli
     }
 
     private void populateView() {
-        User user = (User) ParseUser.getCurrentUser();
-        Website website = user.getWebsite();
+        Website website = User.getWebsite();
 
         // TODO : type of business
 //        sprBusinessType.setSel
@@ -174,15 +171,14 @@ public class WebsiteFragment extends ImageResourceFragment implements View.OnCli
     public void submit(final SaveCallback saveCallback) {
 
         //get current user
-        User user = (User) ParseUser.getCurrentUser();
-        Website website = user.getWebsite();
+        Website website = User.getWebsite();
         website.setTypeOfBusiness(sprBusinessType.getSelectedItem().toString());
         website.setFacebookUrl(etFacebookLink.getText().toString());
         website.setYelpUrl(etYelpLink.getText().toString());
         website.setTwitterUrl(etTwitterLink.getText().toString());
         website.setInstagramUrl(etInstagramLink.getText().toString());
 
-        ParseObject objectsToSave[] = {user, website};
+        ParseObject objectsToSave[] = {ParseUser.getCurrentUser(), website};
         incrementNetworkActivityCount();
         ParseGroupOperator.saveObjectsInBackgroundInParallel(objectsToSave,
                 new SaveCallback() {
@@ -229,10 +225,10 @@ public class WebsiteFragment extends ImageResourceFragment implements View.OnCli
     @Override
     public void onClick(View view) {
 
-        User user = (User) ParseUser.getCurrentUser();
+        ParseUser user = ParseUser.getCurrentUser();
 
         incrementNetworkActivityCount();
-        user.setApplicationStatus(User.APPSTATUS_ASSETS_SUBMITTED);
+        User.setApplicationStatus(User.APPSTATUS_ASSETS_SUBMITTED);
         user.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {

@@ -55,17 +55,17 @@ public class ApplicationFragment extends NetworkFragment implements UserFragment
     private void setFragmentBasedOnState() {
 
         // check whether we should be skipping ahead
-        final User user = (User) ParseUser.getCurrentUser();
+        final ParseUser user = ParseUser.getCurrentUser();
         incrementNetworkActivityCount();
         user.fetchInBackground(new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject parseObject, ParseException e) {
                 decrementNetworkActivityCount();
                 didReceiveNetworkException(e);
-                user.prefetchAllFields();   // make an attempt to warm the cache
+                User.prefetchAllFields();   // make an attempt to warm the cache
 
                 FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-                switch (user.getApplicationStatus()) {
+                switch (User.getApplicationStatus()) {
                     case User.APPSTATUS_STARTED:
                         UserFragment businessFormFragment = new UserFragment();
                         fragmentTransaction.replace(R.id.flApplicationFragmentContainer, businessFormFragment);

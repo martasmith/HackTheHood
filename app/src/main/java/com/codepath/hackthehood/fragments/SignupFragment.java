@@ -14,6 +14,7 @@ import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.activities.MainNavigationActivity;
 import com.codepath.hackthehood.models.User;
 import com.parse.ParseException;
+import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
 public class SignupFragment extends android.support.v4.app.Fragment {
@@ -61,7 +62,7 @@ public class SignupFragment extends android.support.v4.app.Fragment {
         button.setEnabled(false);
         pbLoading.setVisibility(View.VISIBLE);
 
-        final User user = new User();
+        final ParseUser user = new ParseUser();
         user.setUsername(emailAddress);
         user.setEmail(emailAddress);
         user.setPassword(etPassword.getText().toString());

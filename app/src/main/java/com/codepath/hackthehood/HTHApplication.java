@@ -33,7 +33,6 @@ public class HTHApplication extends Application {
         ParseObject.registerSubclass(ImageResource.class);
         ParseObject.registerSubclass(PageResource.class);
         ParseObject.registerSubclass(StringResource.class);
-        ParseObject.registerSubclass(User.class);
         ParseObject.registerSubclass(Website.class);
         ParseObject.registerSubclass(WebsitePage.class);
 

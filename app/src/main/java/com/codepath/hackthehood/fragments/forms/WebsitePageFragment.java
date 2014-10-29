@@ -59,16 +59,15 @@ public class WebsitePageFragment extends ImageResourceFragment {
         super.doFetch(onlyIfNeeded);
 
         final int pageIndex = getArguments().getInt(PAGE_INDEX);
-        final User user = (User) ParseUser.getCurrentUser();
         incrementNetworkActivityCount();
         ParseGroupOperator.fetchObjectGroupsInBackground(true,
                 new ParseIterator() {
                     @Override
                     protected void findNextObject() {
 
-                        if(considerNextObject(user)) return;
+                        if(considerNextObject(ParseUser.getCurrentUser())) return;
 
-                        Website website = user.getWebsite();
+                        Website website = User.getWebsite();
                         if(considerNextObject(website)) return;
 
                         page = website.getWebsitePages().get(pageIndex);

@@ -46,7 +46,7 @@ public class LoginFragment extends android.support.v4.app.Fragment {
                 btnForgottenPassword.setEnabled(false);
                 pbLoading.setVisibility(View.VISIBLE);
 
-                User.logInInBackground(etEmail.getText().toString(), etPassword.getText().toString(), new LogInCallback() {
+                ParseUser.logInInBackground(etEmail.getText().toString(), etPassword.getText().toString(), new LogInCallback() {
                     @Override
                     public void done(ParseUser parseUser, ParseException e) {
                         if(e == null) {

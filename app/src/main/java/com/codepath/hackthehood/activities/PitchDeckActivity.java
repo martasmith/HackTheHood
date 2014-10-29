@@ -73,7 +73,7 @@ public class PitchDeckActivity extends FragmentActivity {
 
         // skip straight to the business form if there's a current user,
         // pretending that this activity never happened
-        User user = (User) ParseUser.getCurrentUser();
+        ParseUser user = ParseUser.getCurrentUser();
         if(user != null) {
             startActivity(new Intent(this, MainNavigationActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             // Remove it from the stack

@@ -66,7 +66,7 @@ public class ConfirmationFragment extends NetworkFragment {
     @Override
     protected void doFetch(boolean onlyIfNeeded) {
         super.doFetch(onlyIfNeeded);
-        final User user = (User) ParseUser.getCurrentUser();
+        final ParseUser user = ParseUser.getCurrentUser();
 
         GetCallback getCallback =
             new GetCallback<ParseObject>() {
@@ -88,9 +88,9 @@ public class ConfirmationFragment extends NetworkFragment {
     }
 
     private void pushUserToView() {
-        final User user = (User) ParseUser.getCurrentUser();
+//        final User user = (User) ParseUser.getCurrentUser();
         int imageResource = R.drawable.ic_success;
-        int applicationStatus = user.getApplicationStatus();
+        int applicationStatus = User.getApplicationStatus();
 
         String actionBarTitle = "";
         String mainText = "";
@@ -204,12 +204,12 @@ public class ConfirmationFragment extends NetworkFragment {
     }
 
     private void updateStateAndNotify() {
-        final User user = (User) ParseUser.getCurrentUser();
-        int applicationStatus = user.getApplicationStatus();
+        final ParseUser user = ParseUser.getCurrentUser();
+        int applicationStatus = User.getApplicationStatus();
 
         switch (applicationStatus) {
             case User.APPSTATUS_PENDING_REVIEW:
-                user.setApplicationStatus(User.APPSTATUS_ACCEPTED);
+                User.setApplicationStatus(User.APPSTATUS_ACCEPTED);
                 user.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
@@ -221,7 +221,7 @@ public class ConfirmationFragment extends NetworkFragment {
                 break;
 
             case User.APPSTATUS_ASSETS_SUBMITTED:
-                user.setApplicationStatus(User.APPSTATUS_SITE_COMPLETED);
+                User.setApplicationStatus(User.APPSTATUS_SITE_COMPLETED);
                 user.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {

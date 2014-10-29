@@ -45,12 +45,12 @@ public class UserFragment extends NetworkFragment {
     }
 
     public void storeCurrentForm() {
-        User user = (User) ParseUser.getCurrentUser();
-        if(user != null && user.getWebsite() != null && user.getWebsite().getAddress() != null) {
+        ParseUser user = ParseUser.getCurrentUser();
+        if(user != null && User.getWebsite() != null && User.getWebsite().getAddress() != null) {
             pushAllParseFields();
             user.saveEventually();
-            user.getWebsite().saveEventually();
-            user.getWebsite().getAddress().saveEventually();
+            User.getWebsite().saveEventually();
+            User.getWebsite().getAddress().saveEventually();
         }
     }
 
@@ -122,12 +122,11 @@ public class UserFragment extends NetworkFragment {
                     return;
                 }
 
-                User user = (User) ParseUser.getCurrentUser();
-                user.setApplicationStatus(User.APPSTATUS_PENDING_REVIEW);
+                User.setApplicationStatus(User.APPSTATUS_PENDING_REVIEW);
 
                 pushAllParseFields();
 
-                ParseObject[] objectsToSave = {user, user.getWebsite(), user.getWebsite().getAddress()};
+                ParseObject[] objectsToSave = {ParseUser.getCurrentUser(), User.getWebsite(), User.getWebsite().getAddress()};
                 incrementNetworkActivityCount();
                 v.setEnabled(false);
                 ParseGroupOperator.saveObjectsInBackgroundInParallel(objectsToSave, new SaveCallback() {
@@ -148,16 +147,16 @@ public class UserFragment extends NetworkFragment {
     private void pushAllParseFields() {
 
         //get current user
-        User user = (User) ParseUser.getCurrentUser();
+        ParseUser user = ParseUser.getCurrentUser();
         if(user == null) return;
 
         //set  Parse user values
-        user.setFullName(etContactName.getText().toString());
+        User.setFullName(etContactName.getText().toString());
         user.setEmail(etContactEmail.getText().toString());
-        user.setPhoneNumber(etContactPhone.getText().toString());
+        User.setPhoneNumber(etContactPhone.getText().toString());
 
         //set website values
-        Website website = user.getWebsite();
+        Website website = User.getWebsite();
         website.setBusinessName(etBusinessName.getText().toString());
         website.setPhoneNumber(etBusinessPhone.getText().toString());
         website.setOnlinePresenceType(sprOnlinePresence.getSelectedItemsAsString());
@@ -172,13 +171,12 @@ public class UserFragment extends NetworkFragment {
     private void getAllParseFields() {
 
         incrementNetworkActivityCount();
-        final User user = (User) ParseUser.getCurrentUser();
         ParseGroupOperator.fetchObjectGroupsInBackground(true, new ParseIterator() {
 
             protected void findNextObject() {
-                if (considerNextObject(user)) return;
+                if (considerNextObject(ParseUser.getCurrentUser())) return;
 
-                Website website = user.getWebsite();
+                Website website = User.getWebsite();
                 if ((website == null) || considerNextObject(website)) return;
 
                 considerNextObject(website.getAddress());
@@ -190,7 +188,7 @@ public class UserFragment extends NetworkFragment {
                 decrementNetworkActivityCount();
                 didReceiveNetworkException(e);
                 if (e == null) {
-                    Website website = user.getWebsite();
+                    Website website = User.getWebsite();
                     if (website == null) {
                         scaffoldUser();
                     } else {
@@ -202,9 +200,8 @@ public class UserFragment extends NetworkFragment {
     }
 
     private void scaffoldUser() {
-        User user = (User) ParseUser.getCurrentUser();
         incrementNetworkActivityCount();
-        user.addDefaultWebsite(new SaveCallback() {
+        User.addDefaultWebsite(new SaveCallback() {
             @Override
             public void done(ParseException e) {
                 decrementNetworkActivityCount();
@@ -217,8 +214,8 @@ public class UserFragment extends NetworkFragment {
     }
 
     private void populateForm() {
-        User user = (User) ParseUser.getCurrentUser();
-        Website website = user.getWebsite();
+        ParseUser user = ParseUser.getCurrentUser();
+        Website website = User.getWebsite();
         Address address = website.getAddress();
 
         etBusinessName.setText(website.getBusinessName());
@@ -227,8 +224,8 @@ public class UserFragment extends NetworkFragment {
         etBusinessZip.setText(address.getPostalCode());
         etBusinessPhone.setText(website.getPhoneNumber());
         sprOnlinePresence.setSelectedItemsAsString(website.getOnlinePresenceType());
-        etContactName.setText(user.getFullName());
-        etContactPhone.setText(user.getPhoneNumber());
+        etContactName.setText(User.getFullName());
+        etContactPhone.setText(User.getPhoneNumber());
         etContactEmail.setText(user.getEmail());
     }
 
