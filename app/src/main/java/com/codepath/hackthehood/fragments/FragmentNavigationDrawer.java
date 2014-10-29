@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,6 +33,7 @@ public class FragmentNavigationDrawer extends DrawerLayout {
     private ArrayList<NavDrawerItem> navDrawerItems;
     private int drawerContainerRes;
     private CharSequence mSelectedItemTitle;
+    private NavDrawerItem mSelectedNavDrawerItem;
 
     public FragmentNavigationDrawer(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -112,6 +114,13 @@ public class FragmentNavigationDrawer extends DrawerLayout {
             e.printStackTrace();
         }
 
+        if (mSelectedNavDrawerItem != null) {
+            mSelectedNavDrawerItem.setSelected(false);
+        }
+
+        mSelectedNavDrawerItem = navItem;
+        mSelectedNavDrawerItem.setSelected(true);
+
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(drawerContainerRes, fragment).commit();
@@ -120,6 +129,7 @@ public class FragmentNavigationDrawer extends DrawerLayout {
         mSelectedItemTitle = navItem.getTitle();
         setTitle(mSelectedItemTitle);
         closeDrawer(lvDrawer);
+        lvDrawer.invalidateViews();
     }
 
 
@@ -142,7 +152,14 @@ public class FragmentNavigationDrawer extends DrawerLayout {
     private class FragmentDrawerItemListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            selectNavDrawerItem((NavDrawerItem) parent.getItemAtPosition(position));
+            if (position <= 0) {
+                return;
+            }
+            NavDrawerItem selectedDrawerItem = (NavDrawerItem) parent.getItemAtPosition(position);
+            if (TextUtils.isEmpty(selectedDrawerItem.getTitle())) {
+                return;
+            }
+            selectNavDrawerItem(selectedDrawerItem);
             lvDrawer.setItemChecked(position, true);
         }
     }
