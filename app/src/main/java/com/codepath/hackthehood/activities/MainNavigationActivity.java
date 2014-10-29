@@ -35,10 +35,33 @@ public class MainNavigationActivity extends ActionBarActivity implements Network
         // Add nav items
         navDrawer.addNavItem("My Application", ApplicationFragment.class, null);
 
-        Bundle webViewFragmentArguments = new Bundle();
-        webViewFragmentArguments.putString(WebviewFragment.PAGE_TITLE, "About Hack the Hood");
-        webViewFragmentArguments.putString(WebviewFragment.PAGE_URL, "http://www.hackthehood.org/what-we-do.html");
-        navDrawer.addNavItem("About", WebviewFragment.class, webViewFragmentArguments);
+        Bundle aboutWebviewFragmentArguments = new Bundle();
+        aboutWebviewFragmentArguments.putString(WebviewFragment.PAGE_TITLE, "About Hack the Hood");
+        aboutWebviewFragmentArguments.putString(WebviewFragment.PAGE_URL, "http://www.hackthehood.org/what-we-do.html");
+        navDrawer.addNavItem("", WebviewFragment.class, aboutWebviewFragmentArguments);
+
+        navDrawer.addNavItem("About", WebviewFragment.class, aboutWebviewFragmentArguments);
+
+        Bundle faqsWebviewFragmentArguments = new Bundle();
+        faqsWebviewFragmentArguments.putString(WebviewFragment.PAGE_TITLE, "About Hack the Hood");
+        faqsWebviewFragmentArguments.putString(WebviewFragment.PAGE_URL, "http://www.hackthehood.org/faq-for-small-businesses.html");
+        navDrawer.addNavItem("FAQs", WebviewFragment.class, faqsWebviewFragmentArguments);
+
+        Bundle mentorWebviewFragmentArguments = new Bundle();
+        mentorWebviewFragmentArguments.putString(WebviewFragment.PAGE_TITLE, "About Hack the Hood");
+        mentorWebviewFragmentArguments.putString(WebviewFragment.PAGE_URL, "http://www.hackthehood.org/mentors.html");
+        navDrawer.addNavItem("Become a mentor", WebviewFragment.class, mentorWebviewFragmentArguments);
+
+        Bundle contactWebviewFragmentArguments = new Bundle();
+        contactWebviewFragmentArguments.putString(WebviewFragment.PAGE_TITLE, "About Hack the Hood");
+        contactWebviewFragmentArguments.putString(WebviewFragment.PAGE_URL, "http://www.hackthehood.org/contact-us.html");
+        navDrawer.addNavItem("Contact Us", WebviewFragment.class, contactWebviewFragmentArguments);
+
+        Bundle donateWebviewFragmentArguments = new Bundle();
+        donateWebviewFragmentArguments.putString(WebviewFragment.PAGE_TITLE, "About Hack the Hood");
+        donateWebviewFragmentArguments.putString(WebviewFragment.PAGE_URL, "http://www.razoo.com/story/Hack-The-Hood?referral_code=share");
+        navDrawer.addNavItem("Donate", WebviewFragment.class, donateWebviewFragmentArguments);
+
         // Select default
         if (savedInstanceState == null) {
             navDrawer.selectDrawerItem(0);
