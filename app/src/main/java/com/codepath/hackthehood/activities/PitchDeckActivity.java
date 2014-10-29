@@ -27,6 +27,9 @@ public class PitchDeckActivity extends FragmentActivity {
         // Setup view pager, its adapter, and page transformer
         ViewPager vpSlidePager = (ViewPager) findViewById(R.id.vpSlidePager);
         SlidePagerAdapter aSlideAdapter = new SlidePagerAdapter(getSupportFragmentManager());
+
+// Enable if map bug is not fixed.
+//        vpSlidePager.setOffscreenPageLimit(5);
         vpSlidePager.setAdapter(aSlideAdapter);
         vpSlidePager.setPageTransformer(true, new SlidePageTransformer());
 //        vpSlidePager.setOnClickListener(new View.OnClickListener() {
