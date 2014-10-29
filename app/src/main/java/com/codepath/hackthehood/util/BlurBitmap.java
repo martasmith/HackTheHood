@@ -37,7 +37,7 @@ public class BlurBitmap {
         allOut.copyTo(outBitmap);
 
         //recycle the original bitmap
-        // bitmap.recycle();
+        bitmap.recycle();
 
         //After finishing everything, we destroy the Renderscript.
         rs.destroy();
