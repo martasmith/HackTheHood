@@ -3,6 +3,7 @@ package com.codepath.hackthehood.fragments.forms;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.codepath.hackthehood.R;
+import com.codepath.hackthehood.fragments.VoiceRecordingDialog;
 import com.codepath.hackthehood.models.ImageResource;
 import com.codepath.hackthehood.models.PageResource;
 import com.codepath.hackthehood.models.User;
@@ -31,8 +33,9 @@ import java.util.List;
 public class WebsitePageFragment extends ImageResourceFragment {
 
     private WebpageFormListener mListener;
-
+    private VoiceRecordingDialog voiceRecordingDialog;
     private EditText etPageText, etDesignerNotes;
+    private ImageView ivMic1, ivMic2;
     private List<ImageView> imageViews;
     private List<ImageResource> imageResources;
     private com.codepath.hackthehood.models.WebsitePage page;
@@ -116,6 +119,8 @@ public class WebsitePageFragment extends ImageResourceFragment {
         View v = inflater.inflate(R.layout.fragment_webpage_collection,container,false);
         etPageText = (EditText) v.findViewById(R.id.etPageText);
         etDesignerNotes = (EditText) v.findViewById(R.id.etDesignerNotes);
+        ivMic1 = (ImageView) v.findViewById(R.id.ivMic1);
+        ivMic2 = (ImageView) v.findViewById(R.id.ivMic2);
 
         imageViews = new ArrayList<ImageView>();
         imageViews.add((ImageView)v.findViewById(R.id.imgFile1));
@@ -128,7 +133,21 @@ public class WebsitePageFragment extends ImageResourceFragment {
 
         fetch(true);
         ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle("Add " + getArguments().getString(TITLE) + " Page Info");
+
+        setupMicListener(ivMic1,1);
+        setupMicListener(ivMic2,2);
         return v;
+    }
+
+    private void setupMicListener(ImageView micImg, final int fieldNum) {
+        micImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                voiceRecordingDialog = VoiceRecordingDialog.newInstance("Voice Recording",fieldNum);
+                voiceRecordingDialog.show(fm, "fragment_audio_recording_dialog");
+            }
+        });
     }
 
     private void onAttachFragment(Fragment fragment) {

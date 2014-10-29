@@ -93,5 +93,9 @@
     <string name="add_header_image_section_title">Add Header</string>
     <string name="add_website_content_section_title">Add Website Content:</string>
     <string name="type_of_business_section_title">Type of Business:</string>
+    <string name="rec_label">Record</string>
+    <string name="stop_label">Stop</string>
+    <string name="default_rec_string">Recording...</string>
+    <string name="play_button">Play</string>
 
 </resources>
