@@ -100,5 +100,11 @@
     <string name="maps_slide_tag_line">Nearby Businesses</string>
     <string name="maps_slide_title">See nearby businesses that have participated in this program</string>
     <string name="video_slide_tag_line">Our mission</string>
+    <string name="add_site_content_text">Add Site Content</string>
+    <string name="assets_section_title">Assets</string>
+    <string name="image_header_title">Image1</string>
+    <string name="designer_notes_section_title">Notes for the Designer:</string>
+    <string name="generic_text_hint">Enter text here</string>
+    <string name="webpage_desc_section_title">Webpage Description:</string>
 
 </resources>
