@@ -2,6 +2,8 @@ package com.codepath.hackthehood.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,9 @@ import com.codepath.hackthehood.activities.MainNavigationActivity;
 import com.codepath.hackthehood.models.User;
 import com.parse.ParseException;
 import com.parse.SignUpCallback;
+
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 
 public class SignupFragment extends android.support.v4.app.Fragment {
 
@@ -50,10 +55,22 @@ public class SignupFragment extends android.support.v4.app.Fragment {
     }
 
     private void signUp(final Button button) {
-        // validate email
+        // Validate email and password
         String emailAddress = etEmail.getText().toString();
+        String password = etPassword.getText().toString();
+
+        if (TextUtils.isEmpty(emailAddress)) {
+            Crouton.showText(getActivity(), "Email address cannot be empty", Style.ALERT);
+            return;
+        }
+
+        if (TextUtils.isEmpty(password)) {
+            Crouton.showText(getActivity(), "Password cannot be empty", Style.ALERT);
+            return;
+        }
+
         if (!emailAddress.equals(etEmailConfirmation.getText().toString())) {
-            Toast.makeText(getActivity(), "E-mail addresses don't match", Toast.LENGTH_SHORT).show();
+            Crouton.showText(getActivity(), "Email addresses don't match", Style.ALERT);
             return;
         }
 
@@ -64,7 +81,7 @@ public class SignupFragment extends android.support.v4.app.Fragment {
         final User user = new User();
         user.setUsername(emailAddress);
         user.setEmail(emailAddress);
-        user.setPassword(etPassword.getText().toString());
+        user.setPassword(password);
         user.signUpInBackground(
                 new SignUpCallback() {
                     @Override

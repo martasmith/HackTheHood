@@ -2,6 +2,7 @@ package com.codepath.hackthehood.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,9 @@ import com.codepath.hackthehood.models.User;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
+
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 
 
 public class LoginFragment extends android.support.v4.app.Fragment {
@@ -42,11 +46,24 @@ public class LoginFragment extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View view) {
 
+                String emailAddress = etEmail.getText().toString();
+                String password = etPassword.getText().toString();
+
+                if (TextUtils.isEmpty(emailAddress)) {
+                    Crouton.showText(getActivity(), "Email address cannot be empty", Style.ALERT);
+                    return;
+                }
+
+                if (TextUtils.isEmpty(password)) {
+                    Crouton.showText(getActivity(), "Password cannot be empty", Style.ALERT);
+                    return;
+                }
+
                 btnLogin.setEnabled(false);
                 btnForgottenPassword.setEnabled(false);
                 pbLoading.setVisibility(View.VISIBLE);
 
-                User.logInInBackground(etEmail.getText().toString(), etPassword.getText().toString(), new LogInCallback() {
+                User.logInInBackground(emailAddress, password, new LogInCallback() {
                     @Override
                     public void done(ParseUser parseUser, ParseException e) {
                         if(e == null) {
@@ -67,6 +84,13 @@ public class LoginFragment extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View view) {
                 String emailAddress = etEmail.getText().toString();
+                String password = etPassword.getText().toString();
+
+                if (TextUtils.isEmpty(emailAddress)) {
+                    Crouton.showText(getActivity(), "Email address cannot be empty", Style.ALERT);
+                    return;
+                }
+                
                 ParseUser.requestPasswordResetInBackground(emailAddress);
                 Toast.makeText(getActivity(), "A password reset email has been sent to " + emailAddress, Toast.LENGTH_SHORT).show();
             }
