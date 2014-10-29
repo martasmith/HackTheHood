@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.models.WebsiteTemplate;
-import com.codepath.hackthehood.util.BlurBitmap;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
