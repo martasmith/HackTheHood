@@ -3,6 +3,7 @@ package com.codepath.hackthehood.activities;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
@@ -80,6 +81,13 @@ public class MainNavigationActivity extends ActionBarActivity implements Network
     public void didReceiveException(Exception e) {
         // This is imaginative, I know
         Toast.makeText(this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main_navigation, menu);
+        return true;
     }
 
     @Override
