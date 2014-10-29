@@ -14,7 +14,7 @@
     <string name="emailHint">E-mail address</string>
     <string name="passwordHint">Password</string>
     <string name="login">Login</string>
-    <string name="forgottenPassword">I forgot my password</string>
+    <string name="forgottenPassword">Forgot password?</string>
     <string name="confirmEmailHint">Confirm e-mail address</string>
     <string name="signUp">Sign Up</string>
     <string name="change_user">Log Out</string>

@@ -1,27 +1,25 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.codepath.hackthehood.fragments.LoginFragment">
 
     <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:background="#00000000"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="60dp"
+        android:paddingRight="20dp"
+        android:paddingEnd="20dp"
+        android:paddingLeft="20dp"
+        android:paddingStart="20dp">
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/etEmail"
             android:layout_alignParentTop="true"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="sans-serif-light"
             android:hint="@string/emailHint"
             android:inputType="textEmailAddress"
             />
@@ -31,26 +29,38 @@
             android:layout_height="wrap_content"
             android:id="@+id/etPassword"
             android:layout_below="@+id/etEmail"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="sans-serif-light"
             android:hint="@string/passwordHint"
             android:inputType="textPassword"
             />
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/login"
             android:id="@+id/btnLogin"
-            android:layout_below="@+id/etPassword"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:background="#ff33b5e5"/>
+            android:layout_below="@+id/btnForgottenPassword"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:fontFamily="sans-serif-light"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@android:color/white"
+            android:background="@android:color/holo_blue_light" />
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/forgottenPassword"
+            android:textColor="@android:color/darker_gray"
+            android:background="#00000000"
             android:id="@+id/btnForgottenPassword"
+            android:fontFamily="sans-serif-light"
             android:layout_below="@+id/etPassword"
+            android:gravity="right"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"/>
 
@@ -65,4 +75,4 @@
         android:layout_centerHorizontal="true"
         android:visibility="invisible"/>
 
-</FrameLayout>
+</RelativeLayout>
