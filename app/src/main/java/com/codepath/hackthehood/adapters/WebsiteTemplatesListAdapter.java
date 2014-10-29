@@ -31,6 +31,7 @@ public class WebsiteTemplatesListAdapter extends ArrayAdapter<WebsiteTemplate> {
         @InjectView(R.id.ivTemplateImage) ImageView ivTemplateImage;
         @InjectView(R.id.ivTemplateBlurredImage) ImageView ivTemplateBlurredImage;
         @InjectView(R.id.tvTemplateTitle) TextView tvTemplateTitle;
+        @InjectView(R.id.tvTemplateCreatedBy) TextView tvTemplateCreatedBy;
 
         Target target;
         public ViewHolder(View view) {
@@ -78,9 +79,10 @@ public class WebsiteTemplatesListAdapter extends ArrayAdapter<WebsiteTemplate> {
         }
 
         // Title
-        viewHolder.tvTemplateTitle.setText(websiteTemplate.getTitle());
+        String[] splitTitles = websiteTemplate.getTitle().split(" by ");
+        viewHolder.tvTemplateTitle.setText(splitTitles[0]);
+        viewHolder.tvTemplateCreatedBy.setText("By " + splitTitles[1]);
 
-        // Template Image
         DisplayMetrics dm = new DisplayMetrics();
         ((Activity)getContext()).getWindowManager().getDefaultDisplay().getMetrics(dm);
 
