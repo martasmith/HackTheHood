@@ -83,9 +83,9 @@
     <string name="application_step1_text">1. Apply for a website</string>
     <string name="application_step2_text">2. Send us content for your website</string>
     <string name="application_step3_text">3. Youth Consultant build your website</string>
-    <string name="facebook_link_textfield_hint">Link to Facebook page</string>
-    <string name="yelp_link_textfield_hint">Link to Yelp page</string>
-    <string name="twitter_link_textfield_hint">Link to Twitter account</string>
+    <string name="facebook_link_textfield_hint">Link to Facebook</string>
+    <string name="yelp_link_textfield_hint">Link to Yelp</string>
+    <string name="twitter_link_textfield_hint">Twitter Username</string>
     <string name="instagram_link_textfield_hint">Link to Instagram</string>
     <string name="social_media_section_title">Social Media Links for your business:</string>
     <string name="graphics_section_title">Graphics:</string>
