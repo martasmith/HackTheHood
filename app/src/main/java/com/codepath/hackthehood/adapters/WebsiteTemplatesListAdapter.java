@@ -96,7 +96,7 @@ public class WebsiteTemplatesListAdapter extends ArrayAdapter<WebsiteTemplate> {
         viewHolder.ivTemplateImage.setImageResource(0);
 
 
-        Picasso.with(getContext()).load(websiteTemplate.getImageURL()).resize(width, height).into(viewHolder.target);
+        Picasso.with(getContext()).load(websiteTemplate.getImageURL()).resize(width, height).into(viewHolder.ivTemplateImage);
         return convertView;
     }
 }
