@@ -18,8 +18,8 @@ public class LoginSignupPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch(position) {
-            default:    return new LoginFragment();
-            case 1:     return new SignupFragment();
+            default:    return new SignupFragment();
+            case 1:     return new LoginFragment();
         }
     }
 
@@ -31,8 +31,8 @@ public class LoginSignupPagerAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         switch(position) {
-            default:    return "Login";
-            case 1:     return "Sign Up";
+            default:    return "Sign up";
+            case 1:     return "Login";
         }
     }
 }
