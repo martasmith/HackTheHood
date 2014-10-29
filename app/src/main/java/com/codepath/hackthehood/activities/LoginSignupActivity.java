@@ -47,13 +47,13 @@ public class LoginSignupActivity extends ActionBarActivity {
             }
         };
 
-        for (int i = 0; i < pagerAdapter.getCount(); i++)
-            actionBar.addTab(
-                    actionBar.newTab()
-                            .setText(pagerAdapter.getPageTitle(i))
-                            .setTabListener(tabListener)
-            );
-
+//        for (int i = 0; i < pagerAdapter.getCount(); i++)
+//            actionBar.addTab(
+//                    actionBar.newTab()
+//                            .setText(pagerAdapter.getPageTitle(i))
+//                            .setTabListener(tabListener)
+//            );
+//
         // also establish push from the pager to the tab bar
         viewPager.setOnPageChangeListener(
                 new ViewPager.SimpleOnPageChangeListener() {
