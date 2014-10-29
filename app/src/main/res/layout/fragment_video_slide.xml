@@ -2,20 +2,17 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@android:color/black"
+                android:background="@color/theme_text_background"
                 tools:context="com.codepath.hackthehood.fragments.slides.VideoSlideFragment">
 
     <TextView
         android:id="@+id/tvTagLine"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:gravity="center"
-        android:background="@android:color/white"
-        android:paddingBottom="10dp"
-        android:text="@string/website_template_slide_tagline"
-        android:textStyle="bold"/>
-
+        android:text="@string/video_slide_tag_line"
+        style="@style/TagLine"
+        android:background="@color/theme_color"
+        android:layout_alignParentTop="true" />
 
     <FrameLayout
         android:id="@+id/flVideoPlayer"

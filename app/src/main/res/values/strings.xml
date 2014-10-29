@@ -99,5 +99,6 @@
     <string name="play_button">Play</string>
     <string name="maps_slide_tag_line">Nearby Businesses</string>
     <string name="maps_slide_title">See nearby businesses that have participated in this program</string>
+    <string name="video_slide_tag_line">Our mission</string>
 
 </resources>

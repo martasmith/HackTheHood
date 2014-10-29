@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="theme_color">#36BC64</color>
+    <color name="theme_text_color">#606060</color>
+    <color name="theme_text_background">#EFE9DA</color>
+    <color name="theme_text_background_semi_transparent">#CCEFE9DA</color>
+    <color name="cta_button_background">#36BB64</color>
+    <color name="secondary_text_color">#A5A2A1</color>
+    <color name="drawer_list_item">#707070</color>
+    <color name="drawer_background">#F0F0F0</color>
+</resources>

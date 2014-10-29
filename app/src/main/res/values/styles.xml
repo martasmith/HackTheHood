@@ -1,13 +1,54 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="TagLine">
+        <item name="android:textColor">#FFF</item>
+        <item name="android:fontFamily" tools:ignore="NewApi">san-serif-light</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingBottom">10dp</item>
     </style>
 
-    <style name="Theme.AppCompat.Light.NoActionBar.FullScreen" parent="@style/Theme.AppCompat.Light">
-        <item name="android:windowNoTitle">true</item>
-        <item name="windowActionBar">false</item>
+    <style name="GetBusinessOnlineSlideText">
+        <item name="android:textColor">@color/theme_text_color</item>
+        <item name="android:fontFamily" tools:ignore="NewApi">san-serif-light</item>
+        <item name="android:textSize">20sp</item>
+         <item name="android:layout_marginTop">40dp</item>
+         <item name="android:layout_marginBottom">40dp</item>
+         <item name="android:layout_marginLeft">20dp</item>
+         <item name="android:layout_marginStart" tools:ignore="NewApi">20dp</item>
+         <item name="android:layout_marginRight">20dp</item>
+         <item name="android:layout_marginEnd" tools:ignore="NewApi">20dp</item>
+         <item name="android:lineSpacingExtra">2dp</item>
+
     </style>
 
+    <style name="GetBusinessOnlineSlideTextBullets" parent="GetBusinessOnlineSlideText">
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_marginBottom">15dp</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginStart" tools:ignore="NewApi">20dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:layout_marginEnd" tools:ignore="NewApi">20dp</item>
+    </style>
+
+    <style name="CTAButton">
+        <item name="android:background">@drawable/cta_button</item>
+        <item name="android:textColor">#FFF</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:fontFamily" tools:ignore="NewApi">san-serif-light</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:layout_marginStart" tools:ignore="NewApi">15dp</item>
+        <item name="android:layout_marginRight">15dp</item>
+        <item name="android:layout_marginEnd" tools:ignore="NewApi">15dp</item>
+    </style>
+
+    <style name="DrawerNavItem">
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:paddingBottom">15dp</item>
+        <item name="android:paddingLeft">15dp</item>
+        <item name="android:paddingStart" tools:ignore="NewApi">15dp</item>
+        <item name="android:paddingRight">15dp</item>
+        <item name="android:paddingEnd" tools:ignore="NewApi">15dp</item>
+        <item name="android:textColor">@color/drawer_list_item</item>
+        <item name="android:textSize">20sp</item>
+    </style>
 </resources>

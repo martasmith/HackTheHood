@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/theme_text_background"
     tools:context="com.codepath.hackthehood.fragments.slides.ImageSlideFragment">
 
     <TextView
@@ -9,16 +10,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/get_business_online_slide_tagline"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:paddingBottom="10dp"
+        style="@style/TagLine"
+        android:background="@color/theme_color"
         android:layout_alignParentTop="true" />
+
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/tvTagLine"
         android:scaleType="center"
+        android:visibility="gone"
         android:src="@drawable/hth_blurred"
         android:id="@+id/ivBackgroundImage" />
 
@@ -26,6 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignTop="@+id/ivBackgroundImage"
+        android:visibility="gone"
         android:background="#66000000"
         />
 
@@ -33,71 +36,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="20sp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="40dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginEnd="20dp"
+        style="@style/GetBusinessOnlineSlideText"
         android:layout_below="@+id/tvTagLine"
-        android:lineSpacingExtra="2dp"
-        android:textColor="@android:color/white"
         android:id="@+id/tvSlideText"
-        android:fontFamily="san-serif-light"
         android:text="@string/get_business_online_title_text" />
 
     <TextView
         android:layout_below="@+id/tvSlideText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="15dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginEnd="20dp"
-        android:textColor="@android:color/white"
+        style="@style/GetBusinessOnlineSlideTextBullets"
+        android:alpha="0.0"
         android:id="@+id/tvStep1"
-        android:text="@string/application_step1_text"
-        android:fontFamily="san-serif-light"
-        android:lineSpacingExtra="2dp" />
+        android:text="@string/application_step1_text" />
 
     <TextView
         android:layout_below="@+id/tvStep1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="15dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginEnd="20dp"
-        android:textColor="@android:color/white"
+        style="@style/GetBusinessOnlineSlideTextBullets"
+        android:alpha="0.0"
         android:id="@+id/tvStep2"
-        android:text="@string/application_step2_text"
-        android:fontFamily="san-serif-light"
-        android:lineSpacingExtra="2dp" />
+        android:text="@string/application_step2_text" />
 
     <TextView
         android:layout_below="@+id/tvStep2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="15dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginEnd="5dp"
-        android:textColor="@android:color/white"
+        style="@style/GetBusinessOnlineSlideTextBullets"
+        android:alpha="0.0"
         android:id="@+id/tvStep3"
-        android:text="@string/application_step3_text"
-        android:fontFamily="san-serif-light"
-        android:lineSpacingExtra="2dp" />
-
-
+        android:text="@string/application_step3_text"  />
 
 </RelativeLayout>
