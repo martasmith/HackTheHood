@@ -3,9 +3,11 @@ package com.codepath.hackthehood.fragments.forms;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -15,6 +17,7 @@ import com.codepath.hackthehood.R;
 import com.codepath.hackthehood.models.ImageResource;
 import com.codepath.hackthehood.models.User;
 import com.codepath.hackthehood.models.Website;
+import com.codepath.hackthehood.models.WebsitePage;
 import com.codepath.hackthehood.util.ParseGroupOperator;
 import com.codepath.hackthehood.util.ParseIterator;
 import com.parse.GetCallback;
@@ -158,6 +161,15 @@ public class WebsiteFragment extends ImageResourceFragment implements View.OnCli
     private void populateView() {
         User user = (User) ParseUser.getCurrentUser();
         Website website = user.getWebsite();
+
+        for (int i = 0; i < website.getWebsitePages().size(); i++) {
+            WebsitePage page = website.getWebsitePages().get(i);
+            if (!TextUtils.isEmpty(page.getTitle())) {
+                checkPages.get(i).setAlpha(0.0f);
+                checkPages.get(i).setVisibility(View.VISIBLE);
+                checkPages.get(i).animate().alpha(1.0f).setInterpolator(new DecelerateInterpolator());
+            }
+        }
 
         // TODO : type of business
 //        sprBusinessType.setSel
