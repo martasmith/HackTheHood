@@ -71,8 +71,18 @@ public class NavDrawerListAdapter extends BaseAdapter {
                 if (convertView == null) {
                     convertView = mInflater.inflate(R.layout.drawer_nav_item, parent, false);
                 }
+                NavDrawerItem navDrawerItem = navDrawerItems.get(position - 1);
                 TextView txtTitle = (TextView) convertView.findViewById(R.id.tvSlideText);
-                txtTitle.setText(navDrawerItems.get(position - 1).getTitle());
+                txtTitle.setText(navDrawerItem.getTitle());
+                if (navDrawerItem.getSelected()) {
+                    txtTitle.setTextColor(mContext.getResources().getColor(R.color.theme_color));
+                }
+                else {
+                    txtTitle.setTextColor(mContext.getResources().getColor(R.color.drawer_list_item));
+                }
+
+                View llSeparatorView = (View) convertView.findViewById(R.id.llSeparator);
+                llSeparatorView.setVisibility(position == 2 ? View.GONE : View.VISIBLE);
                 break;
 
         }
