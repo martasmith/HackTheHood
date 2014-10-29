@@ -23,6 +23,12 @@
         android:layout_height="wrap_content">
     </android.support.v4.view.ViewPager>
 
+    <!-- Fixes flicker https://code.google.com/p/gdata-issues/issues/detail?id=4722 -->
+    <SurfaceView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone" />
+
     <LinearLayout
         android:id="@+id/llCTAContainer"
         android:layout_width="match_parent"
