@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/theme_color"
     android:paddingTop="35dp"
     tools:context="com.codepath.hackthehood.activities.LoginSignupActivity">
 
@@ -17,6 +17,7 @@
     <android.support.v4.view.ViewPager
         android:layout_below="@+id/ivLogo"
         android:id="@+id/pager"
+        android:background="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

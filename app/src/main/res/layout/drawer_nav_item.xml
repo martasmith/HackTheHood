@@ -1,13 +1,23 @@
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/tvSlideText"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:drawable/list_selector_background"
-    android:gravity="center_vertical"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:text="@string/drawer_list_item_text"
-    android:minHeight="?android:attr/listPreferredItemHeightSmall"
-    android:textAppearance="?android:attr/textAppearanceListItemSmall"
-    android:textSize="16sp"
-    android:textColor="#111" />
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvSlideText"
+        style="@style/DrawerNavItem"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/drawer_list_item_text"/>
+
+    <LinearLayout
+        android:id="@+id/llSeparator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:background="#66A0A0A0" />
+
+</LinearLayout>

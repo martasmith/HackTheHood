@@ -11,11 +11,22 @@ public class NavDrawerItem {
     private final String title;
     private final Bundle fragmentArgs;
 
+    public Boolean getSelected() {
+        return selected;
+    }
+
+    public void setSelected(Boolean selected) {
+        this.selected = selected;
+    }
+
+    private Boolean selected;
+
     public NavDrawerItem(String title, Class<? extends Fragment> fragmentClass) {
         this(title, fragmentClass, null);
     }
 
     public NavDrawerItem(String title, Class<? extends Fragment> fragmentClass, Bundle args) {
+        this.selected = false;
         this.fragmentClass = fragmentClass;
         this.fragmentArgs = args;
         this.title = title;

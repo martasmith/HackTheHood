@@ -29,6 +29,9 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 
 public class WebsitePageFragment extends ImageResourceFragment {
 
@@ -42,6 +45,9 @@ public class WebsitePageFragment extends ImageResourceFragment {
 
     private final static String TITLE = "title";
     private final static String PAGE_INDEX = "pageIndex";
+
+    @InjectView(R.id.btnFillInfo) Button btnFillInfo;
+    @InjectView(R.id.btnClearInfo) Button btnClearInfo;
 
     public static WebsitePageFragment newInstance(String title, int pageIndex) {
         WebsitePageFragment fragment = new WebsitePageFragment();
@@ -136,6 +142,23 @@ public class WebsitePageFragment extends ImageResourceFragment {
 
         setupMicListener(ivMic1,1);
         setupMicListener(ivMic2,2);
+
+
+        ButterKnife.inject(this, v);
+        btnFillInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                etPageText.setText("Here at BERGERON we are a community focusing on the re-circulation of books ( Sci - Fi, Horror, Plausible etc). We want to emphasize on our role with the community and by doing this we are trying to have events 3 nights a week which could include Movie Nights, Game Nights and other events soon to be created. We also have art, drawn by local artists, displayed in the store and we even host rap battles. We want BEREGON to become the anchor of the community for anyone who wants to have a good time.");
+                etDesignerNotes.setText("Please place the attached images in a grid layout on the page.");
+            }
+        });
+        btnClearInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                etPageText.setText("");
+                etDesignerNotes.setText("");
+            }
+        });
         return v;
     }
 

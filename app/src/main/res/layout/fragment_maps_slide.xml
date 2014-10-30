@@ -9,9 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/maps_slide_tag_line"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:paddingBottom="10dp"
+        style="@style/TagLine"
         android:layout_alignParentTop="true" />
 
     <fragment
@@ -25,18 +23,18 @@
         android:layout_below="@+id/tvTagLine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#CC000000"
+        android:background="@color/theme_text_background_semi_transparent"
+        android:textColor="@color/theme_text_color"
         android:text="@string/maps_slide_title"
         android:fontFamily="sans-serif-light"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:padding="30dp"
-        android:textColor="#FFF"
         android:gravity="center" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="#CC000000"
+        android:background="@color/theme_text_background_semi_transparent"
         android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

@@ -63,7 +63,20 @@
             android:paddingTop="10dp"
             android:text="@string/website_template_title_default_text"
             android:textColor="@android:color/black"
-            android:textSize="18sp" />
+            android:fontFamily="san-serif-light"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvTemplateCreatedBy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingTop="4dp"
+            android:text="@string/website_template_title_default_text"
+            android:textColor="@color/theme_color"
+            android:fontFamily="san-serif-light"
+            android:textSize="16sp" />
     </LinearLayout>
 
 </RelativeLayout>

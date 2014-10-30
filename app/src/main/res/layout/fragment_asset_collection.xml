@@ -264,6 +264,33 @@
                 android:layout_height="1dp"
                 android:background="#99BEBEBE" />
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnClearInfo"
+                    style="@style/SecondaryButton"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/clear_info_button"/>
+
+                <Button
+                    android:id="@+id/btnFillInfo"
+                    style="@style/SecondaryButton"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/fill_info_menu_item"/>
+
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 
@@ -272,11 +299,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_gravity="center"
-        android:background="@android:color/holo_blue_light"
-        android:fontFamily="san-serif-light"
-        android:text="@string/btnSubmit"
-        android:textColor="@android:color/white" />
+        style="@style/CTAButton"
+        android:layout_marginRight="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:text="@string/btnSubmit" />
 
 </RelativeLayout>
 

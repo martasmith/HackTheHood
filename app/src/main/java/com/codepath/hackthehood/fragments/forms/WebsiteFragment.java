@@ -30,6 +30,9 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 
 public class WebsiteFragment extends ImageResourceFragment implements View.OnClickListener {
 
@@ -41,6 +44,9 @@ public class WebsiteFragment extends ImageResourceFragment implements View.OnCli
     private List<ImageView> checkPages;
     private Button btnSubmit;
     private ArrayList<String> mPageTitles;
+
+    @InjectView(R.id.btnFillInfo) Button btnFillInfo;
+    @InjectView(R.id.btnClearInfo) Button btnClearInfo;
 
     public WebsiteFragment() {
         // Required empty public constructor
@@ -131,6 +137,24 @@ public class WebsiteFragment extends ImageResourceFragment implements View.OnCli
 
         fetch(true);
         ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle("Add Website Info");
+
+        ButterKnife.inject(this, v);
+        btnFillInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                etFacebookLink.setText("https://www.facebook.com/BergeronsBooks/info");
+                etYelpLink.setText("http://www.yelp.com/biz/bergerons-books-oakland");
+                etTwitterLink.setText("@bergerons");
+            }
+        });
+        btnClearInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                etFacebookLink.setText("");
+                etYelpLink.setText("");
+                etTwitterLink.setText("");
+            }
+        });
         return v;
     }
 

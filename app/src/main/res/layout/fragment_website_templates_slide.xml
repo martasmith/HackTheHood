@@ -9,9 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/website_template_slide_tagline"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:paddingBottom="10dp"
+        style="@style/TagLine"
         android:layout_alignParentTop="true" />
 
     <ListView

@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.BounceInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Toast;
 
 import com.codepath.hackthehood.R;
@@ -26,6 +27,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -76,7 +79,7 @@ public class MapsSlideFragment extends Fragment implements GooglePlayServicesCli
         // Handler allows us to repeat a code block after a specified delay
         final android.os.Handler handler = new android.os.Handler();
         final long start = SystemClock.uptimeMillis();
-        final long duration = 2500;
+        final long duration = 1000;
 
         // Use the bounce interpolator
         final android.view.animation.Interpolator interpolator = new BounceInterpolator();
@@ -95,7 +98,7 @@ public class MapsSlideFragment extends Fragment implements GooglePlayServicesCli
 
                 if (t > 0.0) {
                     // Post this event again 15ms from now.
-                    handler.postDelayed(this, 15);
+                    handler.postDelayed(this, 10);
                 } else { // done elapsing, show window
                     marker.showInfoWindow();
                 }
@@ -187,22 +190,19 @@ public class MapsSlideFragment extends Fragment implements GooglePlayServicesCli
 
         if (isVisibleToUser) {
             map.clear();
-            LatLng latLng = new LatLng(37.77, -122.404);
 
-            for (int i = 0; i < 3; i++) {
-                addMarker(new LatLng(latLng.latitude + (0.01*i), latLng.longitude + 0.001*(i + 10)));
-            }
+            final android.os.Handler handler = new android.os.Handler();
 
-            for (int i = 0; i < 3; i++) {
-                addMarker(new LatLng(latLng.latitude - (0.01 * i), latLng.longitude + 0.001 * (i + 10)));
-            }
-
-            for (int i = 0; i < 3; i++) {
-                addMarker(new LatLng(latLng.latitude + (0.01*i), latLng.longitude - 0.001*(i + 10)));
-            }
-
-            for (int i = 0; i < 3; i++) {
-                addMarker(new LatLng(latLng.latitude - (0.01*i), latLng.longitude - 0.001*(i + 10)));
+            final Random random = new Random();
+            final LatLng latLng = new LatLng(37.753310, -122.419161);
+            for (int i = 0; i < 8; i++) {
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        int plusMinus = (random.nextInt(2) == 0 ? -1 : 1);
+                        addMarker(new LatLng(latLng.latitude + ((0.01 * random.nextInt(5)) * plusMinus), latLng.longitude + (0.001 * random.nextInt(20)) * plusMinus));
+                    }
+                }, i * 200);
             }
         }
     }

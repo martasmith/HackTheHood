@@ -1,6 +1,7 @@
 package com.codepath.hackthehood.activities;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -27,6 +28,12 @@ public class PitchDeckActivity extends FragmentActivity {
         // Setup view pager, its adapter, and page transformer
         ViewPager vpSlidePager = (ViewPager) findViewById(R.id.vpSlidePager);
         SlidePagerAdapter aSlideAdapter = new SlidePagerAdapter(getSupportFragmentManager());
+
+        // disable rotation
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+// Enable if map bug is not fixed.
+        vpSlidePager.setOffscreenPageLimit(5);
         vpSlidePager.setAdapter(aSlideAdapter);
         vpSlidePager.setPageTransformer(true, new SlidePageTransformer());
 //        vpSlidePager.setOnClickListener(new View.OnClickListener() {
