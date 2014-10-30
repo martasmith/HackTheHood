@@ -82,7 +82,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center_horizontal"
-                        android:text="@string/image_header_title"
+                        android:text="@string/image_header_title1"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:textColor="#444"
                         android:textStyle="bold"/>
@@ -107,7 +107,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center_horizontal"
-                        android:text="@string/image_header_title"
+                        android:text="@string/image_header_title2"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:textColor="#444"
                         android:textStyle="bold"/>
@@ -132,7 +132,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center_horizontal"
-                        android:text="@string/image_header_title"
+                        android:text="@string/image_header_title3"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:textColor="#444"
                         android:textStyle="bold"/>
@@ -173,7 +173,8 @@
                     android:gravity="top|left"
                     android:hint="@string/generic_text_hint"
                     android:inputType="textMultiLine"
-                    android:lines="3"/>
+                    android:lines="3"
+                    tools:ignore="RtlHardcoded"/>
 
                 <ImageView
                     android:id="@+id/ivMic2"
