@@ -33,7 +33,7 @@ public class PitchDeckActivity extends FragmentActivity {
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
 // Enable if map bug is not fixed.
-        vpSlidePager.setOffscreenPageLimit(5);
+//        vpSlidePager.setOffscreenPageLimit(5);
         vpSlidePager.setAdapter(aSlideAdapter);
         vpSlidePager.setPageTransformer(true, new SlidePageTransformer());
 //        vpSlidePager.setOnClickListener(new View.OnClickListener() {
