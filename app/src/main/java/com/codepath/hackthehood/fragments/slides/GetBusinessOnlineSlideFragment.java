@@ -61,7 +61,6 @@ public class GetBusinessOnlineSlideFragment extends Fragment {
                     ObjectAnimator.ofFloat(tvStep3, "alpha", 0.0f, 1.0f)
                             .setDuration(400)
             );
-            set.setStartDelay(500);
             set.start();
         }
     }
