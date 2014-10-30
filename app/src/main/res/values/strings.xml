@@ -109,5 +109,7 @@
     <string name="see_website_button_text">See your final website</string>
     <string name="title_activity_final_website_viewer">FinalWebsiteViewerActivity</string>
     <string name="hello_world">Hello world!</string>
+    <string name="fill_info_menu_item">Fill Info</string>
+    <string name="clear_info_button">Clear Info</string>
 
 </resources>

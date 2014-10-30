@@ -25,6 +25,9 @@ import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 
 public class UserFragment extends NetworkFragment {
 
@@ -33,6 +36,9 @@ public class UserFragment extends NetworkFragment {
     private EditText etBusinessName,    etBusinessStreet,   etBusinessCity,     etBusinessZip,
                      etBusinessPhone,   etContactName,      etContactPhone,     etContactEmail;
     private MultiSelectionSpinner sprOnlinePresence;
+
+    @InjectView(R.id.btnFillInfo) Button btnFillInfo;
+    @InjectView(R.id.btnClearInfo) Button btnClearInfo;
 
     public UserFragment() {
         // Required empty public constructor
@@ -57,7 +63,6 @@ public class UserFragment extends NetworkFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         onAttachFragment(getParentFragment());
     }
 
@@ -85,6 +90,33 @@ public class UserFragment extends NetworkFragment {
 
         ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle("Business Form");
 
+        ButterKnife.inject(this, v);
+        btnFillInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                etBusinessName.setText("BERGERON");
+                etBusinessStreet.setText("375 15th St.");
+                etBusinessCity.setText("Oakland");
+                etBusinessZip.setText("94612");
+                etBusinessPhone.setText("(510) 763-4226");
+                sprOnlinePresence.setSelectedItemsAsString("facebook,yelp");
+                etContactName.setText("John Doe");
+                etContactPhone.setText("(415) 261-2524");
+            }
+        });
+        btnClearInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                etBusinessName.setText("");
+                etBusinessStreet.setText("");
+                etBusinessCity.setText("");
+                etBusinessZip.setText("");
+                etBusinessPhone.setText("");
+                sprOnlinePresence.setSelectedItemsAsString("facebook,yelp");
+                etContactName.setText("");
+                etContactPhone.setText("");
+            }
+        });
         return v;
     }
 

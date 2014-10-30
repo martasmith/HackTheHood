@@ -5,8 +5,8 @@
       xmlns:app="http://schemas.android.com/apk/res-auto"
       tools:context="com.codepath.hackthehood.activities.MainNavigationActivity">
         <item
-              android:id="@+id/action_settings"
-              android:title="@string/action_settings"
+              android:id="@+id/action_fill_info"
+              android:title="@string/fill_info_menu_item"
               android:orderInCategory="100"
               app:showAsAction="never" />
 </menu>
