@@ -8,4 +8,7 @@
     <color name="secondary_text_color">#A5A2A1</color>
     <color name="drawer_list_item">#707070</color>
     <color name="drawer_background">#F0F0F0</color>
+    <color name="secondary_button_background_color">#3B4651</color>
+    <color name="secondary_button_text_color">#FFF</color>
+    <color name="generic_background_color">#F1F1F1</color>
 </resources>

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codepath.hackthehood.R;
+import com.codepath.hackthehood.activities.FinalWebsiteViewerActivity;
 import com.codepath.hackthehood.models.User;
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -23,6 +24,9 @@ import com.parse.SaveCallback;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 
 public class ConfirmationFragment extends NetworkFragment {
 
@@ -33,6 +37,7 @@ public class ConfirmationFragment extends NetworkFragment {
     private TextView tvSubText;
     private Button btnShare;
     private Button btnAddAssets;
+    @InjectView(R.id.btnToFinalWebsite) Button btnToSeeFinalWebsite;
 
     public ConfirmationFragment() {
         // Required empty public constructor
@@ -54,8 +59,16 @@ public class ConfirmationFragment extends NetworkFragment {
         btnShare = (Button) rootView.findViewById(R.id.btnShare);
         btnAddAssets = (Button) rootView.findViewById(R.id.btnToAssets);
 
+        ButterKnife.inject(this, rootView);
         setUpNextStepListener();
         setUpShareListener();
+        btnToSeeFinalWebsite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), FinalWebsiteViewerActivity.class));
+                getActivity().overridePendingTransition (R.anim.open_right, R.anim.close_left);
+            }
+        });
 
         if (savedInstanceState == null) {
             fetch(true);
@@ -91,6 +104,7 @@ public class ConfirmationFragment extends NetworkFragment {
         final User user = (User) ParseUser.getCurrentUser();
         int imageResource = R.drawable.ic_success;
         int applicationStatus = user.getApplicationStatus();
+        btnToSeeFinalWebsite.setVisibility(View.GONE);
 
         String actionBarTitle = "";
         String mainText = "";
@@ -140,6 +154,7 @@ public class ConfirmationFragment extends NetworkFragment {
                 mShareMessage = "Hack the Hood students created a beautiful website for my business for free! Check it out!";
                 btnShare.setVisibility(View.VISIBLE);
                 btnAddAssets.setVisibility(View.GONE);
+                btnToSeeFinalWebsite.setVisibility(View.VISIBLE);
                 //TODO: Add option to see the website
                 break;
 

@@ -106,5 +106,8 @@
     <string name="designer_notes_section_title">Notes for the Designer:</string>
     <string name="generic_text_hint">Enter text here</string>
     <string name="webpage_desc_section_title">Webpage Description:</string>
+    <string name="see_website_button_text">See your final website</string>
+    <string name="title_activity_final_website_viewer">FinalWebsiteViewerActivity</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>
