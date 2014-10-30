@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.codepath.hackthehood.R;
 
@@ -28,6 +29,13 @@ import com.codepath.hackthehood.R;
         // Inflate the layout for this fragment
         final View rootView = inflater.inflate(R.layout.fragment_webview, container, false);
         WebView webView = (WebView) rootView.findViewById(R.id.wvPage);
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
+        });
         webView.loadUrl(getArguments().getString(PAGE_URL));
         ((ActionBarActivity)getActivity()).getSupportActionBar().setTitle(getArguments().getString(PAGE_TITLE));
         return rootView;
