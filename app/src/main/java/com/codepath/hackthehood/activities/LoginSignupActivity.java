@@ -1,5 +1,6 @@
 package com.codepath.hackthehood.activities;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
@@ -17,6 +18,9 @@ public class LoginSignupActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_login_signup);
+
+        // disable rotation
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         // establish the login and signup pages within the view pager, via an adaptor, naturally
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);

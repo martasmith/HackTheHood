@@ -1,5 +1,6 @@
 package com.codepath.hackthehood.activities;
 
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -23,6 +24,9 @@ public class MainNavigationActivity extends ActionBarActivity implements Network
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_navigation);
+
+        // disable rotation
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         pbLoading = (ProgressBar) findViewById(R.id.pbLoading);
         if (activityCount > 0) pbLoading.setVisibility(View.VISIBLE);
